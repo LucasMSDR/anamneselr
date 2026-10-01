@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia de Consulta — Anamnese e Exame Físico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F7F5;
+    --bg-elevated: #FFFFFF;
+    --ink: #1C2B2A;
+    --ink-muted: #5C6B68;
+    --accent: #2F6F62;
+    --accent-soft: #E3EEE9;
+    --alert: #A5672A;
+    --alert-soft: #F6ECDC;
+    --border: #D9E0DB;
+    --chip-bg: #EDF1EE;
+    --font-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101513;
+      --bg-elevated: #171D1B;
+      --ink: #E6ECE9;
+      --ink-muted: #93A29C;
+      --accent: #6FBBA6;
+      --accent-soft: #1D2A26;
+      --alert: #D79A5C;
+      --alert-soft: #2B2317;
+      --border: #28332F;
+      --chip-bg: #1C2422;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #101513;
+    --bg-elevated: #171D1B;
+    --ink: #E6ECE9;
+    --ink-muted: #93A29C;
+    --accent: #6FBBA6;
+    --accent-soft: #1D2A26;
+    --alert: #D79A5C;
+    --alert-soft: #2B2317;
+    --border: #28332F;
+    --chip-bg: #1C2422;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-padding-top: calc(132px + env(safe-area-inset-top, 0px));
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 12px;
+  }
+
+  .topbar-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .title-block h1 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin: 0 0 2px;
+    letter-spacing: -0.01em;
+  }
+
+  .title-block p {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+  }
+
+  .topbar-controls {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .icon-btn {
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    color: var(--ink);
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-btn:focus-visible, .chip:focus-visible, summary:focus-visible, .text-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .chips {
+    max-width: 720px;
+    margin: 10px auto 0;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+  .chips::-webkit-scrollbar { height: 4px; }
+
+  .chip {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    white-space: nowrap;
+    background: var(--chip-bg);
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 11px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .chip:hover { color: var(--ink); border-color: var(--accent); }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 22px 18px 10px;
+  }
+
+  .callout {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 12px 14px;
+    margin: 0 0 22px;
+    font-size: 0.92rem;
+  }
+  .callout.alert {
+    background: var(--alert-soft);
+    border-left-color: var(--alert);
+  }
+  .callout p { margin: 0 0 6px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout strong { font-family: var(--font-sans); }
+
+  .toolbar-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  .text-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 2px;
+  }
+
+  .sections { counter-reset: sec; }
+
+  details.section {
+    counter-increment: sec;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  details.section:first-child { padding-top: 0; }
+
+  summary.sec-head {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.08rem;
+  }
+  summary.sec-head::-webkit-details-marker { display: none; }
+
+  summary.sec-head::before {
+    content: counter(sec, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  summary.sec-head .chev {
+    margin-left: auto;
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
+  }
+  details[open] summary.sec-head .chev { transform: rotate(90deg); }
+
+  .sec-body {
+    padding: 14px 0 2px 36px;
+  }
+
+  .sec-body h3 {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-transform: none;
+    color: var(--ink-muted);
+    margin: 16px 0 6px;
+    font-weight: 600;
+  }
+  .sec-body h3:first-child { margin-top: 0; }
+
+  .sec-body p {
+    margin: 0 0 10px;
+  }
+
+  .sec-body ul {
+    margin: 0 0 4px;
+    padding-left: 18px;
+  }
+  .sec-body li {
+    margin-bottom: 5px;
+  }
+  .sec-body li::marker { color: var(--accent); }
+
+  .mini-note {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    margin-top: 10px;
+  }
+
+  .note-block {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    line-height: 1.7;
+  }
+  .note-block .line { margin: 0 0 2px; }
+  .note-block .blank { color: var(--ink-muted); }
+
+  .abbrev-line {
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 0 0 8px;
+  }
+  .abbrev-line strong { color: var(--accent); font-family: var(--font-sans); }
+
+  footer {
+    max-width: 720px;
+    margin: 18px auto 0;
+    padding: 16px 18px 0;
+    color: var(--ink-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media print {
+    .topbar, .toolbar-row, .chips { display: none; }
+    details.section { break-inside: avoid; }
+    details.section:not([open]) .sec-body { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-row">
+    <div class="title-block">
+      <h1>Guia de Consulta</h1>
+      <p>Modelo rápido de nota + exame físico por sistemas — UBS / APS</p>
+    </div>
+    <div class="topbar-controls">
+      <button class="icon-btn" id="themeToggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">◐</button>
+    </div>
+  </div>
+  <nav class="chips" id="chipNav" aria-label="Ir para seção">
+    <a class="chip" data-target="sec-1" href="#sec-1">1 · Modelo rápido</a>
+    <a class="chip" data-target="sec-2" href="#sec-2">2 · Exame geral</a>
+    <a class="chip" data-target="sec-3" href="#sec-3">3 · Pele</a>
+    <a class="chip" data-target="sec-4" href="#sec-4">4 · Oftalmo</a>
+    <a class="chip" data-target="sec-5" href="#sec-5">5 · Otoscopia</a>
+    <a class="chip" data-target="sec-6" href="#sec-6">6 · Oroscopia</a>
+    <a class="chip" data-target="sec-7" href="#sec-7">7 · Cefaleias</a>
+    <a class="chip" data-target="sec-8" href="#sec-8">8 · Mamas</a>
+    <a class="chip" data-target="sec-9" href="#sec-9">9 · Ginecológico</a>
+    <a class="chip" data-target="sec-10" href="#sec-10">10 · Ortopédico</a>
+  </nav>
+</div>
+
+<main>
+
+  <div class="toolbar-row">
+    <button class="text-btn" id="toggleAll">Expandir tudo</button>
+  </div>
+
+  <div class="sections" id="sections">
+
+    <details class="section" id="sec-1" open>
+      <summary class="sec-head">Modelo Rápido de Consulta <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <div class="note-block">
+          <p class="line">Paciente comparece ao consultório por livre demanda / agendamento.</p>
+          <p class="line">Nega alergia medicamentosa.</p>
+          <p class="line">Comorbidades: <span class="blank">_____________________</span></p>
+          <p class="line">MUC: <span class="blank">_____________________</span></p>
+          <p class="line">Nega etilismo, tabagismo e uso de outras substâncias.</p>
+          <p class="line">Sem histórico familiar relevante.</p>
+        </div>
+        <p class="mini-note">Lembrar de perguntar DUM em pacientes na menacme.</p>
+      </div>
+    </details>
+
+    <details class="section" id="sec-2">
+      <summary class="sec-head">Exame Físico — Geral e Abreviado <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <div class="abbrev-line">BEG, LOTE, CHAAA, eupneico em AA, normotenso, sem sinais de desconforto ou toxemia.</div>
+        <div class="abbrev-line"><strong>AC:</strong> BRNF2T sem sopros, TEC &lt; 3</div>
+        <div class="abbrev-line"><strong>AP:</strong> MV+ SRA</div>
+        <div class="abbrev-line"><strong>ABD:</strong> Abdome plano, flácido, RHA+, indolor à palpação superficial e profunda, sem VMG, DB-</div>
+      </div>
+    </details>
+
+    <details class="section" id="sec-3">
+      <summary class="sec-head">Pele e Fâneros <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p>Pele íntegra, sem lesões, turgor e elasticidade preservados, fâneros sem alterações.</p>
+      </div>
+    </details>
+
+    <details class="section" id="sec-4">
+      <summary class="sec-head">Exame Oftalmológico <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p>Pálpebras sem edema ou lesões, abertura ocular simétrica, sem ptose. Conjuntivas normocoradas, sem hiperemia ou secreção. Escleras anictéricas. Córneas transparentes, sem opacidades. Pupilas isocóricas e fotorreagentes (PIFR), com reflexo consensual preservado. Motricidade ocular extrínseca preservada nas nove posições do olhar, sem nistagmo ou estrabismo. Acuidade visual preservada conforme relato ou teste rápido. Ao exame de fundo de olho, quando realizado: disco óptico com bordas nítidas, sem papiledema, relação escavação/disco normal, vasos de calibre preservado e mácula sem alterações.</p>
+      </div>
+    </details>
+
+    <details class="section" id="sec-5">
+      <summary class="sec-head">Otoscopia <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p>Pavilhão auricular sem alterações, conduto auditivo externo livre, sem secreção, edema ou corpos estranhos. Membrana timpânica íntegra, translúcida, com coloração perolada (nacarada) e triângulo luminoso de Politzer presente e bem definido. Ausência de abaulamento, retração ou nível hidroaéreo. Mobilidade preservada à otoscopia pneumática, quando realizada. Achados simétricos bilateralmente.</p>
+      </div>
+    </details>
+
+    <details class="section" id="sec-6">
+      <summary class="sec-head">Oroscopia <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p>Lábios e mucosa oral íntegros, corados e hidratados, sem lesões. Dentição em bom estado de conservação, gengivas sem sinais de sangramento ou hiperemia. Língua normocorada, papilas preservadas, sem saburra. Orofaringe sem hiperemia, tonsilas palatinas normais ou eutróficas, sem hipertrofia, exsudato ou placas. Úvula centrada e simétrica. Hálito sem odor fétido.</p>
+      </div>
+    </details>
+
+    <details class="section" id="sec-7">
+      <summary class="sec-head">Cefaleias <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <h3>Cefaleia Tensional</h3>
+        <p>Dor em aperto ou peso, bilateral, de intensidade leve a moderada, não pulsátil. Localização frontal, occipital ou em faixa ("capacete"). Não piora com atividade física rotineira. Ausência de náusea significativa, podendo haver leve fotofobia ou fonofobia isoladas (não ambas). Duração de 30 minutos a dias. Frequentemente associada a estresse, tensão muscular cervical ou postura inadequada.</p>
+        <h3>Enxaqueca (Migrânea) sem Aura</h3>
+        <p>Dor unilateral (pode alternar lados), pulsátil, de intensidade moderada a forte. Piora com atividade física rotineira, levando o paciente a evitar esforço. Associada a náusea e/ou vômito, fotofobia e fonofobia concomitantes. Duração de 4 a 72 horas sem tratamento. Pode haver pródromos (irritabilidade, bocejos, desejo por determinados alimentos) horas antes da crise.</p>
+        <h3>Enxaqueca com Aura</h3>
+        <p>Mesmas características da enxaqueca sem aura, precedida por sintomas neurológicos transitórios e reversíveis, mais comumente visuais (escotomas cintilantes, linhas em zigue-zague, perda parcial de campo visual), mas podendo incluir parestesias ou alterações de fala. Aura dura de 5 a 60 minutos e geralmente antecede ou acompanha o início da dor.</p>
+        <h3>Cefaleia em Salvas (Cluster)</h3>
+        <p>Dor excruciante, estritamente unilateral, periorbitária ou temporal, de curta duração (15 a 180 minutos), em crises que se repetem várias vezes ao dia durante semanas (período de salva), com remissão posterior. Acompanhada de sinais autonômicos ipsilaterais: lacrimejamento, hiperemia conjuntival, congestão nasal ou rinorreia, ptose e miose (podendo configurar síndrome de Horner parcial). Paciente tipicamente agitado durante a crise (diferente da enxaqueca, em que há preferência por repouso e escuro). Mais comum em homens, com padrão cronológico característico (horário do dia, época do ano).</p>
+        <div class="callout alert">
+          <p><strong>Sinais de alarme (red flags)</strong> — sugerem cefaleia secundária e indicam investigação/encaminhamento:</p>
+          <p>Início súbito e intenso ("pior dor da vida", em trovoada); mudança no padrão habitual de uma cefaleia crônica; cefaleia associada a febre, rigidez de nuca ou alteração do nível de consciência; achados neurológicos focais associados; papiledema à fundoscopia; início após os 50 anos; piora progressiva ao longo de dias/semanas; associada a trauma craniano recente; piora com manobra de Valsalva, tosse ou mudança postural; em gestante ou puérpera; em paciente imunossuprimido ou oncológico.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="section" id="sec-8">
+      <summary class="sec-head">Exame das Mamas <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p>Mamas simétricas, sem abaulamentos, retrações ou alterações de contorno à inspeção estática e dinâmica (com elevação dos braços e contração da musculatura peitoral). Pele e aréolas sem alterações de coloração, textura ou presença de lesões; complexo areolopapilar sem retração, inversão ou descamação. Ausência de sinais inflamatórios. À palpação, em todos os quadrantes e na cauda axilar, parênquima mamário sem nódulos, espessamentos ou áreas de consistência aumentada; textura fibroglandular compatível com a faixa etária. Ausência de secreção papilar à expressão. Ausência de linfonodomegalias axilares, supraclaviculares ou infraclaviculares palpáveis.</p>
+      </div>
+    </details>
+
+    <details class="section" id="sec-9">
+      <summary class="sec-head">Exame Ginecológico / Cervical <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p>Genitália externa sem lesões, sem sinais inflamatórios, com trofismo preservado. Ao exame especular: paredes vaginais róseas, rugosas, sem lesões ou sinais de atrofia; colo uterino centrado, de aspecto normal, róseo, sem lesões, úlceras ou sangramento ao toque do espéculo; orifício externo do colo sem alterações; ausência de corrimento patológico (conteúdo vaginal fisiológico, sem odor fétido).</p>
+        <p>Coleta de citologia oncótica (Papanicolaou) realizada sem intercorrências, quando indicada.</p>
+        <p>Ao toque vaginal bimanual: colo móvel e indolor à mobilização; útero em anteversoflexão (ou posição descrita conforme achado), de tamanho, forma e consistência normais, móvel e indolor; anexos não palpáveis ou sem massas, indolores à palpação; fundos de saco livres e indolores.</p>
+      </div>
+    </details>
+
+    <details class="section" id="sec-10">
+      <summary class="sec-head">Testes Ortopédicos Especiais <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p class="mini-note">Achados normais (negativos)</p>
+        <h3>Ombro</h3>
+        <p>Teste de Jobe (supraespinal): ausência de dor ou fraqueza à resistência com o braço a 90° de abdução, rotação interna e polegar para baixo — negativo. Teste de Gerber (lift-off) e Patte (rotadores internos/externos): força preservada, sem dor. Teste de Neer e teste de Hawkins-Kennedy (impacto subacromial): ausência de dor à manobra de impacto — negativos. Teste de Speed e teste de Yergason (tendão da cabeça longa do bíceps): sem dor na goteira bicipital — negativos. Teste da gaveta anterior/posterior e sulco (instabilidade): sem frouxidão ou apreensão. Teste de O'Brien (labrum): sem dor ou estalido — negativo.</p>
+        <h3>Cotovelo e Punho</h3>
+        <p>Teste de Cozen e teste de Mill (epicondilite lateral/"cotovelo de tenista"): ausência de dor ao epicôndilo lateral à extensão resistida do punho. Teste para epicondilite medial ("cotovelo de golfista"): sem dor à flexão resistida do punho. Teste de Tinel no cotovelo (nervo ulnar): sem parestesia. Teste de Phalen e teste de Tinel no punho (síndrome do túnel do carpo): ausência de parestesia em território do nervo mediano — negativos. Teste de Finkelstein (tenossinovite de De Quervain): sem dor na região do primeiro compartimento extensor.</p>
+        <h3>Coluna</h3>
+        <p>Teste de Lasègue (elevação da perna reta): ausência de dor radicular até 70-90° de elevação — negativo, sem sinais de irritação do nervo ciático. Teste de Lasègue invertido (para L2-L4): negativo. Sinal de Spurling (compressão foraminal cervical): sem irradiação de dor para o membro superior. Teste de Schober (mobilidade lombar): expansão adequada à flexão anterior. Manobra de Valsalva: sem reprodução de dor radicular.</p>
+        <h3>Quadril</h3>
+        <p>Teste de Trendelenburg: sem queda da pelve contralateral ao apoio unipodal — negativo, indicando musculatura abdutora (glúteo médio) preservada. Teste de FABER/Patrick (flexão, abdução, rotação externa): ausência de dor em região inguinal, sacroilíaca ou lombar. Teste de Thomas (encurtamento de flexores do quadril): sem flexão compensatória do quadril contralateral. Teste de impacto femoroacetabular (FADIR — flexão, adução, rotação interna): sem dor.</p>
+        <h3>Joelho</h3>
+        <p>Teste da gaveta anterior e posterior (ligamentos cruzados): sem frouxidão ou deslocamento anormal da tíbia. Teste de Lachman (ligamento cruzado anterior): endpoint firme, sem frouxidão — negativo. Teste de estresse em valgo e varo (ligamentos colaterais medial e lateral): sem abertura articular ou dor. Teste de McMurray e teste de Apley (meniscos): ausência de estalido ou dor à rotação e compressão/distração. Sinal do piparote e teste do choque patelar (derrame articular): ausentes. Teste de apreensão patelar: sem apreensão ou dor à mobilização lateral da patela.</p>
+        <h3>Tornozelo e Pé</h3>
+        <p>Teste da gaveta anterior do tornozelo (ligamento talofibular anterior): sem frouxidão. Teste de estresse em inversão/eversão: sem dor ou instabilidade ligamentar. Teste de Thompson (integridade do tendão de Aquiles): flexão plantar preservada à compressão da panturrilha — negativo, sem sinal de ruptura. Teste de compressão do antepé (metatarsalgia/neuroma de Morton): sem dor ou formação de "clique".</p>
+      </div>
+    </details>
+
+  </div>
+
+  <footer>
+    Guia de referência rápida para consulta em atenção primária — não substitui o protocolo ou a supervisão do preceptor.
+  </footer>
+
+</main>
+
+<script>
+(function() {
+  var toggleBtn = document.getElementById('themeToggle');
+  function applyStoredTheme() {
+    try {
+      var saved = localStorage.getItem('roteiro-anamnese-theme');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    } catch (e) {}
+  }
+  applyStoredTheme();
+  toggleBtn.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme');
+    var isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('roteiro-anamnese-theme', next); } catch (e) {}
+  });
+
+  var chips = document.querySelectorAll('.chip');
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = chip.getAttribute('data-target');
+      var el = document.getElementById(id);
+      if (el) {
+        el.open = true;
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  var toggleAllBtn = document.getElementById('toggleAll');
+  var sections = document.querySelectorAll('#sections details.section');
+  toggleAllBtn.addEventListener('click', function() {
+    var anyClosed = Array.prototype.some.call(sections, function(d) { return !d.open; });
+    sections.forEach(function(d) { d.open = anyClosed; });
+    toggleAllBtn.textContent = anyClosed ? 'Colapsar tudo' : 'Expandir tudo';
+  });
+})();
+</script>
+
+</body>
+</html>
