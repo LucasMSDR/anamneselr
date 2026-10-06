@@ -287,6 +287,60 @@
   }
   .abbrev-line strong { color: var(--accent); font-family: var(--font-sans); }
 
+  .med-search-wrap {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 2px 0 10px;
+    z-index: 2;
+  }
+  .med-search-input {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-elevated);
+    color: var(--ink);
+  }
+  .med-search-input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .med-count {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    margin: 8px 0 4px;
+  }
+  .med-results {
+    max-height: 420px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .med-item {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .med-item:last-child { border-bottom: none; }
+  .med-item .med-nome {
+    font-weight: 600;
+    font-family: var(--font-sans);
+  }
+  .med-item .med-apres {
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+  .med-empty {
+    padding: 14px 12px;
+    color: var(--ink-muted);
+    font-size: 0.86rem;
+  }
+
   .signature {
     margin-top: 16px;
     padding-top: 10px;
@@ -336,6 +390,7 @@
     <a class="chip" data-target="sec-8" href="#sec-8">8 · Mamas</a>
     <a class="chip" data-target="sec-9" href="#sec-9">9 · Ginecológico</a>
     <a class="chip" data-target="sec-10" href="#sec-10">10 · Ortopédico</a>
+    <a class="chip" data-target="sec-11" href="#sec-11">11 · Medicamentos REMUME</a>
   </nav>
 </div>
 
@@ -463,6 +518,18 @@
       </div>
     </details>
 
+    <details class="section" id="sec-11">
+      <summary class="sec-head">Medicamentos REMUME 2026 <span class="chev">›</span></summary>
+      <div class="sec-body">
+        <p class="mini-note">Relação Municipal de Medicamentos Essenciais — Umuarama/PR, 4ª edição. Busca por nome, mostrando a apresentação/concentração disponibilizada pela rede.</p>
+        <div class="med-search-wrap">
+          <input type="text" class="med-search-input" id="medSearch" placeholder="Digite o nome do medicamento..." autocomplete="off">
+        </div>
+        <p class="med-count" id="medCount"></p>
+        <div class="med-results" id="medResults"></div>
+      </div>
+    </details>
+
   </div>
 
   <footer>
@@ -471,6 +538,9 @@
 
 </main>
 
+<script>
+const REMUME_DATA = [{"nome":"Aciclovir","apresentacao":"Comprimido de 200mg"},{"nome":"Aciclovir","apresentacao":"Bisnaga 50 mg/g"},{"nome":"Ácido acetilsalicílico","apresentacao":"Comprimido de 100mg"},{"nome":"Ácido Ascórbico","apresentacao":"Ampola de 100mg/ml"},{"nome":"Ácido Fólico","apresentacao":"Comprimido de 5mg"},{"nome":"Ácido Fólico","apresentacao":"Solução oral de 0,2mg/ml"},{"nome":"Adenosina","apresentacao":"3mg/ml Ampola"},{"nome":"Água para injeção","apresentacao":"Frasco Ampola 4ml e 10ml"},{"nome":"Ácido tranexâmico","apresentacao":"Ampola de 250mg/5ml"},{"nome":"Albendazol","apresentacao":"Comprimido 400mg"},{"nome":"Albendazol","apresentacao":"Suspensão oral de 40 mg/ml"},{"nome":"Alendronato de Sódio","apresentacao":"Comprimido de 70 mg"},{"nome":"Alopurinol","apresentacao":"Comprimido 300mg"},{"nome":"Ambroxol","apresentacao":"Xarope de 30mg/5ml"},{"nome":"Ambroxol","apresentacao":"Xarope de 15mg/5ml"},{"nome":"Amiodarona","apresentacao":"Comprimido de 200mg"},{"nome":"Amiodarona","apresentacao":"Ampola 50 mg/ml"},{"nome":"Aminofilina","apresentacao":"Comprimido 100mg"},{"nome":"Aminofilina","apresentacao":"Ampola de 24mg/ml"},{"nome":"Amitriptilina","apresentacao":"Comprimido de 25mg"},{"nome":"Amitriptilina","apresentacao":"Comprimido 75mg"},{"nome":"Amoxicilina","apresentacao":"Cápsula de 500mg"},{"nome":"Amoxicilina","apresentacao":"Suspensão oral de 50mg/ml"},{"nome":"Amoxicilina + Clavulanato de Potássio","apresentacao":"Comprimido de 500mg+125mg"},{"nome":"Amoxicilina + Clavulanato de Potássio","apresentacao":"Suspensão oral de 50mg+12,5/ml"},{"nome":"Anlodipino besilato","apresentacao":"Comprimido 5mg"},{"nome":"Atenolol","apresentacao":"Comprimido de 50mg"},{"nome":"Atorvastatina","apresentacao":"Comprimido de 40mg"},{"nome":"Atropina","apresentacao":"Ampola de 0,25mg/ml"},{"nome":"Azitromicina","apresentacao":"Comprimido de 500mg"},{"nome":"Azitromicina","apresentacao":"Suspensão oral de 40mg/ml"},{"nome":"Beclometasona dipropionato","apresentacao":"Spray oral 250 mg/dose"},{"nome":"Benzilpenicilina benzatina","apresentacao":"Frasco Ampola de 600.000 UI"},{"nome":"Benzilpenicilina benzatina","apresentacao":"Frasco Ampola de 1.200.000 UI"},{"nome":"Betametasona acetato + betametasona fosfato","apresentacao":"Ampola de 3mg+3mg/ml"},{"nome":"Betametasona dipropionato+betametasona fosfato dissódico","apresentacao":"Ampola de 5mg/ml +2mg/ml"},{"nome":"Benzoato de Benzila","apresentacao":"25% Solução"},{"nome":"Benzoilmetronidazol","apresentacao":"Suspensão de 40mg/ml"},{"nome":"Bicarbonato de sódio","apresentacao":"8,4% Ampola"},{"nome":"Bicarbonato de sódio","apresentacao":"8,4% Frasco de 250ml e 500ml"},{"nome":"Biperideno","apresentacao":"Comprimido de 2mg"},{"nome":"Bromoprida","apresentacao":"Comprimido de 10mg"},{"nome":"Bromoprida","apresentacao":"Solução oral de 4mg/ml"},{"nome":"Bromoprida","apresentacao":"Ampola de 5mg/ml"},{"nome":"Budesonida","apresentacao":"Spray nasal de 32mcg"},{"nome":"Budesonida","apresentacao":"Spray nasal de 64mcg"},{"nome":"Captopril","apresentacao":"Comprimido de 25mg"},{"nome":"Carbamazepina","apresentacao":"Comprimido de 200mg"},{"nome":"Carbamazepina","apresentacao":"Comprimido de 400mg"},{"nome":"Carbamazepina","apresentacao":"Suspensão oral de 20mg/ml"},{"nome":"Carbonato de Cálcio","apresentacao":"Comprimido de 1250mg"},{"nome":"Carbonato de Cálcio + Colecalciferol","apresentacao":"Comprimido de 1500mg+400UI"},{"nome":"Carbonato de Lítio","apresentacao":"Comprimido 300mg"},{"nome":"Carvedilol","apresentacao":"Comprimido de 3,125mg"},{"nome":"Carvedilol","apresentacao":"Comprimido de 6,25 mg"},{"nome":"Carvedilol","apresentacao":"Comprimido de 12,5 mg"},{"nome":"Carvedilol","apresentacao":"Comprimido de 25mg"},{"nome":"Cefalexina","apresentacao":"Comprimido de 500mg"},{"nome":"Cefalexina","apresentacao":"Suspensão oral de 50mg/ml"},{"nome":"Cefazolina","apresentacao":"Frasco Ampola de 1g EV/IM"},{"nome":"Ceftriaxona","apresentacao":"Frasco 500mg IM/EV"},{"nome":"Ceftriaxona","apresentacao":"Frasco de 1g IM/EV"},{"nome":"Cetamina cloridrato","apresentacao":"Frasco Ampola de 50mg/ml"},{"nome":"Cetoconazol","apresentacao":"Xampu de 2%"},{"nome":"Cetoprofeno","apresentacao":"Ampola de 50mg/ml IM"},{"nome":"Cetoprofeno","apresentacao":"Frasco Ampola de 100mg EV"},{"nome":"Ciclobenzaprina","apresentacao":"Comprimido de 5mg"},{"nome":"Cimetidina","apresentacao":"Ampola de 150mg/ml"},{"nome":"Ciprofloxacino","apresentacao":"Comprimido de 500mg"},{"nome":"Claritromicina","apresentacao":"Comprimido de 500mg"},{"nome":"Clomipramina","apresentacao":"Comprimido de 25mg"},{"nome":"Clonazepam","apresentacao":"Comprimido de 2mg"},{"nome":"Clonazepam","apresentacao":"Solução oral de 2,5 mg/ml"},{"nome":"Clonidina","apresentacao":"Comprimido de 0,100mg"},{"nome":"Clonidina","apresentacao":"Comprimido de 0,150mg"},{"nome":"Clonidina","apresentacao":"Comprimido 0,200mg"},{"nome":"Clonidina","apresentacao":"Ampola de 0,150mg/ml"},{"nome":"Cloreto de Potássio","apresentacao":"Ampola de 19,1%"},{"nome":"Cloreto de Sódio","apresentacao":"Solução nasal de 0,9%"},{"nome":"Cloreto de Sódio","apresentacao":"Ampola de 20%"},{"nome":"Clopidogrel","apresentacao":"Comprimido de 75mg"},{"nome":"Clorpromazina","apresentacao":"Comprimido de 25mg"},{"nome":"Clorpromazina","apresentacao":"Comprimido de 100mg"},{"nome":"Clorpromazina","apresentacao":"Ampola de 05mg/ml"},{"nome":"Codeína fosfato","apresentacao":"Comprimido de 30mg"},{"nome":"Complexo B","apresentacao":"Comprimido"},{"nome":"Complexo B","apresentacao":"Ampola"},{"nome":"Deslanosídeo","apresentacao":"Ampola de 0,2 mg/ml"},{"nome":"Dexametasona","apresentacao":"Comprimido de 4mg"},{"nome":"Dexametasona","apresentacao":"Ampola de 4mg/ml"},{"nome":"Dexametasona acetato","apresentacao":"Creme de 0,1%"},{"nome":"Dexclorfeniramina","apresentacao":"Comprimido de 2mg"},{"nome":"Dexclorfeniramina","apresentacao":"Solução oral de 0,4mg/ml"},{"nome":"Diazepam","apresentacao":"Comprimido de 5mg"},{"nome":"Diazepam","apresentacao":"Ampola de 5mg/ml"},{"nome":"Diltiazem Cloridrato","apresentacao":"Comprimido de 60mg"},{"nome":"Diclofenaco Sódico","apresentacao":"Ampola 75mg/3ml"},{"nome":"Difenidramina cloridrato","apresentacao":"50mg/ml Ampola"},{"nome":"Digoxina","apresentacao":"Comprimido de 0,25mg"},{"nome":"Dimenidrinato+piridoxina","apresentacao":"Ampola de 50mg+50mg/ml"},{"nome":"Dimenidrinato+Piridoxina + glicose + frutose","apresentacao":"Ampola de 30mg+50mg+1000mg+1000mg/10ml"},{"nome":"Dipirona","apresentacao":"Comprimido 500mg"},{"nome":"Dipirona","apresentacao":"Solução oral de 500mg/ml"},{"nome":"Dipirona","apresentacao":"Ampola 500mg/ml"},{"nome":"Dobutamina","apresentacao":"Ampola 12,5mg/ml"},{"nome":"Dopamina cloridrato","apresentacao":"50mg/10ml Ampola"},{"nome":"Doxiciclina","apresentacao":"Comprimido de 100mg"},{"nome":"Doxazosina Mesilato","apresentacao":"Comprimido de 2mg"},{"nome":"Enalapril","apresentacao":"Comprimido de 10mg"},{"nome":"Enalapril","apresentacao":"Comprimido de 20mg"},{"nome":"Escitalopram","apresentacao":"Comprimido de 10mg"},{"nome":"Escitalopram","apresentacao":"Comprimido de 20mg"},{"nome":"Escopolamina","apresentacao":"Comprimido de 10mg"},{"nome":"Escopolamina","apresentacao":"Ampola de 20mg/ml"},{"nome":"Escopolamina + dipirona","apresentacao":"Comprimido de 10mg + 250mg"},{"nome":"Escopolamina + dipirona","apresentacao":"Ampola de 4mg/mL + 500mg/ml"},{"nome":"Epinefrina","apresentacao":"Ampola de 1mg/ml"},{"nome":"Espinheira Santa (Maytenus ilicifolia)","apresentacao":"Cápsula de 380mg"},{"nome":"Espironolactona","apresentacao":"Comprimido de 25mg"},{"nome":"Espironolactona","apresentacao":"Comprimido de 100mg"},{"nome":"Estriol","apresentacao":"Bisnaga de 1mg/g"},{"nome":"Etilefrina cloridrato","apresentacao":"10mg/ml Ampola"},{"nome":"Etomidato","apresentacao":"Ampola 2mg/ml"},{"nome":"Fenitoína","apresentacao":"Comprimido de 100mg"},{"nome":"Fenitoína","apresentacao":"Ampola 50mg/ml"},{"nome":"Fenobarbital","apresentacao":"Comprimido de 100mg"},{"nome":"Fenobarbital","apresentacao":"Ampola de 100mg/ml"},{"nome":"Fenobarbital","apresentacao":"Solução oral 40mg/ml"},{"nome":"Fenoterol","apresentacao":"Solução para nebulização de 5mg/ml"},{"nome":"Fenoximetilpenicilina Potássica","apresentacao":"Comprimido de 500.000 UI"},{"nome":"Fenoximetilpenicilina Potássica","apresentacao":"Pó para Solução oral de 80.000UI/ml"},{"nome":"Fentanila citrato","apresentacao":"0,0785 mg Ampola"},{"nome":"Finasterida","apresentacao":"Comprimido de 5mg"},{"nome":"Fluconazol","apresentacao":"Cápsula de 150mg"},{"nome":"Fluoxetina","apresentacao":"Cápsula de 20mg"},{"nome":"Flumazenil","apresentacao":"0,5mg/ml Ampola"},{"nome":"Fosfato de sódio","apresentacao":"(fosfato monobásico 16% + fosfato dibásico 6%) Frasco Enema"},{"nome":"Furosemida","apresentacao":"Comprimido de 40mg"},{"nome":"Furosemida","apresentacao":"Ampola de 10mg/ml"},{"nome":"Gentamicina sulfato","apresentacao":"Ampola 80mg/2ml"},{"nome":"Glibenclamida","apresentacao":"Comprimido de 5 mg"},{"nome":"Glicerol","apresentacao":"120 mg/ml Solução"},{"nome":"Gliclazida","apresentacao":"Comprimido de 30mg"},{"nome":"Glicose","apresentacao":"Ampola de 25%"},{"nome":"Glicose","apresentacao":"Ampola de 50%"},{"nome":"Glimepirida","apresentacao":"Comprimido de 4mg"},{"nome":"Gluconato de cálcio","apresentacao":"10% Ampola"},{"nome":"Haloperidol","apresentacao":"Comprimido de 1mg"},{"nome":"Haloperidol","apresentacao":"Comprimido de 5mg"},{"nome":"Haloperidol decanoato","apresentacao":"Ampola de 50mg/ml IM"},{"nome":"Haloperidol","apresentacao":"Solução oral de 2mg/ml"},{"nome":"Haloperidol","apresentacao":"Ampola 5mg/ml"},{"nome":"Heparina","apresentacao":"Ampola de 5.000UI/0,25ml"},{"nome":"Heparina Sódica","apresentacao":"5.000UI/ml Frasco Ampola"},{"nome":"Hidralazina cloridrato","apresentacao":"Ampola 20mg/ml"},{"nome":"Hidrocortisona","apresentacao":"Frasco de 100mg"},{"nome":"Hidrocortisona","apresentacao":"Frasco de 500mg"},{"nome":"Hidroclorotiazida","apresentacao":"Comprimido de 25mg"},{"nome":"Hidróxido de Alumínio","apresentacao":"Suspensão oral de 6%"},{"nome":"Hipromelose","apresentacao":"Solução oftálmica de 0,5%"},{"nome":"Ibuprofeno","apresentacao":"Comprimido de 600mg"},{"nome":"Ibuprofeno","apresentacao":"Comprimido 300mg"},{"nome":"Ibuprofeno","apresentacao":"Solução oral de 50mg/ml"},{"nome":"Imipramina","apresentacao":"Comprimido 25mg"},{"nome":"Insulina NPH","apresentacao":"Frasco com 100 UI/ml"},{"nome":"Insulina Regular","apresentacao":"Frasco com 100 UI/ml"},{"nome":"Insulina Prolongada","apresentacao":"Frasco com 100 UI/ml"},{"nome":"Ipratrópio","apresentacao":"Solução para nebulização 0,25 mg/ml"},{"nome":"Isoflavona de Soja (glycine max)","apresentacao":"Cápsula de 150mg"},{"nome":"Isossorbida dinitrato","apresentacao":"Comprimido de 5mg"},{"nome":"Isossorbida mononitrato","apresentacao":"Comprimido de 20mg"},{"nome":"Itraconazol","apresentacao":"Cápsula de 100mg"},{"nome":"Ivermectina","apresentacao":"Comprimido de 6mg"},{"nome":"Lactulose","apresentacao":"Xarope de 667mg/ml"},{"nome":"Levodopa + Benserazida","apresentacao":"Cápsula de 100mg+25mg HBS"},{"nome":"Levodopa + Benserazida","apresentacao":"Comprimido de 100mg+25mg BD"},{"nome":"Levodopa + Benserazida","apresentacao":"Comprimido 100mg+25mg Dispersível"},{"nome":"Levodopa + Benserazida","apresentacao":"Comprimido de 200+50mg"},{"nome":"Levodopa + carbidopa","apresentacao":"Comprimido de 250mg+25mg"},{"nome":"Levomepromazina","apresentacao":"Comprimido de 25mg"},{"nome":"Levomepromazina","apresentacao":"Comprimido 100mg"},{"nome":"Levomepromazina","apresentacao":"Solução oral de 4%"},{"nome":"Levonorgestrel","apresentacao":"Comprimido 0,75mg"},{"nome":"Levonorgestrel + etinilestradiol","apresentacao":"Comprimido 0,15mg+0,03mg"},{"nome":"Levotiroxina","apresentacao":"Comprimido de 25mcg"},{"nome":"Levotiroxina","apresentacao":"Comprimido de 50mcg"},{"nome":"Levotiroxina","apresentacao":"Comprimido de 100mcg"},{"nome":"Lidocaína","apresentacao":"Bisnaga de 2%"},{"nome":"Lidocaína","apresentacao":"Ampola de 2% SV"},{"nome":"Lidocaína cloridrato+epinefrina","apresentacao":"Ampola de 2%+1:200.000"},{"nome":"Losartana","apresentacao":"Comprimido de 50mg"},{"nome":"Loratadina","apresentacao":"Comprimido de 10mg"},{"nome":"Loratadina","apresentacao":"Xarope de 1mg/ml"},{"nome":"Medroxiprogesterona acetato","apresentacao":"Ampola de 150mg/ml"},{"nome":"Metformina","apresentacao":"Comprimido de 850mg"},{"nome":"Metildopa","apresentacao":"Comprimido de 250mg"},{"nome":"Metilergometrina","apresentacao":"Ampola de 0,2mg/ml"},{"nome":"Metilprednisolona succinato sódico","apresentacao":"125 e 500 mg Frasco ampola"},{"nome":"Metoclopramida cloridrato","apresentacao":"Comprimido de 10mg"},{"nome":"Metoclopramida cloridrato","apresentacao":"Solução oral de 4mg/ml"},{"nome":"Metoclopramida cloridrato","apresentacao":"Ampola de 10mg/2ml"},{"nome":"Metoprolol succinato","apresentacao":"Comprimido liberação prolongada de 50mg"},{"nome":"Metoprolol tartarato","apresentacao":"Comprimido liberação prolongada de 100mg"},{"nome":"Metoprolol tartarato","apresentacao":"Ampola 1mg/ml"},{"nome":"Metronidazol","apresentacao":"5mg/ml Bolsa"},{"nome":"Metronidazol","apresentacao":"Comprimido de 250mg"},{"nome":"Metronidazol","apresentacao":"Geleia vaginal de 100mg/g"},{"nome":"Miconazol","apresentacao":"Creme dermatológico 2%"},{"nome":"Miconazol","apresentacao":"Creme vaginal 2%"},{"nome":"Midazolam","apresentacao":"Ampola de 1mg/ml"},{"nome":"Mikania glomerata","apresentacao":"Xarope"},{"nome":"Morfina","apresentacao":"10 mg/ml Ampola"},{"nome":"Naloxona","apresentacao":"Ampola de 0,4mg/ml"},{"nome":"Naltrexona cloridrato","apresentacao":"Comprimido de 50mg"},{"nome":"Neomicina + bacitracina","apresentacao":"Pomada de 5mg/g+250UI/g"},{"nome":"Nifedipino","apresentacao":"Comprimido de 20mg"},{"nome":"Nifedipino retard","apresentacao":"Comprimido de 20mg"},{"nome":"Nimesulida","apresentacao":"Comprimido de 100mg"},{"nome":"Nimodipino","apresentacao":"Comprimido de 30mg"},{"nome":"Nistatina","apresentacao":"Suspensão oral de 100.000 U.I/mL"},{"nome":"Nistatina","apresentacao":"Creme vaginal 25.000 UI/g"},{"nome":"Nitrofurantoína","apresentacao":"Cápsula de 100mg"},{"nome":"Nitroglicerina","apresentacao":"5mg/ml Ampola"},{"nome":"Nitroprussiato","apresentacao":"50 mg Frasco ampola"},{"nome":"Norfloxacino","apresentacao":"Comprimido 400mg"},{"nome":"Norepinefrina","apresentacao":"2mg/ml Ampola"},{"nome":"Noretisterona","apresentacao":"Comprimido de 0,35mg"},{"nome":"Noretisterona enantato+estradiol valerato","apresentacao":"Ampola de 50mg/ml+5mg/ml"},{"nome":"Nortriptilina","apresentacao":"Cápsula de 25mg"},{"nome":"Nortriptilina","apresentacao":"Cápsula de 75mg"},{"nome":"Óleo mineral","apresentacao":"Solução de 100ml"},{"nome":"Omeprazol","apresentacao":"Cápsula de 20mg"},{"nome":"Omeprazol","apresentacao":"40mg Frasco Ampola"},{"nome":"Ondansetrona cloridrato","apresentacao":"2mg/ml Ampola"},{"nome":"Óxido de Zinco","apresentacao":"Pasta 25%"},{"nome":"Paracetamol","apresentacao":"Comprimido de 500mg"},{"nome":"Paracetamol","apresentacao":"Solução oral de 200mg/ml"},{"nome":"Paroxetina","apresentacao":"Comprimido 20mg"},{"nome":"Permetrina","apresentacao":"Loção corporal 1%"},{"nome":"Permetrina","apresentacao":"Loção corporal 5%"},{"nome":"Petidina","apresentacao":"Ampola de 50mg/ml"},{"nome":"Pirimetamina","apresentacao":"Comprimido 25mg"},{"nome":"Prednisolona","apresentacao":"Solução oral de 3mg/ml"},{"nome":"Prednisona","apresentacao":"Comprimido de 5mg"},{"nome":"Prednisona","apresentacao":"Comprimido de 20mg"},{"nome":"Prometazina","apresentacao":"Comprimido de 25mg"},{"nome":"Prometazina","apresentacao":"Ampola de 25mg/ml"},{"nome":"Propofol","apresentacao":"10mg/ml Ampola"},{"nome":"Propranolol","apresentacao":"Comprimido de 40mg"},{"nome":"Proximetacaína cloridrato","apresentacao":"Solução oftálmica de 5mg/ml"},{"nome":"Retinol+Aminoácidos+Metionina+Cloranfenicol","apresentacao":"Pomada oftálmica 10.000UI+25mg+5mg+5mg/g"},{"nome":"Retinol+Colecalciferol+óxido de zinco","apresentacao":"Pomada 1.000UI/g+400UI/g+100mg/g"},{"nome":"Rocurônio brometo","apresentacao":"10mg/ml Ampola"},{"nome":"Sais de reidratação","apresentacao":"Pó para solução"},{"nome":"Salbutamol","apresentacao":"Aerossol oral 100mcg/dose"},{"nome":"Salbutamol","apresentacao":"Solução para nebulização 5mg/ml"},{"nome":"Salbutamol","apresentacao":"Solução oral 0,4 mg/ml"},{"nome":"Sertralina cloridrato","apresentacao":"Comprimido de 50mg"},{"nome":"Sertralina cloridrato","apresentacao":"Comprimido de 100mg"},{"nome":"Simeticona","apresentacao":"Solução oral de 75mg/ml"},{"nome":"Sinvastatina","apresentacao":"Comprimido de 20mg"},{"nome":"Sinvastatina","apresentacao":"Comprimido de 40mg"},{"nome":"Sorbitol","apresentacao":"70% + lauril sulfato de sódio (714mg+7,70mg/g) Enema"},{"nome":"Sulfadiazina","apresentacao":"Comprimido de 500mg"},{"nome":"Sulfadiazina de Prata","apresentacao":"Bisnaga 1%"},{"nome":"Sulfametoxazol + trimetoprima","apresentacao":"Comprimido de 400mg + 80mg"},{"nome":"Sulfametoxazol + trimetoprima","apresentacao":"Suspensão oral de 40mg/ml +8mg/ml"},{"nome":"Sulfato ferroso","apresentacao":"Comprimido de 40mg"},{"nome":"Sulfato ferroso","apresentacao":"Solução oral equivalente a 25mg/ml"},{"nome":"Sulfato de Magnésio","apresentacao":"50% Ampola"},{"nome":"Suxametônio cloreto","apresentacao":"100 mg Frasco ampola"},{"nome":"Tenoxicam","apresentacao":"20mg Ampola"},{"nome":"Terbutalina","apresentacao":"Ampola de 0,5mg/ml"},{"nome":"Tetracaína cloridrato+fenilefrina","apresentacao":"Solução oftálmica de 1%+0,1%"},{"nome":"Tetraciclina","apresentacao":"Comprimido 500mg"},{"nome":"Tiamina","apresentacao":"100mg/ml Ampola"},{"nome":"Tiamina B1","apresentacao":"Comprimido 300mg"},{"nome":"Ticagrelor","apresentacao":"Comprimido de 90mg"},{"nome":"Timolol","apresentacao":"Solução oftálmica 0,5%"},{"nome":"Tobramicina","apresentacao":"Solução oftálmica de 3mg/ml"},{"nome":"Tramadol","apresentacao":"50mg/ml Ampola"},{"nome":"Triancinolona acetonida","apresentacao":"Pomada bucal de 1mg/g"},{"nome":"Vasopressina","apresentacao":"20UI/ml Ampola"},{"nome":"Valproato de sódio","apresentacao":"Comprimido de 250mg"},{"nome":"Valproato de Sódio","apresentacao":"Comprimido de 500mg"},{"nome":"Valproato de Sódio","apresentacao":"Xarope 50mg/ml"},{"nome":"Varfarina sódica","apresentacao":"Comprimido de 5mg"},{"nome":"Venlafaxina cloridrato","apresentacao":"Comprimido de 75mg"},{"nome":"Venlafaxina cloridrato","apresentacao":"Comprimido de 150mg"},{"nome":"Verapamil cloridrato","apresentacao":"Comprimido de 80mg"},{"nome":"Vitamina A","apresentacao":"Comprimido"},{"nome":"Vitamina K fitomenadiona","apresentacao":"10mg/ml Ampola"}];
+</script>
 <script>
 (function() {
   var toggleBtn = document.getElementById('themeToggle');
@@ -511,6 +581,40 @@
     sections.forEach(function(d) { d.open = anyClosed; });
     toggleAllBtn.textContent = anyClosed ? 'Colapsar tudo' : 'Expandir tudo';
   });
+  // Busca de medicamentos REMUME
+  function normalize(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+  var medSearch = document.getElementById('medSearch');
+  var medResults = document.getElementById('medResults');
+  var medCount = document.getElementById('medCount');
+
+  function renderMeds(list) {
+    if (list.length === 0) {
+      medResults.innerHTML = '<div class="med-empty">Nenhum medicamento encontrado.</div>';
+      return;
+    }
+    var html = '';
+    for (var i = 0; i < list.length; i++) {
+      html += '<div class="med-item"><div class="med-nome">' + list[i].nome +
+        '</div><div class="med-apres">' + list[i].apresentacao + '</div></div>';
+    }
+    medResults.innerHTML = html;
+  }
+
+  function filterMeds() {
+    var q = normalize(medSearch.value.trim());
+    var filtered = q === '' ? REMUME_DATA : REMUME_DATA.filter(function(item) {
+      return normalize(item.nome).indexOf(q) !== -1;
+    });
+    medCount.textContent = filtered.length + ' de ' + REMUME_DATA.length + ' medicamentos';
+    renderMeds(filtered);
+  }
+
+  if (medSearch) {
+    medSearch.addEventListener('input', filterMeds);
+    filterMeds();
+  }
 })();
 </script>
 
