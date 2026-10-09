@@ -19,6 +19,8 @@
     --alert-soft: #F6ECDC;
     --border: #D9E0DB;
     --chip-bg: #EDF1EE;
+    --danger: #A33B35;
+    --danger-soft: #F6E3E0;
     --font-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
     --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -36,6 +38,8 @@
       --alert-soft: #2B2317;
       --border: #28332F;
       --chip-bg: #1C2422;
+      --danger: #E08A83;
+      --danger-soft: #2E1B19;
     }
   }
 
@@ -50,6 +54,8 @@
     --alert-soft: #2B2317;
     --border: #28332F;
     --chip-bg: #1C2422;
+      --danger: #E08A83;
+      --danger-soft: #2E1B19;
   }
 
   * { box-sizing: border-box; }
@@ -152,6 +158,47 @@
     cursor: pointer;
   }
   .chip:hover { color: var(--ink); border-color: var(--accent); }
+
+  .area-tabs {
+    max-width: 720px;
+    margin: 10px auto 0;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+  .area-tabs::-webkit-scrollbar { height: 4px; }
+
+  .area-tab {
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    background: var(--chip-bg);
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    cursor: pointer;
+  }
+  .area-tab:hover { color: var(--ink); border-color: var(--accent); }
+  .area-tab.active {
+    background: var(--accent);
+    color: var(--bg-elevated);
+    border-color: var(--accent);
+  }
+
+  .area-heading {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .area-panel[hidden] { display: none; }
 
   main {
     max-width: 720px;
@@ -361,10 +408,110 @@
   }
 
   @media print {
-    .topbar, .toolbar-row, .chips { display: none; }
+    .topbar, .toolbar-row, .area-tabs { display: none; }
+    .area-panel[hidden] { display: block !important; }
     details.section { break-inside: avoid; }
     details.section:not([open]) .sec-body { display: block !important; }
   }
+
+  /* ===== Pré-natal ===== */
+.pnx{--surface:var(--bg-elevated);--muted:var(--ink-muted);--line:var(--border)}
+.pnx *{box-sizing:border-box}
+.pnx p{margin:0 0 10px}
+.pnx h2{font-family:var(--font-serif);font-weight:600;font-size:1.15rem;letter-spacing:-0.01em;margin:0 0 12px}
+.pnx h3{font-family:var(--font-sans);font-weight:600;font-size:.95rem;margin:0 0 8px}
+.pnx small,.pnx .muted{color:var(--muted)}
+.pnx .sub{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+.pnx .ref{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.pnx .ref-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.pnx label.f{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:var(--muted)}
+.pnx input,.pnx select,.pnx textarea,.pnx button{font-family:var(--font-sans);font-size:.95rem}
+.pnx input[type=date],.pnx input[type=number],.pnx input[type=text],.pnx select,.pnx textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-height:42px}
+.pnx textarea{min-height:76px;resize:vertical}
+.pnx input:focus-visible,.pnx select:focus-visible,.pnx textarea:focus-visible,.pnx button:focus-visible,.pnx summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pnx .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.pnx .stat{padding:8px 0;border-top:2px solid var(--accent)}
+.pnx .stat b{display:block;font-family:var(--font-mono);font-weight:500;font-size:1.3rem;line-height:1.2}
+.pnx .stat span{font-size:.78rem;color:var(--muted)}
+.pnx .bar{position:relative;display:flex;height:12px;margin:28px 0 6px;border-radius:6px}
+.pnx .bar i{display:block;height:100%;background:var(--accent)}
+.pnx .bar i:nth-child(1){flex:14;opacity:.12;border-radius:6px 0 0 6px}
+.pnx .bar i:nth-child(2){flex:14;opacity:.24}
+.pnx .bar i:nth-child(3){flex:12;opacity:.38;border-radius:0 6px 6px 0}
+.pnx .pin{position:absolute;top:-6px;width:4px;height:24px;background:var(--accent);border-radius:2px;transform:translateX(-2px);display:none}
+.pnx .pin em{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg-elevated);font-family:var(--font-mono);font-style:normal;font-size:.74rem;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.pnx .barlab{display:flex;font-size:.7rem;color:var(--muted)}
+.pnx .barlab span:nth-child(1){flex:14}
+.pnx .barlab span:nth-child(2){flex:14}
+.pnx .barlab span:nth-child(3){flex:12}
+.pnx .warnline{margin:8px 0 0;color:var(--alert);font-size:.85rem;display:none}
+.pnx .pn-nav{display:flex;gap:10px;align-items:center;margin:18px 0 0;border-bottom:1px solid var(--line)}
+.pnx .tabs{display:flex;gap:2px;overflow-x:auto;flex:1;scrollbar-width:thin}
+.pnx .tab{flex:0 0 auto;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:10px 12px;margin-bottom:-1px;cursor:pointer;font-weight:500;font-size:.88rem;white-space:nowrap}
+.pnx .tab:hover{color:var(--ink)}
+.pnx .tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.pnx .pn-chip{flex:0 0 auto;font-family:var(--font-mono);font-size:.75rem;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 10px;white-space:nowrap}
+.pnx .panel{display:none;padding-top:18px}
+.pnx .panel.on{display:block}
+.pnx .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.pnx .card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
+.pnx .card.now{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.pnx .chk{list-style:none;margin:0;padding:0}
+.pnx .chk li+li{border-top:1px solid var(--line)}
+.pnx .chk label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;cursor:pointer}
+.pnx .chk input{flex:0 0 auto;width:20px;height:20px;margin-top:2px;accent-color:var(--accent)}
+.pnx .chk small{display:block;font-size:.8rem}
+.pnx .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pnx .seg button{border:0;background:var(--surface);color:var(--ink);padding:9px 14px;cursor:pointer;min-height:42px}
+.pnx .seg button[aria-pressed=true]{background:var(--accent);color:var(--bg-elevated);font-weight:600}
+.pnx .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.pnx .btn{border:1px solid var(--accent);background:var(--surface);color:var(--accent);padding:9px 14px;border-radius:8px;cursor:pointer;font-weight:600;min-height:42px}
+.pnx .btn.solid{background:var(--accent);color:var(--bg-elevated)}
+.pnx .btn.ghost{border-color:var(--line);color:var(--muted);font-weight:400}
+.pnx .btn:disabled{opacity:.5;cursor:not-allowed}
+.pnx details{border-top:1px solid var(--line);padding:2px 0}
+.pnx details:first-of-type{border-top:0}
+.pnx summary{cursor:pointer;padding:9px 0;font-weight:600;list-style-position:inside}
+.pnx details .body{padding:0 0 10px 4px;font-size:.9rem}
+.pnx details .body ul{margin:4px 0 0;padding-left:20px}
+.pnx .res{margin-top:10px;padding:10px 12px;border-radius:4px;border-left:3px solid var(--muted);background:var(--chip-bg);font-size:.9rem}
+.pnx .res.ok{border-color:var(--accent);background:var(--accent-soft)}
+.pnx .res.warn{border-color:var(--alert);background:var(--alert-soft)}
+.pnx .res.danger{border-color:var(--danger);background:var(--danger-soft)}
+.pnx .res b{display:block}
+.pnx .calc .in{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:6px}
+.pnx .tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:999px;background:var(--alert-soft);color:var(--alert);margin-left:6px}
+.pnx table{width:100%;border-collapse:collapse;font-size:.88rem}
+.pnx th,.pnx td{text-align:left;padding:8px 8px 8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.pnx th{font-size:.76rem;color:var(--muted);font-weight:600}
+.pnx tr.now td{background:var(--accent-soft)}
+.pnx tr.past td{color:var(--muted)}
+.pnx .scroll{overflow-x:auto}
+.pnx .fld{padding:10px 0;border-top:1px solid var(--line)}
+.pnx .fld:first-of-type{border-top:0;padding-top:2px}
+.pnx .fl{font-weight:600;font-size:.92rem;margin-bottom:6px}
+.pnx .fl small{display:block;font-weight:400;font-size:.8rem}
+.pnx .opts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.pnx .opt{border:1px solid var(--line);background:var(--chip-bg);color:var(--ink);padding:7px 13px;border-radius:999px;cursor:pointer;min-height:38px;text-align:left;font-size:.85rem}
+.pnx .opt:hover{border-color:var(--accent)}
+.pnx .opt[aria-pressed=true]{background:var(--accent);color:var(--bg-elevated);border-color:var(--accent);font-weight:600}
+.pnx .ftxt{min-height:40px}
+.pnx .er{margin:0 0 8px 30px;width:calc(100% - 30px)}
+.pnx .er[hidden]{display:none}
+.pnx .meds{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.pnx textarea.out{min-height:200px;white-space:pre-wrap;font-family:var(--font-mono);font-size:.84rem;line-height:1.6;margin-top:10px;background:var(--surface)}
+.pnx .pn-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--border)}
+@media print{.pnx .pn-nav,.pnx .row,.pnx .btn,.pnx .seg{display:none!important}
+.pnx .panel{display:block!important}}
+
+.pnx .gnav{display:flex;gap:10px;align-items:center;margin:18px 0 0;border-bottom:1px solid var(--line)}
+.pnx .gtabs{display:flex;gap:2px;overflow-x:auto;flex:1;scrollbar-width:thin}
+.pnx .gtab{flex:0 0 auto;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:10px 12px;margin-bottom:-1px;cursor:pointer;font-weight:500;font-size:.88rem;white-space:nowrap}
+.pnx .gtab:hover{color:var(--ink)}
+.pnx .gtab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.pnx .gpanel{display:none;padding-top:18px}
+.pnx .gpanel.on{display:block}
+.pnx .gtxt{min-height:40px}
 </style>
 </head>
 <body>
@@ -373,39 +520,30 @@
   <div class="topbar-row">
     <div class="title-block">
       <h1>Lucas Rocha</h1>
-      <p>Modelo rápido de nota + exame físico por sistemas — UBS / APS</p>
+      <p>Anamnese · Exame Físico · Pré-natal · Puerpério · Puericultura · DCNT · Pessoa idosa · REMUME · Calculadoras — UBS / APS</p>
     </div>
     <div class="topbar-controls">
       <button class="icon-btn" id="themeToggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">◐</button>
     </div>
   </div>
-  <nav class="chips" id="chipNav" aria-label="Ir para seção">
-    <a class="chip" data-target="sec-1" href="#sec-1">1 · Modelo rápido</a>
-    <a class="chip" data-target="sec-2" href="#sec-2">2 · Exame geral</a>
-    <a class="chip" data-target="sec-3" href="#sec-3">3 · Pele</a>
-    <a class="chip" data-target="sec-4" href="#sec-4">4 · Oftalmo</a>
-    <a class="chip" data-target="sec-5" href="#sec-5">5 · Otoscopia</a>
-    <a class="chip" data-target="sec-6" href="#sec-6">6 · Oroscopia</a>
-    <a class="chip" data-target="sec-7" href="#sec-7">7 · Cefaleias</a>
-    <a class="chip" data-target="sec-8" href="#sec-8">8 · Mamas</a>
-    <a class="chip" data-target="sec-9" href="#sec-9">9 · Ginecológico</a>
-    <a class="chip" data-target="sec-10" href="#sec-10">10 · Ortopédico</a>
-    <a class="chip" data-target="sec-11" href="#sec-11">11 · Medicamentos REMUME</a>
+  <nav class="area-tabs" id="areaTabs" aria-label="Áreas">
+    <button class="area-tab" data-area="anamnese">Anamnese</button>
+    <button class="area-tab" data-area="exame-fisico">Exame Físico</button>
+    <button class="area-tab" data-area="prenatal">Pré-natal</button>
+    <button class="area-tab" data-area="puerperio">Puerpério</button>
+    <button class="area-tab" data-area="puericultura">Puericultura</button>
+    <button class="area-tab" data-area="dcnt">DCNT</button>
+    <button class="area-tab" data-area="idoso">Pessoa idosa</button>
+    <button class="area-tab" data-area="remume">REMUME 2026</button>
+    <button class="area-tab" data-area="calculadoras">Calculadoras</button>
   </nav>
 </div>
 
 <main>
 
-  <div class="toolbar-row">
-    <button class="text-btn" id="toggleAll">Expandir tudo</button>
-  </div>
-
-  <div class="sections" id="sections">
-
-    <details class="section" id="sec-1" open>
-      <summary class="sec-head">Modelo Rápido de Consulta <span class="chev">›</span></summary>
-      <div class="sec-body">
-        <div class="note-block">
+    <div class="area-panel" id="area-anamnese" data-area="anamnese">
+      <h2 class="area-heading">Modelo Rápido de Consulta</h2>
+      <div class="note-block">
           <p class="line">Paciente comparece ao consultório por livre demanda / agendamento.</p>
           <p class="line">Nega alergia medicamentosa.</p>
           <p class="line">Comorbidades:</p>
@@ -414,10 +552,15 @@
           <p class="line">Sem histórico familiar relevante.</p>
         </div>
         <p class="mini-note">Lembrar de perguntar DUM em pacientes na menacme.</p>
-      </div>
-    </details>
+    </div>
 
-    <details class="section" id="sec-2">
+    <div class="area-panel" id="area-exame-fisico" data-area="exame-fisico" hidden>
+      <div class="toolbar-row">
+        <button class="text-btn" id="toggleAll">Expandir tudo</button>
+      </div>
+      <div class="sections" id="examSections">
+
+<details class="section" id="sec-2" open>
       <summary class="sec-head">Exame Físico — Geral e Abreviado <span class="chev">›</span></summary>
       <div class="sec-body">
         <div class="abbrev-line">BEG, LOTE, CHAAA, eupneico em AA, normotenso, sem sinais de desconforto ou toxemia.</div>
@@ -518,19 +661,244 @@
       </div>
     </details>
 
-    <details class="section" id="sec-11">
-      <summary class="sec-head">Medicamentos REMUME 2026 <span class="chev">›</span></summary>
-      <div class="sec-body">
-        <p class="mini-note">Relação Municipal de Medicamentos Essenciais — Umuarama/PR, 4ª edição. Busca por nome, mostrando a apresentação/concentração disponibilizada pela rede.</p>
+      </div>
+    </div>
+
+
+    <div class="area-panel pnx" id="area-prenatal" data-area="prenatal" hidden>
+      <h2 class="area-heading">Pré-natal na APS</h2>
+      <p class="mini-note" style="margin-bottom:14px">Informe a DUM (ou use a IG da ultrassonografia na aba Calculadoras do pré-natal). A idade gestacional passa a orientar todas as abas. Nada do que você digita aqui é salvo ou enviado.</p>
+      <div class="ref">
+      <div class="ref-fields">
+        <label class="f">DUM ou data de referência<input type="date" id="dum"></label>
+        <label class="f">Data da consulta<input type="date" id="cons"></label>
+      </div>
+      <div class="stats" aria-live="polite">
+        <div class="stat"><b id="sIG">—</b><span>Idade gestacional</span></div>
+        <div class="stat"><b id="sTri">—</b><span>Trimestre</span></div>
+        <div class="stat"><b id="sDPP">—</b><span>Data provável do parto</span></div>
+        <div class="stat"><b id="sNext">—</b><span id="sNextL">Próxima consulta (mínimo)</span></div>
+      </div>
+      <div class="bar" id="bar" aria-hidden="true"><i></i><i></i><i></i><div class="pin" id="pin"><em id="pinL"></em></div></div>
+      <div class="barlab" aria-hidden="true"><span>1º trimestre · 0–13s</span><span>2º trimestre · 14–27s</span><span>3º trimestre · 28–40s</span></div>
+      <p class="warnline" id="warnline"></p>
+    </div>
+  
+
+  <div class="pn-nav" id="pnNav">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="pn-chip" id="chipIG" title="Idade gestacional na data da consulta">IG —</div>
+  </div>
+
+  <!-- CALENDÁRIO -->
+  <section class="panel on" id="p-cal" role="tabpanel">
+    <h2>Calendário e marcos</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Regra mínima de acompanhamento</h3>
+        <ul class="chk">
+          <li><label style="cursor:default"><span>Começar até a 12ª semana e fazer no mínimo <b>7 consultas</b>, intercaladas entre medicina e enfermagem.</span></label></li>
+          <li><label style="cursor:default"><span>Até 28 semanas: consultas <b>mensais</b>. De 28 a 36: <b>quinzenais</b>. Depois de 36: <b>semanais</b>.</span></label></li>
+          <li><label style="cursor:default"><span>No mínimo <b>1 consulta odontológica</b>. Não existe alta do pré-natal.</span></label></li>
+          <li><label style="cursor:default"><span>Puerpério: pelo menos <b>2 consultas</b>, a 1ª na semana seguinte à saída da maternidade e a 2ª cerca de 30 dias após o parto.</span></label></li>
+          <li><label style="cursor:default"><span>Reestratificar o risco em <b>toda</b> consulta.</span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Sugestão de cronograma das 7 consultas</h3>
+        <p class="muted" style="font-size:14px">Distribuição que cumpre a frequência mínima. Alterne medicina e enfermagem.</p>
+        <div class="scroll"><table id="tSched"><thead><tr><th>Consulta</th><th>IG alvo</th><th>Data alvo</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>Marcos da gestação</h3>
+      <div class="scroll"><table id="tMile"><thead><tr><th>Quando</th><th>O que fazer</th><th>Datas</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ANAMNESE -->
+  <section class="panel" id="p-anam" role="tabpanel">
+    <h2>Anamnese</h2>
+    <p class="sub">Toque nas opções que se aplicam (pode marcar várias) e use a caixa de texto para detalhar. O que ficar em branco não entra no SOAP.</p>
+    <div class="row"><div class="seg" data-mode-seg></div><button class="btn ghost" data-clear="p-anam">Limpar</button></div>
+    <div class="card" style="margin-bottom:14px"><h3>Queixa principal e história da doença atual</h3><textarea id="anQP" placeholder="Escreva com as palavras da gestante."></textarea></div>
+    <div class="grid" id="anamGrid"></div>
+  </section>
+
+  <!-- EXAME FÍSICO -->
+  <section class="panel" id="p-fis" role="tabpanel">
+    <h2>Exame físico</h2>
+    <div class="row"><div class="seg" data-mode-seg></div><button class="btn ghost" data-clear="p-fis">Limpar</button></div>
+    <div class="card" style="margin-bottom:14px">
+      <h3>Medidas e sinais vitais</h3>
+      <p class="muted" style="font-size:14px;margin-bottom:10px">Os valores de PA, peso, altura e AU são os mesmos das Calculadoras.</p>
+      <div class="meds">
+        <label class="f">PAS (mmHg)<input type="number" id="fPAS" inputmode="numeric"></label>
+        <label class="f">PAD (mmHg)<input type="number" id="fPAD" inputmode="numeric"></label>
+        <label class="f">Peso atual (kg)<input type="number" id="fPeso" step="0.1" inputmode="decimal"></label>
+        <label class="f">Altura (cm)<input type="number" id="fAlt" inputmode="decimal"></label>
+        <label class="f">Peso pré-gestacional (kg)<input type="number" id="fPeso0" step="0.1" inputmode="decimal"></label>
+        <label class="f">AU (cm)<input type="number" id="fAU" step="0.5" inputmode="decimal"></label>
+        <label class="f">BCF (bpm)<input type="number" id="fBCF" inputmode="numeric"></label>
+        <label class="f">Temperatura (°C)<input type="number" id="fTemp" step="0.1" inputmode="decimal"></label>
+      </div>
+    </div>
+    <div class="grid" id="fisGrid"></div>
+  </section>
+
+  <!-- EXAMES -->
+  <section class="panel" id="p-exa" role="tabpanel">
+    <h2>Exames laboratoriais e de imagem</h2>
+    <p class="sub">Rotina da Caderneta Brasileira da Gestante 2026. O trimestre atual aparece destacado. Alguns itens dependem de protocolo local ou de indicação clínica.</p>
+    <div class="row"><button class="btn ghost" data-clear="p-exa">Limpar marcações</button></div>
+    <div class="grid" id="exaGrid"></div>
+    <div class="card" style="margin-top:14px">
+      <h3>Interpretação rápida e conduta</h3>
+      <div id="interp"></div>
+    </div>
+  </section>
+
+  <!-- CALCULADORAS -->
+  <section class="panel" id="p-calc" role="tabpanel">
+    <h2>Calculadoras</h2>
+    <div class="grid" id="calcGrid">
+
+      <div class="card calc" id="c-usg">
+        <h3>IG e DPP pela ultrassonografia</h3>
+        <div class="in">
+          <label class="f">Data da USG<input type="date" id="usgData"></label>
+          <label class="f">IG na USG (semanas)<input type="number" id="usgSem" min="4" max="42" inputmode="numeric"></label>
+          <label class="f">IG na USG (dias)<input type="number" id="usgDia" min="0" max="6" inputmode="numeric" value="0"></label>
+        </div>
+        <div class="res" id="usgOut">Preencha a data e a IG da USG.</div>
+        <div class="row" style="margin:10px 0 0"><button class="btn" id="usgApply" disabled>Usar como referência no cabeçalho</button></div>
+      </div>
+
+      <div class="card calc" id="c-peso">
+        <h3>IMC pré-gestacional e ganho de peso</h3>
+        <div class="in">
+          <label class="f">Altura (cm)<input type="number" id="altura" inputmode="decimal"></label>
+          <label class="f">Peso pré-gestacional (kg)<input type="number" id="pesoPre" step="0.1" inputmode="decimal"></label>
+          <label class="f">Peso atual (kg)<input type="number" id="pesoAtual" step="0.1" inputmode="decimal"></label>
+        </div>
+        <div class="res" id="pesoOut">Informe altura e peso pré-gestacional.</div>
+        <p class="muted" style="font-size:13.5px;margin:8px 0 0">Faixas de apoio baseadas no IOM 2009. A classificação oficial do ganho é feita no gráfico adotado pelo Ministério da Saúde (caderneta/prontuário). A mesma balança em todas as consultas.</p>
+      </div>
+
+      <div class="card calc" id="c-au">
+        <h3>Altura uterina</h3>
+        <div class="in">
+          <label class="f">AU medida (cm)<input type="number" id="auMed" step="0.5" inputmode="decimal"></label>
+        </div>
+        <div class="res" id="auOut">Informe a AU. A IG vem do cabeçalho.</div>
+        <p class="muted" style="font-size:13.5px;margin:8px 0 0">Entre 20 e 34 semanas, a AU em cm costuma ser igual à IG em semanas (±2 cm). Fora dessa janela, plote na curva do cartão.</p>
+      </div>
+
+      <div class="card calc" id="c-pa">
+        <h3>Pressão arterial</h3>
+        <div class="in">
+          <label class="f">PAS (mmHg)<input type="number" id="pas" inputmode="numeric"></label>
+          <label class="f">PAD (mmHg)<input type="number" id="pad" inputmode="numeric"></label>
+        </div>
+        <div class="res" id="paOut">Informe PAS e PAD.</div>
+      </div>
+
+      <div class="card calc" id="c-gli">
+        <h3>Glicemia e diabetes na gestação</h3>
+        <div class="in">
+          <label class="f">Jejum (mg/dL)<input type="number" id="gJej" inputmode="numeric"></label>
+          <label class="f">TOTG 75 g, 1 h<input type="number" id="g1h" inputmode="numeric"></label>
+          <label class="f">TOTG 75 g, 2 h<input type="number" id="g2h" inputmode="numeric"></label>
+        </div>
+        <div class="res" id="gliOut">Informe a glicemia de jejum. Para o TOTG, preencha também 1 h e 2 h.</div>
+      </div>
+
+      <div class="card calc" id="c-hb">
+        <h3>Hemoglobina</h3>
+        <div class="in"><label class="f">Hb (g/dL)<input type="number" id="hb" step="0.1" inputmode="decimal"></label></div>
+        <div class="res" id="hbOut">Informe a hemoglobina.</div>
+      </div>
+
+      <div class="card calc" id="c-phq">
+        <h3>Rastreio de depressão (PHQ-2)</h3>
+        <p class="muted" style="font-size:14px">Nas últimas 2 semanas, com que frequência a gestante foi incomodada por:</p>
+        <div class="in">
+          <label class="f">Pouco interesse ou prazer em fazer as coisas
+            <select id="phq1"><option value="0">Nenhuma vez (0)</option><option value="1">Vários dias (1)</option><option value="2">Mais da metade dos dias (2)</option><option value="3">Quase todos os dias (3)</option></select></label>
+          <label class="f">Sentir-se para baixo, deprimida ou sem perspectiva
+            <select id="phq2"><option value="0">Nenhuma vez (0)</option><option value="1">Vários dias (1)</option><option value="2">Mais da metade dos dias (2)</option><option value="3">Quase todos os dias (3)</option></select></label>
+        </div>
+        <div class="res" id="phqOut"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RISCO -->
+  <section class="panel" id="p-risco" role="tabpanel">
+    <h2>Estratificação de risco e sinais de alerta</h2>
+    <p class="sub">Marque o que se aplica. A sugestão abaixo é de apoio: confira o protocolo estadual ou municipal e sempre reavalie na consulta seguinte.</p>
+    <div class="res" id="riscoOut" style="margin:0 0 14px">Nenhum fator marcado: risco habitual.</div>
+    <div class="row"><button class="btn ghost" data-clear="p-risco">Limpar marcações</button></div>
+    <div class="grid" id="riscoGrid"></div>
+  </section>
+
+  <!-- VACINAS -->
+  <section class="panel" id="p-vac" role="tabpanel">
+    <h2>Vacinas e orientações</h2>
+    <div class="grid" id="vacGrid"></div>
+  </section>
+
+  <!-- SOAP -->
+  <section class="panel" id="p-soap" role="tabpanel">
+    <h2>SOAP</h2>
+    <p class="sub">S e O vêm das abas Anamnese, Exame físico, Exames e Calculadoras. Campos em branco ficam de fora. Complete a avaliação e o plano, gere o texto e edite se precisar antes de copiar.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Avaliação (A)</h3>
+        <div class="res" id="soapAuto"></div>
+        <label class="f" style="margin-top:10px">Diagnósticos e problemas<textarea id="soapA" placeholder="Ex.: Gestação tópica, IG compatível com DUM, ganho de peso adequado."></textarea></label>
+      </div>
+      <div class="card">
+        <h3>Plano (P)</h3>
+        <div class="opts" id="planOpts"></div>
+        <label class="f" style="margin-top:6px">Conduta e orientações adicionais<textarea id="soapP"></textarea></label>
+        <label class="f" style="margin-top:10px">Retorno<input type="date" id="retorno"></label>
+      </div>
+    </div>
+    <div class="row" style="margin-top:14px"><button class="btn solid" id="soapGen">Gerar texto</button><button class="btn" id="soapCopy">Copiar</button><span class="muted" id="soapMsg"></span></div>
+    <textarea class="out" id="soapOut" aria-label="Texto SOAP gerado" placeholder="O texto SOAP aparece aqui e pode ser editado."></textarea>
+  </section>
+
+  
+      <p class="mini-note pn-foot">Fontes de base: Caderneta Brasileira da Gestante 2026 (SAPS/MS), que fixa no mínimo 7 consultas, a rotina de exames, a tabela de vacinas e os valores de pressão arterial; e Caderno de Atenção Básica nº 32, Atenção ao pré-natal de baixo risco (MS, 2012). Itens marcados com “conferir” não constam na caderneta 2026 e vêm de referências anteriores. Ferramenta de apoio ao raciocínio clínico: não substitui protocolos locais, julgamento clínico nem supervisão. Pré-natal integrado ao guia em 08/10/2026.</p>
+    </div>
+
+
+    <div class="area-panel pnx" id="area-puerperio" data-area="puerperio" hidden></div>
+
+    <div class="area-panel pnx" id="area-puericultura" data-area="puericultura" hidden></div>
+
+    <div class="area-panel pnx" id="area-dcnt" data-area="dcnt" hidden></div>
+
+    <div class="area-panel pnx" id="area-idoso" data-area="idoso" hidden></div>
+
+    <div class="area-panel" id="area-remume" data-area="remume" hidden>
+      <h2 class="area-heading">Medicamentos REMUME 2026</h2>
+      <p class="mini-note">Relação Municipal de Medicamentos Essenciais — Umuarama/PR, 4ª edição. Busca por nome, mostrando a apresentação/concentração disponibilizada pela rede.</p>
         <div class="med-search-wrap">
           <input type="text" class="med-search-input" id="medSearch" placeholder="Digite o nome do medicamento..." autocomplete="off">
         </div>
         <p class="med-count" id="medCount"></p>
         <div class="med-results" id="medResults"></div>
-      </div>
-    </details>
+    </div>
 
-  </div>
+    <div class="area-panel" id="area-calculadoras" data-area="calculadoras" hidden>
+      <h2 class="area-heading">Calculadoras</h2>
+      <p class="mini-note">Nenhuma calculadora disponível ainda. Em breve.</p>
+      <p class="mini-note">Calculadoras do pré-natal (IG e DPP, IMC e ganho de peso, altura uterina, PA, glicemia, hemoglobina e PHQ-2) já estão na aba <a href="#" id="goPnCalc">Pré-natal › Calculadoras</a>.</p>
+      <p class="mini-note">As escalas e calculadoras de cada área ficam dentro da própria aba: Pré-natal, Puerpério, Puericultura, DCNT e Pessoa idosa.</p>
+    </div>
 
   <footer>
     Guia de referência rápida para consulta em atenção primária — não substitui o protocolo ou a supervisão do preceptor.
@@ -561,21 +929,31 @@ const REMUME_DATA = [{"nome":"Aciclovir","apresentacao":"Comprimido de 200mg"},{
     try { localStorage.setItem('roteiro-anamnese-theme', next); } catch (e) {}
   });
 
-  var chips = document.querySelectorAll('.chip');
-  chips.forEach(function(chip) {
-    chip.addEventListener('click', function(e) {
-      e.preventDefault();
-      var id = chip.getAttribute('data-target');
-      var el = document.getElementById(id);
-      if (el) {
-        el.open = true;
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+  // Navegação por áreas
+  var areaTabs = document.querySelectorAll('.area-tab');
+  var areaPanels = document.querySelectorAll('.area-panel');
+  function showArea(area) {
+    areaPanels.forEach(function(panel) {
+      panel.hidden = panel.getAttribute('data-area') !== area;
+    });
+    areaTabs.forEach(function(tab) {
+      tab.classList.toggle('active', tab.getAttribute('data-area') === area);
+    });
+    try { localStorage.setItem('roteiro-anamnese-area', area); } catch (e) {}
+  }
+  areaTabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      showArea(tab.getAttribute('data-area'));
+      window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
     });
   });
+  var storedArea = null;
+  try { storedArea = localStorage.getItem('roteiro-anamnese-area'); } catch (e) {}
+  var validAreas = Array.prototype.map.call(areaTabs, function(t) { return t.getAttribute('data-area'); });
+  showArea(validAreas.indexOf(storedArea) !== -1 ? storedArea : 'anamnese');
 
   var toggleAllBtn = document.getElementById('toggleAll');
-  var sections = document.querySelectorAll('#sections details.section');
+  var sections = document.querySelectorAll('#examSections details.section');
   toggleAllBtn.addEventListener('click', function() {
     var anyClosed = Array.prototype.some.call(sections, function(d) { return !d.open; });
     sections.forEach(function(d) { d.open = anyClosed; });
@@ -618,5 +996,1390 @@ const REMUME_DATA = [{"nome":"Aciclovir","apresentacao":"Comprimido de 200mg"},{
 })();
 </script>
 
+<script>
+(function(){
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const DAY=86400000;
+const parseD=v=>{if(!v)return null;const [y,m,d]=v.split('-').map(Number);return new Date(y,m-1,d)};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const diffDays=(a,b)=>Math.round((a-b)/DAY);
+const fmtD=d=>d?d.toLocaleDateString('pt-BR'):'—';
+const iso=d=>{const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())};
+const fmtIG=days=>(days==null||days<0)?'—':Math.floor(days/7)+'s+'+(days%7)+'d';
+const num=id=>{const v=parseFloat($('#'+id).value);return isNaN(v)?null:v};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const br=n=>String(n).replace('.',',');
+const S={dum:null,cons:null,days:null};
+const triOf=days=>days<98?1:days<196?2:3;
+const ST={};            // estado dos campos de anamnese e exame físico
+const CALC={};          // resumos em texto das calculadoras
+let MODE='first', retornoEdited=false, phqTouched=false;
+
+/* ---------- dados ---------- */
+const F=(l,o=[],h='')=>({l,o,h});
+const SINT=['Náuseas ou vômitos','Sangramento vaginal','Dor pélvica ou abdominal','Corrimento','Disúria','Febre','Cefaleia','Sem queixas'];
+const ANAM=[
+ {m:'first',t:'Identificação e contexto',f:[
+  F('Idade',['< 15 anos','15–19 anos','20–34 anos','≥ 35 anos']),
+  F('Raça/cor (autodeclarada)',['Branca','Preta','Parda','Amarela','Indígena'],'Registro obrigatório'),
+  F('Escolaridade',['Não alfabetizada','Fundamental incompleto','Fundamental completo','Médio incompleto','Médio completo','Superior']),
+  F('Ocupação',['Do lar','Trabalha fora','Estudante','Desempregada','Exposição ocupacional de risco']),
+  F('Situação conjugal',['Solteira','Casada','União estável','Divorciada ou separada','Viúva']),
+  F('Reside com',['Sozinha','Parceria','Familiares','Outros']),
+  F('Rede de apoio',['Boa','Frágil','Ausente']),
+  F('Moradia e condições',['Casa','Apartamento','Cômodo','Zona rural','Sem saneamento adequado','Insegurança alimentar','Situação de rua','Privação de liberdade']),
+  F('Gestação',['Planejada','Não planejada','Desejada','Não desejada','Ambivalente']),
+  F('Serviços de referência',['Conhece a UBS de referência','Conhece a maternidade de referência','Não conhece a maternidade de referência']),
+  F('Acompanhante e doula',['Parceria','Familiar','Doula','Sem acompanhante definido'])]},
+ {m:'first',t:'Gestação atual',f:[
+  F('DUM',['Certa e confiável','Incerta','Desconhecida'],'Se incerta, priorizar USG precoce (7 a 12 sem)'),
+  F('Ciclos menstruais',['Regulares','Irregulares']),
+  F('Método contraceptivo na concepção',['Nenhum','Pílula','Injetável','DIU','Implante','Preservativo']),
+  F('Sintomas atuais',SINT),
+  F('Movimentos fetais',['Presentes','Diminuídos','Ausentes','Ainda não percebidos']),
+  F('Suplementos em uso',['Ácido fólico','Sulfato ferroso','Polivitamínico','Nenhum']),
+  F('Ultrassonografia',['Realizada','Não realizada','Laudo trazido'])]},
+ {m:'first',t:'Antecedentes obstétricos',f:[
+  F('G, P e A',[],'Ex.: G3 P2 (1 vaginal, 1 cesárea) A0'),
+  F('Via de parto anterior',['Vaginal','Cesárea','Fórceps ou vácuo','Não se aplica']),
+  F('Intercorrências em gestações anteriores',['Pré-eclâmpsia','Eclâmpsia ou HELLP','Diabetes gestacional','Parto prematuro','Natimorto ou óbito neonatal','Restrição de crescimento','Hemorragia pós-parto','Placenta prévia ou descolamento','Malformação','Abortamento de repetição','Nenhuma']),
+  F('Amamentação anterior',['Amamentou','Teve dificuldades','Não amamentou','Não se aplica'])]},
+ {m:'first',t:'Antecedentes pessoais e familiares',f:[
+  F('Doenças crônicas',['Hipertensão','Diabetes','Cardiopatia','Nefropatia','ITU de repetição','Tireoidopatia','Asma ou pneumopatia','Epilepsia','Doença falciforme ou traço','Anemia','Trombose ou trombofilia','Doença autoimune','Neoplasia','Transtorno mental','Nega']),
+  F('Cirurgias e transfusões',['Cesárea','Cirurgia bariátrica','Cirurgia ginecológica','Transfusão','Outras','Nenhuma'],'Bariátrica: anotar peso antes da cirurgia'),
+  F('Alergias',['Medicamentos','Látex','Alimentos','Nega']),
+  F('IST e infecções',['HIV','Sífilis','Hepatite B','Hepatite C','HPV','Tuberculose (atual ou contato)','Hanseníase','Toxoplasmose','Nega']),
+  F('Citopatológico',['Em dia','Atrasado','Nunca realizou']),
+  F('Antecedentes familiares',['Hipertensão','Diabetes','Pré-eclâmpsia','Gemelaridade','Malformação ou doença genética','Trombose','Câncer de mama ou ovário','Nega'])]},
+ {m:'first',t:'Medicamentos, substâncias e hábitos',f:[
+  F('Medicamentos de uso contínuo',['Nenhum','Anti-hipertensivo','Insulina ou antidiabético','Levotiroxina','Psicofármaco','Anticonvulsivante','Anticoagulante','Outros'],'Revisar fármacos fetotóxicos ou teratogênicos'),
+  F('Fitoterápicos e chás',['Usa','Não usa']),
+  F('Tabagismo',['Nunca fumou','Ex-fumante','Fumante']),
+  F('Álcool',['Não consome','Consumo ocasional','Consumo frequente']),
+  F('Outras drogas',['Nega','Usa']),
+  F('Alimentação',['Variada','Ultraprocessados frequentes','Restrições alimentares','Insegurança alimentar']),
+  F('Atividade física',['Sedentária','Caminhadas leves','Ativa (≥ 150 min por semana)']),
+  F('Sono',['Adequado','Alterado']),
+  F('Saúde bucal',['Consulta odontológica em dia','Sem consulta recente','Queixa bucal']),
+  F('Vacinas (cartão)',['Cartão trazido','Não trouxe o cartão','dT ou dTpa em dia','dT ou dTpa pendente','Hepatite B em dia','Hepatite B pendente','Influenza feita','Covid-19 feita'])]},
+ {m:'both',t:'Saúde mental e vulnerabilidades',f:[
+  F('Humor e ansiedade',['Humor estável','Tristeza persistente','Ansiedade','Insônia','Ideação suicida','Acompanhamento prévio em saúde mental'],'Se houver sofrimento intenso, perguntar diretamente sobre ideação suicida'),
+  F('Violência (perguntado em particular)',['Nega','Doméstica','Sexual','Psicológica','Outra'],'Acolher, registrar e acionar a rede de proteção'),
+  F('Contracepção desejada no pós-parto',['Laqueadura','DIU','Implante','Pílula de progesterona','Injetável trimestral','Preservativo','Ainda não decidiu'],'Laqueadura: manifestação escrita ≥ 60 dias antes do parto'),
+  F('Pré-natal da parceria',['Testagem rápida oferecida','Comparece às consultas','Não comparece'])]},
+ {m:'return',t:'Desde a última consulta',f:[
+  F('Queixas atuais',SINT),
+  F('Movimentos fetais',['Presentes','Diminuídos','Ausentes','Ainda não percebidos']),
+  F('Sinais de alerta',['Nega todos','Cefaleia intensa','Escotomas ou visão turva','Dor epigástrica','Edema súbito de face ou mãos','Sangramento vaginal','Perda de líquido','Contrações regulares','Febre','Sintomas urinários'],'Cefaleia, escotomas, epigastralgia ou edema súbito: aferir PA e proteinúria'),
+  F('Atendimentos em urgência ou maternidade',['Nenhum','Sim'])]},
+ {m:'return',t:'Exames, vacinas e adesão',f:[
+  F('Resultados de exames',['Revisados','Pendentes']),
+  F('Vacinas realizadas desde a última consulta',['dTpa','Influenza','Covid-19','VSR','Hepatite B','Nenhuma nova']),
+  F('Adesão a suplementos e medicamentos',['Boa','Irregular','Efeitos colaterais']),
+  F('Consulta odontológica',['Realizada','Não realizada'])]},
+ {m:'return',t:'Preparo para o parto e puerpério',f:[
+  F('Humor e sono',['Estáveis','Alterados']),
+  F('Apoio',['Boa rede de apoio','Rede frágil']),
+  F('Plano de parto',['Elaborado','Não elaborado']),
+  F('Maternidade de referência',['Conhece','Não conhece']),
+  F('Sinais de trabalho de parto (≥ 37 sem)',['Orientada','Em pródromos','Em trabalho de parto']),
+  F('Amamentação',['Orientada e preparada','Com dúvidas'])]}
+];
+
+const FIS=[
+ {m:'both',t:'Edema, fetos e útero',f:[
+  F('Edema',['Ausente','Pés e tornozelos','Generalizado ou facial']),
+  F('Movimentos fetais (exame)',['Percebidos','Não percebidos']),
+  F('Batimentos cardiofetais',['Presentes e rítmicos','Ausentes'],'Faixa habitual: 110 a 160 bpm; sonar a partir de ~10–12 sem'),
+  F('Proteinúria de fita',['Negativa','Traços','+','++','+++'],'Fazer se PA elevada, edema súbito ou sintomas de pré-eclâmpsia')]},
+ {m:'first',t:'Exame geral',f:[
+  F('Estado geral',['Bom','Regular','Comprometido']),
+  F('Pele e mucosas',['Normocoradas','Hipocoradas','Ictéricas','Manchas ou lesões']),
+  F('Tireoide',['Sem alterações','Aumentada','Nódulo']),
+  F('Ausculta cardíaca',['Bulhas normofonéticas, sem sopros','Sopro','Arritmia']),
+  F('Ausculta pulmonar',['Murmúrio vesicular presente, sem ruídos adventícios','Sibilos','Crepitações']),
+  F('Mamas',['Sem alterações','Nódulo','Mamilos planos ou invertidos','Fissura']),
+  F('Cavidade oral',['Sem alterações','Gengivite','Cáries','Outra alteração'],'Encaminhar para consulta odontológica'),
+  F('Membros inferiores',['Sem varizes ou edema','Varizes','Edema','Sinais de TVP'])]},
+ {m:'first',t:'Abdome e exame ginecológico',f:[
+  F('Abdome',['Gravídico e indolor','Cicatriz de cesárea','Dor à palpação','Útero palpável']),
+  F('Exame especular',['Não realizado','Colo sem alterações','Corrimento','Sangramento','Lesões'],'Realizar se houver queixa, corrimento ou citopatológico em atraso'),
+  F('Citopatológico',['Coletado (só ectocérvice)','Não indicado','Em dia'],'Sem escova endocervical na gestação'),
+  F('Toque vaginal',['Não realizado','Colo fechado','Colo pérvio'])]},
+ {m:'return',t:'Palpação obstétrica',f:[
+  F('Situação fetal',['Longitudinal','Transversa','Oblíqua'],'Leopold: principalmente a partir do 3º trimestre'),
+  F('Apresentação',['Cefálica','Pélvica','Indefinida']),
+  F('Posição',['Dorso à direita','Dorso à esquerda']),
+  F('Líquido amniótico (estimativa clínica)',['Normal','Aumentado','Diminuído']),
+  F('Tônus uterino',['Normal','Hipertonia','Contrações presentes']),
+  F('Sinais de trabalho de parto',['Ausentes','Tampão mucoso','Perda de líquido'])]},
+ {m:'both',t:'Pontos de atenção',f:[
+  F('Sinais de ITU ou pielonefrite',['Ausentes','Dor lombar','Punho-percussão positiva']),
+  F('Sinais de violência',['Ausentes','Lesões suspeitas']),
+  F('Sinais de TVP',['Ausentes','Dor, calor e edema assimétrico em panturrilha'])]}
+];
+
+const EXA=[
+ {k:'t1',t:'1º trimestre ou 1ª consulta',i:[
+  ['Teste rápido de gravidez'],['Hemograma (hemoglobina e hematócrito)'],['Tipagem ABO e Rh; Coombs indireto se Rh negativo'],['Eletroforese de hemoglobina'],
+  ['Glicemia de jejum','Se a 1ª consulta ocorrer após 24 sem: TOTG 75 g'],['Sífilis: teste rápido ou VDRL/RPR'],['HIV: teste rápido ou anti-HIV 1 e 2'],
+  ['Hepatite B: teste rápido ou HBsAg'],['Hepatite C: teste rápido ou anti-HCV'],['Toxoplasmose: IgG e IgM'],['HTLV'],['Urina tipo I e urocultura com antibiograma'],
+  ['Chagas (casos suspeitos) e malária (áreas endêmicas)'],['Ultrassonografia obstétrica','Idealmente entre 7 e 12 semanas']]},
+ {k:'t2',t:'2º trimestre',i:[
+  ['TOTG 75 g','Preferencialmente entre 24 e 28 sem'],['Coombs indireto, se Rh negativo e 1º resultado negativo'],
+  ['Toxoplasmose, se IgG não reagente (suscetível)'],['Malária, em áreas endêmicas']]},
+ {k:'t3',t:'3º trimestre',i:[
+  ['Hemograma'],['Glicemia de jejum'],['Coombs indireto, se Rh negativo e 1º resultado negativo'],['Sífilis: teste rápido ou VDRL/RPR'],['HIV: teste rápido ou anti-HIV'],
+  ['Toxoplasmose, se IgG não reagente'],['Urina tipo I e urocultura com antibiograma'],['Malária, em áreas endêmicas']]},
+ {k:'pp',t:'Parto ou pós-parto imediato',i:[['Testes rápidos de HIV e sífilis'],['Hepatites B e C, se não feitos no pré-natal']]},
+ {k:'ind',t:'Com indicação clínica ou protocolo local',i:[
+  ['Tuberculose'],['TSH'],['Proteinúria (fita)'],['Clamídia e gonorreia'],['Rastreio de colo do útero: citopatológico ou teste molecular de HPV'],
+  ['Parasitológico de fezes'],['Exame de secreção vaginal'],['Rastreio de EGB (swab vaginal e retal, 35–37 sem)','Não consta na caderneta; seguir protocolo local']]},
+ {k:'ar',t:'Complementares no alto risco (critério clínico)',i:[
+  ['Plaquetas'],['Proteinúria de 24 h'],['Ureia, creatinina e ácido úrico'],['Eletrocardiograma'],['USG obstétrica com Doppler'],['Cardiotocografia anteparto']]}
+];
+
+const INTERP=[
+ ['Glicemia de jejum e TOTG',`<ul><li>Jejum &lt; 92 mg/dL: normal; repetir TOTG entre 24 e 28 sem.</li><li>Jejum de 92 a 125: diabetes gestacional.</li><li>Jejum ≥ 126: diabetes prévia ou diagnosticada na gestação; encaminhar ao alto risco.</li><li>TOTG 75 g: jejum ≥ 92, 1 h ≥ 180 ou 2 h ≥ 153 (qualquer um) fecha diabetes gestacional.</li><li>A aba Calculadoras interpreta os valores.</li></ul>`],
+ ['Hemoglobina',`<ul><li>Anemia: Hb &lt; 11 g/dL. Grave: &lt; 7 g/dL ou sintomática, avaliar com urgência.</li><li>Investigar ferropenia, hemoglobinopatias (eletroforese) e adesão ao ferro.</li></ul>`],
+ ['Urina e urocultura',`<ul><li>Bacteriúria assintomática (urocultura ≥ 100.000 UFC/mL) deve ser tratada pelo antibiograma, e a cura confirmada com nova cultura.</li><li>Sintomas urinários com febre ou dor lombar: pensar em pielonefrite e encaminhar.</li></ul>`],
+ ['Sífilis',`<ul><li>Teste rápido reagente: não esperar confirmação para iniciar tratamento com penicilina benzatina, conforme estadiamento.</li><li>Pedir teste não treponêmico (VDRL) para confirmar e acompanhar; tratar a parceria; seguimento mensal.</li><li>Repetir no 3º trimestre e no parto.</li></ul>`],
+ ['HIV, hepatite B e hepatite C',`<ul><li>Seguir o fluxograma de testes rápidos do Ministério da Saúde para confirmar.</li><li>HIV confirmado: iniciar TARV o quanto antes e vincular ao serviço de referência e ao alto risco.</li><li>HBsAg ou anti-HCV reagente: encaminhar para avaliação e planejar profilaxia do recém-nascido.</li></ul>`],
+ ['Toxoplasmose',`<ul><li>IgG reagente e IgM não reagente: imune.</li><li>IgG não reagente: suscetível; orientar prevenção (alimentos bem cozidos, lavar frutas e verduras, evitar contato com fezes de gato) e repetir a cada trimestre.</li><li>IgM reagente: pedir avidez de IgG e discutir com a referência sobre início de tratamento.</li></ul>`],
+ ['Rh negativo',`<ul><li>Coombs indireto no 1º trimestre; se negativo, repetir mais tarde na gestação (caderneta: 2º e 3º trimestre).</li><li>Coombs positivo: alto risco.</li><li>Imunoglobulina anti-D conforme protocolo da maternidade e da rede. <span class="tag">conferir</span></li></ul>`]
+];
+
+const RISCO={
+ urg:{t:'Urgência: encaminhar hoje à maternidade ou urgência',i:[
+  ['PA ≥ 160×110, ou ≥ 140×90 com sintomas (cefaleia, escotomas, epigastralgia)'],['Convulsão ou alteração do nível de consciência'],
+  ['Sangramento vaginal, dor abdominal forte ou persistente'],['Perda de líquido ou contrações regulares antes de 37 sem'],
+  ['Ausência ou diminuição dos movimentos fetais (&gt; 4 h sem se mexer após 20 sem)'],['Febre ≥ 37,8 °C, falta de ar, dor no peito ou desmaio'],['Sinais de pielonefrite ou sepse']]},
+ ar:{t:'Alto risco: encaminhar ao pré-natal de alto risco e manter o vínculo na APS',i:[
+  ['Doença materna prévia relevante: cardiopatia, pneumopatia grave, nefropatia, endocrinopatia (diabetes, tireoide), hemopatia (incl. doença falciforme), hipertensão crônica, epilepsia, doença autoimune, neoplasia, trombofilia'],
+  ['HIV, hepatite B ou C, toxoplasmose aguda, sífilis com complicação ou outra infecção que exija referência'],['Transtorno mental grave ou uso abusivo de álcool e drogas'],
+  ['Cirurgia bariátrica prévia ou malformação uterina'],
+  ['Antecedentes: pré-eclâmpsia/eclâmpsia/HELLP, natimorto ou óbito neonatal, parto prematuro, restrição de crescimento, abortamento habitual, descolamento de placenta'],
+  ['Gestação múltipla'],['Hipertensão gestacional ou pré-eclâmpsia'],['Diabetes gestacional ou diabetes prévia'],
+  ['Placenta prévia, polidrâmnio ou oligoâmnio, restrição de crescimento fetal, malformação fetal'],['Isoimunização Rh, anemia grave ou refratária ao tratamento'],['ITU de repetição ou pielonefrite']]},
+ aten:{t:'Fatores de atenção: seguir na APS, com reavaliação a cada consulta',i:[
+  ['Idade &lt; 15 ou &gt; 35 anos'],['IMC pré-gestacional &lt; 18,5 ou ≥ 30 (individualizar o acompanhamento do ganho de peso)'],['Altura &lt; 1,45 m'],['Tabagismo ou uso de álcool'],
+  ['Gestação não planejada ou não desejada, sofrimento emocional'],['Violência, insegurança alimentar, situação de rua, privação de liberdade, dificuldade de acesso'],
+  ['Baixa escolaridade ou rede de apoio frágil'],['Gestação na adolescência']]}
+};
+
+const VAC=[
+ {t:'dTpa',q:'A partir da 20ª semana, a cada gestação',o:'Repetir mesmo que tenha tomado em gravidez anterior. Se o esquema de tétano estiver incompleto, completar com dT e dar 1 dose de dTpa a partir de 20 sem.',ig:20},
+ {t:'VSR (vírus sincicial respiratório)',q:'Dose única a cada gestação, a partir da 28ª semana',o:'Protege o bebê contra bronquiolite e pneumonia. Se o bebê nascer prematuro, recebe nirsevimabe na maternidade.',ig:28},
+ {t:'Influenza',q:'1 dose por temporada, em qualquer fase da gestação',o:'Se não tomou na gravidez, aplicar até 45 dias após o parto.'},
+ {t:'Hepatite B',q:'3 doses se esquema incompleto, iniciando ou completando na gestação',o:'Se não der tempo, concluir até 45 dias após o parto.'},
+ {t:'Covid-19',q:'1 dose a cada gestação, após 6 meses da última dose',o:'A dose segue idade e vacina disponível.'},
+ {t:'Situações específicas',q:'Febre amarela e raiva (pré-exposição)',o:'Febre amarela: só para quem mora ou viaja a área de risco, com avaliação individual. Raiva: grupos específicos orientados pela equipe.'},
+ {t:'Gestante vivendo com HIV',q:'Avaliar caso a caso',o:'Algumas vacinas seguem recomendações especiais dos CRIE.'},
+ {t:'Ferro e ácido fólico',q:'Conforme programa nacional de suplementação e protocolo local',o:'Referência anterior (CAB 32 / PNSF): ferro elementar 40 mg/dia a partir da 20ª semana até o 3º mês pós-parto; ácido fólico conforme protocolo. A caderneta 2026 só cita a orientação sobre vitaminas e ferro. <span class="tag">conferir</span>'}
+];
+
+const MILE=[
+ {a:0,b:12,w:'Até 12 sem',d:'Captação precoce; primeira consulta, exames do 1º trimestre; USG idealmente entre 7 e 12 sem.'},
+ {a:20,b:20,w:'20 sem',d:'dTpa a partir daqui; movimentos fetais perceptíveis.'},
+ {a:24,b:28,w:'24 a 28 sem',d:'TOTG 75 g (se a glicemia de jejum inicial for &lt; 92 mg/dL).'},
+ {a:28,b:28,w:'28 sem',d:'Início do 3º trimestre: repetir exames; VSR; consultas quinzenais.'},
+ {a:36,b:36,w:'36 sem',d:'Consultas semanais; confirmar maternidade de referência e plano de parto.'},
+ {a:37,b:37,w:'37 sem',d:'Termo: orientar sinais de trabalho de parto.'},
+ {a:40,b:40,w:'40 sem',d:'Data provável do parto.'}
+];
+
+const PLANO=['Exames do trimestre solicitados','Ferro e ácido fólico orientados ou prescritos','Vacinas orientadas ou atualizadas','Orientados sinais de alerta e quando procurar a maternidade','Orientada maternidade de referência e plano de parto','Orientações sobre alimentação e atividade física','Orientações sobre amamentação','Encaminhada à consulta odontológica','Encaminhada ao pré-natal de alto risco','Encaminhada à eMulti (psicologia, nutrição, serviço social)','Convidada a parceria para consulta e testagem rápida','Convidada para o grupo de gestantes'];
+
+/* ---------- referência da gestação ---------- */
+function readHeader(){
+  S.dum=parseD($('#dum').value); S.cons=parseD($('#cons').value);
+  S.days=(S.dum&&S.cons)?diffDays(S.cons,S.dum):null;
+}
+const igWeeks=()=>(S.days!=null&&S.days>=0)?S.days/7:null;
+const igDate=w=>S.dum?addDays(S.dum,Math.round(w*7)):null;
+const stepDays=()=>S.days<196?28:S.days<252?14:7;
+function updateHeader(){
+  readHeader();
+  const ok=S.days!=null&&S.days>=0;
+  $('#sIG').textContent=ok?fmtIG(S.days):'—';
+  $('#chipIG').textContent='IG '+(ok?fmtIG(S.days):'—');
+  $('#sTri').textContent=ok?triOf(S.days)+'º':'—';
+  $('#sDPP').textContent=S.dum?fmtD(addDays(S.dum,280)):'—';
+  const pin=$('#pin');
+  if(ok){
+    const pct=Math.min(100,Math.max(0,S.days/280*100));
+    pin.style.display='block'; pin.style.left=pct+'%'; $('#pinL').textContent=fmtIG(S.days);
+    const step=stepDays();
+    $('#sNext').textContent=fmtD(addDays(S.cons,step));
+    $('#sNextL').textContent='Próxima consulta (em '+(step===28?'até 4 sem':step===14?'até 2 sem':'até 1 sem')+')';
+    if(!retornoEdited)$('#retorno').value=iso(addDays(S.cons,step));
+  }else{pin.style.display='none';$('#sNext').textContent='—';$('#sNextL').textContent='Próxima consulta (mínimo)'}
+  const w=$('#warnline');
+  if(S.days!=null&&S.days<0){w.textContent='A data da consulta é anterior à DUM. Confira as datas.';w.style.display='block'}
+  else if(S.days!=null&&S.days>294){w.textContent='IG acima de 42 semanas. Confira as datas.';w.style.display='block'}
+  else w.style.display='none';
+  renderSched(); renderMile(); highlightExams(); fillIgDates(); updateAll();
+}
+function renderSched(){
+  const tb=$('#tSched tbody'); const targets=[12,16,20,24,28,32,36];
+  tb.innerHTML=targets.map((w,i)=>{
+    let cls=''; if(S.days!=null&&S.days>=0){const d=S.days/7; if(d>w+2)cls='past'; else if(d>=w-2&&d<=w+2)cls='now'}
+    return `<tr class="${cls}"><td>${i+1}ª</td><td>${w===12?'até ':'~ '}${w} sem</td><td>${S.dum?fmtD(igDate(w)):'—'}</td></tr>`;
+  }).join('')+`<tr><td>Depois</td><td>≥ 36 sem</td><td>Semanais até o parto</td></tr>`;
+}
+function renderMile(){
+  const tb=$('#tMile tbody'); const wk=igWeeks();
+  const rows=MILE.map(m=>{
+    let cls=''; if(wk!=null){ if(wk>m.b+1)cls='past'; else if(wk>=m.a&&wk<m.b+1)cls='now'; }
+    const dt=S.dum?(m.a===m.b?fmtD(igDate(m.a)):fmtD(igDate(m.a))+' a '+fmtD(addDays(igDate(m.b),6))):'—';
+    return `<tr class="${cls}"><td>${m.w}</td><td>${m.d}</td><td>${dt}</td></tr>`;
+  });
+  const lim=S.dum?addDays(S.dum,220):null;
+  rows.push(`<tr><td>Laqueadura</td><td>Se a gestante desejar: manifestação de vontade por escrito, assinada e datada com pelo menos 60 dias de antecedência do parto.</td><td>${lim?'até '+fmtD(lim):'—'}</td></tr>`);
+  tb.innerHTML=rows.join('');
+}
+function fillIgDates(){$$('[data-igdate]').forEach(el=>{const w=+el.dataset.igdate;el.textContent=S.dum?'a partir de '+fmtD(igDate(w)):''})}
+
+/* ---------- campos com botões e texto livre ---------- */
+function fieldHTML(id,f){
+  const st=ST[id]||{sel:[],txt:''};
+  const chips=f.o.map(o=>`<button type="button" class="opt" aria-pressed="${st.sel.includes(o)}" data-f="${id}" data-o="${esc(o)}">${o}</button>`).join('');
+  return `<div class="fld"><div class="fl">${f.l}${f.h?`<small>${f.h}</small>`:''}</div>${chips?`<div class="opts">${chips}</div>`:''}<input type="text" class="ftxt" data-f="${id}" value="${esc(st.txt)}" placeholder="${f.o.length?'Escrever (opcional)':'Escrever'}" aria-label="${esc(f.l)}: texto livre"></div>`;
+}
+function renderSet(gridId,data,prefix){
+  $(gridId).innerHTML=data.map((s,si)=>({s,si})).filter(x=>x.s.m==='both'||x.s.m===MODE)
+    .map(x=>`<div class="card"><h3>${x.s.t}</h3>${x.s.f.map((f,fi)=>fieldHTML(prefix+x.si+'_'+fi,f)).join('')}</div>`).join('');
+}
+function renderModes(){
+  $$('[data-mode-seg]').forEach(seg=>{
+    seg.innerHTML=`<button aria-pressed="${MODE==='first'}" data-m="first">1ª consulta</button><button aria-pressed="${MODE==='return'}" data-m="return">Retorno</button>`;
+  });
+  renderSet('#anamGrid',ANAM,'a'); renderSet('#fisGrid',FIS,'x');
+}
+function clearPanel(id){
+  if(id==='p-anam'){Object.keys(ST).filter(k=>k[0]==='a').forEach(k=>delete ST[k]);$('#anQP').value='';renderModes()}
+  else if(id==='p-fis'){Object.keys(ST).filter(k=>k[0]==='x').forEach(k=>delete ST[k]);['fBCF','fTemp','fPAS','fPAD','fPeso','fAlt','fPeso0','fAU','pas','pad','pesoAtual','auMed','altura','pesoPre'].forEach(i=>{$('#'+i).value=''});renderModes();updateAll()}
+  else if(id==='p-exa'){$$('#exaGrid input[type=checkbox]').forEach(c=>c.checked=false);$$('#exaGrid .er').forEach(i=>{i.value='';i.hidden=true})}
+  else if(id==='p-risco'){$$('#riscoGrid input[type=checkbox]').forEach(c=>c.checked=false);evalRisco()}
+}
+
+/* ---------- exames ---------- */
+function renderExams(){
+  $('#exaGrid').innerHTML=EXA.map(s=>`<div class="card" data-exa="${s.k}"><h3>${s.t}</h3><ul class="chk">${s.i.map(it=>
+    `<li><label><input type="checkbox"><span><span class="en">${it[0]}</span>${it[1]?`<small>${it[1]}</small>`:''}</span></label><input type="text" class="er" hidden placeholder="Resultado (vazio = solicitado)" aria-label="Resultado de ${esc(it[0])}"></li>`).join('')}</ul></div>`).join('');
+  $('#interp').innerHTML=INTERP.map(x=>`<details><summary>${x[0]}</summary><div class="body">${x[1]}</div></details>`).join('');
+}
+function highlightExams(){
+  $$('#exaGrid .card').forEach(c=>c.classList.remove('now'));
+  if(S.days==null||S.days<0)return;
+  const c=$(`#exaGrid [data-exa="t${triOf(S.days)}"]`); if(c)c.classList.add('now');
+}
+
+/* ---------- risco e vacinas ---------- */
+function liHTML(it){return `<li><label><input type="checkbox"><span><span>${it[0]}</span></span></label></li>`}
+function renderRisco(){
+  $('#riscoGrid').innerHTML=['urg','ar','aten'].map(k=>`<div class="card" data-r="${k}"><h3>${RISCO[k].t}</h3><ul class="chk">${RISCO[k].i.map(liHTML).join('')}</ul></div>`).join('');
+  $('#riscoGrid').addEventListener('change',evalRisco); evalRisco();
+}
+function riskInfo(){
+  const items=k=>$$(`#riscoGrid [data-r="${k}"] input:checked`).map(i=>i.closest('label').querySelector('span > span').textContent);
+  const u=items('urg'),a=items('ar'),t=items('aten');
+  let lvl='hab',label='Risco habitual';
+  if(u.length){lvl='urg';label='Urgência: encaminhar à maternidade ou urgência'}
+  else if(a.length){lvl='ar';label='Sugestão de alto risco: encaminhar ao pré-natal de alto risco'}
+  else if(t.length){lvl='aten';label='Risco habitual com fatores de atenção'}
+  return {lvl,label,u,a,t};
+}
+function evalRisco(){
+  const r=riskInfo(),o=$('#riscoOut');
+  if(r.lvl==='urg'){o.className='res danger';o.innerHTML='<b>Urgência</b>'+r.u.length+' sinal(is) de urgência marcado(s): encaminhar hoje à maternidade ou serviço de urgência (Samu 192 se instável).'}
+  else if(r.lvl==='ar'){o.className='res warn';o.innerHTML='<b>Sugestão: alto risco</b>'+r.a.length+' fator(es) de alto risco marcado(s): encaminhar ao pré-natal de alto risco, manter acompanhamento na APS e registrar o risco na caderneta.'}
+  else if(r.lvl==='aten'){o.className='res ok';o.innerHTML='<b>Risco habitual com fatores de atenção</b>'+r.t.length+' fator(es) marcado(s): seguir na APS, reavaliar a cada consulta e acionar apoio da eMulti quando fizer sentido.'}
+  else{o.className='res';o.innerHTML='<b>Risco habitual</b>Nenhum fator marcado.'}
+}
+function renderVac(){
+  $('#vacGrid').innerHTML=VAC.map(v=>`<div class="card"><h3>${v.t}</h3><p><b>${v.q}</b></p><p class="muted" style="margin:0">${v.o}</p>${v.ig?`<p style="margin:8px 0 0"><b data-igdate="${v.ig}"></b></p>`:''}</div>`).join('');
+}
+
+/* ---------- calculadoras (cada uma guarda um resumo em texto para o SOAP) ---------- */
+const setRes=(id,cls,html)=>{const e=$('#'+id);e.className='res'+(cls?' '+cls:'');e.innerHTML=html};
+function calcUSG(){
+  const d=parseD($('#usgData').value), s=num('usgSem'), dd=num('usgDia')||0;
+  const btn=$('#usgApply'); btn.disabled=true; delete CALC.usg;
+  if(!d||s==null){setRes('usgOut','','Preencha a data e a IG da USG.');return}
+  const igUsgDays=s*7+dd; const eqDum=addDays(d,-igUsgDays);
+  const today=S.cons||new Date(); const igHoje=diffDays(today,eqDum);
+  let h=`<b>IG em ${fmtD(today)}: ${fmtIG(igHoje)}</b>DPP pela USG: ${fmtD(addDays(eqDum,280))}<br>DUM equivalente: ${fmtD(eqDum)}`;
+  let cls='';
+  CALC.usg=`USG de ${fmtD(d)} com ${s}s+${dd}d: IG ${fmtIG(igHoje)} na data da consulta, DPP ${fmtD(addDays(eqDum,280))}`;
+  if(S.dum){
+    const diff=Math.abs(diffDays(eqDum,S.dum));
+    const lim=igUsgDays<63?5:igUsgDays<112?7:igUsgDays<154?10:igUsgDays<196?14:21;
+    if(diff>lim){cls='warn';h+=`<br><br><b>Diferença de ${diff} dias em relação à DUM</b>Pelo critério do ACOG, acima de ${lim} dias nessa faixa de IG justifica adotar a data da USG. Confirme com o protocolo local.`}
+    else{h+=`<br><br>Diferença de ${diff} dia(s) em relação à DUM: dentro do limite (${lim} dias). Manter a DUM, se confiável.`}
+  }
+  setRes('usgOut',cls,h); btn.disabled=false; btn.dataset.eq=iso(eqDum);
+}
+function calcPeso(){
+  const h=num('altura'),p0=num('pesoPre'),p=num('pesoAtual'); delete CALC.peso;
+  if(!h||!p0){setRes('pesoOut','','Informe altura e peso pré-gestacional.');return}
+  const imc=p0/Math.pow(h/100,2);
+  const cl=imc<18.5?{n:'Baixo peso',tot:[12.5,18],r:[0.44,0.58],m:0.51}:imc<25?{n:'Peso adequado',tot:[11.5,16],r:[0.35,0.50],m:0.42}:imc<30?{n:'Sobrepeso',tot:[7,11.5],r:[0.23,0.33],m:0.28}:{n:'Obesidade',tot:[5,9],r:[0.17,0.27],m:0.22};
+  let html=`<b>IMC pré-gestacional ${br(imc.toFixed(1))}: ${cl.n}</b>Ganho total orientativo: ${br(cl.tot[0])} a ${br(cl.tot[1])} kg. Depois do 1º trimestre: cerca de ${br(cl.m)} kg/semana.`;
+  let cls=''; let sum=`IMC pré-gestacional ${br(imc.toFixed(1))} (${cl.n.toLowerCase()})`;
+  const wk=igWeeks();
+  if(p!=null){
+    const g=p-p0; html+=`<br>Ganho atual: <b style="display:inline">${br(g.toFixed(1))} kg</b>`; sum+=`; ganho de peso ${br(g.toFixed(1))} kg`;
+    if(wk!=null){
+      let lo,hi; if(wk<=13){lo=0.5;hi=2}else{lo=0.5+(wk-13)*cl.r[0];hi=2+(wk-13)*cl.r[1]}
+      html+=` (faixa orientativa na IG atual: ${br(lo.toFixed(1))} a ${br(hi.toFixed(1))} kg)`; sum+=` (faixa orientativa ${br(lo.toFixed(1))} a ${br(hi.toFixed(1))} kg)`;
+      if(g<lo-0.001){cls='warn';html+='<br>Abaixo da faixa: investigar alimentação, náuseas e vômitos, e reforçar orientações.';sum+=', abaixo da faixa'}
+      else if(g>hi+0.001){cls='warn';html+='<br>Acima da faixa: rever alimentação, atividade física, edema e rastreio de diabetes e hipertensão.';sum+=', acima da faixa'}
+      else{cls='ok';sum+=', dentro da faixa'}
+    }
+  }
+  CALC.peso=sum; setRes('pesoOut',cls,html);
+}
+function calcAU(){
+  const au=num('auMed'); const wk=igWeeks(); delete CALC.au;
+  if(au==null){setRes('auOut','','Informe a AU. A IG vem do cabeçalho.');return}
+  if(wk==null){setRes('auOut','warn','Preencha a DUM no cabeçalho para comparar com a IG.');return}
+  if(wk<20||wk>34.99){setRes('auOut','',`IG ${fmtIG(S.days)}: fora da janela de 20 a 34 semanas. Plote ${au} cm na curva de AU do cartão.`);CALC.au=`AU ${br(au)} cm (IG fora da janela de 20 a 34 sem; plotar na curva do cartão)`;return}
+  const ref=Math.floor(wk), d=au-ref;
+  if(Math.abs(d)<=2){setRes('auOut','ok',`<b>Compatível com a IG</b>AU ${br(au)} cm para ${ref} semanas (esperado ${ref-2} a ${ref+2} cm).`);CALC.au=`AU ${br(au)} cm para ${ref} semanas: compatível com a IG`}
+  else if(d<0){setRes('auOut','warn',`<b>Abaixo do esperado</b>AU ${br(au)} cm para ${ref} semanas. Considerar DUM incerta, restrição de crescimento ou oligoâmnio: solicitar USG.`);CALC.au=`AU ${br(au)} cm para ${ref} semanas: abaixo do esperado`}
+  else{setRes('auOut','warn',`<b>Acima do esperado</b>AU ${br(au)} cm para ${ref} semanas. Considerar DUM incerta, polidrâmnio, macrossomia, gemelaridade ou mioma: solicitar USG.`);CALC.au=`AU ${br(au)} cm para ${ref} semanas: acima do esperado`}
+}
+function calcPA(){
+  const s=num('pas'),d=num('pad'); delete CALC.pa;
+  if(s==null||d==null){setRes('paOut','','Informe PAS e PAD.');return}
+  const wk=igWeeks();
+  if(s>=160||d>=110){setRes('paOut','danger',`<b>${s}×${d}: urgência</b>PA ≥ 160×110. Encaminhar à maternidade (pré-eclâmpsia grave até prova em contrário).`);CALC.pa=`PA ${s}×${d} mmHg: ≥ 160×110 (urgência)`}
+  else if(s>=140||d>=90){
+    const ctx=wk==null?'Confirme a IG no cabeçalho.':wk>=20?'Após 20 semanas: sugere hipertensão gestacional ou pré-eclâmpsia. Pesquisar sintomas e proteinúria de fita; encaminhar conforme protocolo.':'Antes de 20 semanas: sugere hipertensão crônica. Encaminhar ao alto risco.';
+    setRes('paOut','warn',`<b>${s}×${d}: elevada</b>Repetir após repouso para confirmar (duas medidas ≥ 140×90). ${ctx}`);CALC.pa=`PA ${s}×${d} mmHg: elevada (≥ 140×90)`;
+  }else{setRes('paOut','ok',`<b>${s}×${d}: normal</b>Abaixo de 140×90. Manter aferição em todas as consultas.`);CALC.pa=`PA ${s}×${d} mmHg: normal`}
+}
+function calcGli(){
+  const j=num('gJej'),a=num('g1h'),b=num('g2h'); delete CALC.gli;
+  if(j==null&&a==null&&b==null){setRes('gliOut','','Informe a glicemia de jejum. Para o TOTG, preencha também 1 h e 2 h.');return}
+  const vals=[j!=null?'jejum '+j:null,a!=null?'1 h '+a:null,b!=null?'2 h '+b:null].filter(Boolean).join(', ');
+  const tot=a!=null||b!=null;
+  if(j!=null&&j>=126){setRes('gliOut','danger',`<b>Jejum ${j}: diabetes diagnosticado na gestação (ou prévio)</b>Encaminhar ao pré-natal de alto risco.`);CALC.gli=`Glicemia (${vals} mg/dL): compatível com diabetes (jejum ≥ 126)`;return}
+  const crit=[]; if(j!=null&&j>=92)crit.push('jejum ≥ 92'); if(a!=null&&a>=180)crit.push('1 h ≥ 180'); if(b!=null&&b>=153)crit.push('2 h ≥ 153');
+  if(crit.length){setRes('gliOut','warn',`<b>Diabetes gestacional</b>Critério atingido: ${crit.join(', ')}. Orientar alimentação, atividade física e monitorização; encaminhar ao alto risco.`);CALC.gli=`Glicemia (${vals} mg/dL): diabetes gestacional (${crit.join(', ')})`}
+  else if(tot&&j!=null&&a!=null&&b!=null){setRes('gliOut','ok',`<b>TOTG sem critérios para diabetes gestacional</b>Valores abaixo de 92, 180 e 153.`);CALC.gli=`TOTG 75 g (${vals} mg/dL): sem critérios para diabetes gestacional`}
+  else if(j!=null){setRes('gliOut','ok',`<b>Jejum ${j}: abaixo de 92</b>Sem diabetes no jejum. Fazer TOTG 75 g entre 24 e 28 semanas.`);CALC.gli=`Glicemia de jejum ${j} mg/dL: < 92`}
+  else setRes('gliOut','','Complete os valores do TOTG (jejum, 1 h e 2 h).');
+}
+function calcHb(){
+  const v=num('hb'); delete CALC.hb;
+  if(v==null){setRes('hbOut','','Informe a hemoglobina.');return}
+  if(v<7){setRes('hbOut','danger',`<b>${br(v)} g/dL: anemia grave</b>Avaliação urgente e encaminhamento.`);CALC.hb=`Hb ${br(v)} g/dL: anemia grave`}
+  else if(v<11){setRes('hbOut','warn',`<b>${br(v)} g/dL: anemia</b>Tratar e investigar a causa (ferropenia, hemoglobinopatia); repetir hemograma para avaliar a resposta.`);CALC.hb=`Hb ${br(v)} g/dL: anemia`}
+  else{setRes('hbOut','ok',`<b>${br(v)} g/dL: sem anemia</b>`);CALC.hb=`Hb ${br(v)} g/dL: sem anemia`}
+}
+function calcPHQ(){
+  const t=(+$('#phq1').value)+(+$('#phq2').value); delete CALC.phq;
+  if(t>=3){setRes('phqOut','warn',`<b>PHQ-2 = ${t}: rastreio positivo</b>Aplicar PHQ-9 ou EPDS, avaliar risco de suicídio e acionar a eMulti ou a rede de saúde mental. Não suspender medicações por conta própria.`)}
+  else setRes('phqOut','ok',`<b>PHQ-2 = ${t}: rastreio negativo</b>Repetir ao longo do pré-natal e no puerpério.`);
+  if(phqTouched)CALC.phq=`PHQ-2 = ${t}: rastreio ${t>=3?'positivo':'negativo'}`;
+}
+function updateAll(){calcUSG();calcPeso();calcAU();calcPA();calcGli();calcHb();calcPHQ()}
+
+/* ---------- SOAP ---------- */
+function fieldLines(data,prefix){
+  const out=[];
+  data.forEach((s,si)=>{
+    if(!(s.m==='both'||s.m===MODE))return;
+    const lines=[];
+    s.f.forEach((f,fi)=>{
+      const st=ST[prefix+si+'_'+fi]; if(!st)return;
+      const parts=[]; if(st.sel.length)parts.push(st.sel.join(', ')); if(st.txt.trim())parts.push(st.txt.trim());
+      if(parts.length)lines.push('- '+f.l+': '+parts.join('; ').replace(/[.\s]+$/,'')+'.');
+    });
+    if(lines.length)out.push({t:s.t,lines});
+  });
+  return out;
+}
+function autoA(){
+  const ok=S.days!=null&&S.days>=0, r=riskInfo(); const L=[];
+  L.push(`Gestante em ${MODE==='first'?'1ª consulta':'consulta de retorno'} de pré-natal${ok?`, IG ${fmtIG(S.days)} (${triOf(S.days)}º trimestre)`:''}${S.dum?`, DPP ${fmtD(addDays(S.dum,280))}`:''}.`);
+  L.push(`Estratificação de risco (aba Risco e alertas): ${r.label}.`);
+  [['Urgência',r.u],['Fatores de alto risco',r.a],['Fatores de atenção',r.t]].forEach(([n,a])=>{if(a.length)L.push(`${n}: ${a.join('; ')}.`)});
+  return L;
+}
+function refreshAuto(){$('#soapAuto').innerHTML=autoA().map(x=>`<div>${esc(x)}</div>`).join('')}
+function buildSOAP(){
+  updateAll(); const L=[]; const g=id=>($('#'+id).value||'').trim();
+  const ok=S.days!=null&&S.days>=0;
+  L.push(`CONSULTA DE PRÉ-NATAL — ${fmtD(S.cons||new Date())} (${MODE==='first'?'1ª consulta':'retorno'})`);
+  L.push(`IG ${ok?fmtIG(S.days):'não calculada'}${S.dum?' (referência '+fmtD(S.dum)+')':''}${S.dum?' | DPP '+fmtD(addDays(S.dum,280)):''}`);
+  /* S */
+  L.push('','S — SUBJETIVO');
+  if(g('anQP'))L.push('Queixa principal e HDA: '+g('anQP'));
+  fieldLines(ANAM,'a').forEach(s=>{L.push(s.t+':');s.lines.forEach(x=>L.push(x))});
+  /* O */
+  L.push('','O — OBJETIVO');
+  const med=[]; const pas=num('pas'),pad=num('pad');
+  if(pas!=null&&pad!=null)med.push(`PA ${pas}×${pad} mmHg`);
+  if(num('pesoAtual')!=null)med.push(`peso ${br(num('pesoAtual'))} kg`);
+  if(num('altura')!=null)med.push(`altura ${br(num('altura'))} cm`);
+  if(num('pesoPre')!=null)med.push(`peso pré-gestacional ${br(num('pesoPre'))} kg`);
+  if(num('auMed')!=null)med.push(`AU ${br(num('auMed'))} cm`);
+  if(num('fBCF')!=null)med.push(`BCF ${num('fBCF')} bpm`);
+  if(num('fTemp')!=null)med.push(`temperatura ${br(num('fTemp'))} °C`);
+  if(med.length)L.push('Medidas e sinais vitais: '+med.join('; ')+'.');
+  fieldLines(FIS,'x').forEach(s=>{L.push(s.t+':');s.lines.forEach(x=>L.push(x))});
+  const ex=$$('#exaGrid li').filter(li=>li.querySelector('input[type=checkbox]').checked).map(li=>{
+    const n=li.querySelector('.en').textContent, r=li.querySelector('.er').value.trim();
+    return `- ${n}: ${r||'solicitado'}.`});
+  if(ex.length){L.push('Exames:');ex.forEach(x=>L.push(x))}
+  const cs=['usg','peso','au','pa','gli','hb','phq'].map(k=>CALC[k]).filter(Boolean);
+  if(cs.length){L.push('Cálculos e escores:');cs.forEach(x=>L.push('- '+x+'.'))}
+  /* A */
+  L.push('','A — AVALIAÇÃO'); autoA().forEach(x=>L.push(x)); if(g('soapA'))L.push(g('soapA'));
+  /* P */
+  L.push('','P — PLANO');
+  $$('#planOpts [aria-pressed="true"]').forEach(b=>L.push('- '+b.textContent+'.'));
+  if(g('soapP'))L.push(g('soapP'));
+  const ret=parseD($('#retorno').value);
+  if(ret)L.push(`Retorno: ${fmtD(ret)}${ok&&!retornoEdited?` (${stepDays()===28?'consulta mensal':stepDays()===14?'consulta quinzenal':'consulta semanal'})`:''}.`);
+  return L.join('\n');
+}
+function genSOAP(){const t=buildSOAP(),o=$('#soapOut');o.value=t;o.rows=Math.min(40,Math.max(10,t.split('\n').length+1));$('#soapMsg').textContent=''}
+
+/* ---------- navegação e eventos ---------- */
+const TABS=[['p-cal','Calendário'],['p-anam','Anamnese'],['p-fis','Exame físico'],['p-exa','Exames'],['p-calc','Calculadoras'],['p-risco','Risco e alertas'],['p-vac','Vacinas'],['p-soap','SOAP']];
+function showTab(id){
+  $$('.panel').forEach(p=>p.classList.toggle('on',p.id===id));
+  $$('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.p===id));
+  const a=$(`.tab[data-p="${id}"]`); if(a&&a.scrollIntoView)a.scrollIntoView({block:'nearest',inline:'center'});
+  if(id==='p-soap')refreshAuto();
+  {const nv=$('#pnNav');if(nv&&nv.scrollIntoView)nv.scrollIntoView({block:'start'});}
+}
+function mirror(a,b){
+  const A=$('#'+a),B=$('#'+b);
+  const f=(x,y)=>x.addEventListener('input',()=>{if(y.value!==x.value){y.value=x.value;y.dispatchEvent(new Event('input'))}});
+  f(A,B);f(B,A);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  $('#tabs').innerHTML=TABS.map((t,i)=>`<button class="tab" role="tab" data-p="${t[0]}" aria-selected="${i===0}">${t[1]}</button>`).join('');
+  $('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)showTab(b.dataset.p)});
+  /* rodapé de navegação em cada aba de coleta */
+  TABS.forEach((t,i)=>{
+    if(['p-anam','p-fis','p-exa','p-calc','p-risco'].includes(t[0])){
+      const nx=TABS[i+1]; const d=document.createElement('div'); d.className='row'; d.style.marginTop='14px';
+      d.innerHTML=`<button class="btn" data-goto="${nx[0]}">Próxima: ${nx[1]}</button><button class="btn solid" data-goto="p-soap">Ir para o SOAP</button>`;
+      $('#'+t[0]).appendChild(d);
+    }
+  });
+  document.addEventListener('click',e=>{
+    const m=e.target.closest('[data-m]'); if(m){MODE=m.dataset.m;renderModes();return}
+    const c=e.target.closest('[data-clear]'); if(c){clearPanel(c.dataset.clear);return}
+    const go=e.target.closest('[data-goto]'); if(go){showTab(go.dataset.goto);return}
+    const pl=e.target.closest('[data-plan]'); if(pl){pl.setAttribute('aria-pressed',pl.getAttribute('aria-pressed')!=='true');return}
+    const b=e.target.closest('.opt[data-f]'); if(b){
+      const id=b.dataset.f,o=b.dataset.o; const st=ST[id]||(ST[id]={sel:[],txt:''}); const i=st.sel.indexOf(o);
+      if(i<0)st.sel.push(o);else st.sel.splice(i,1); b.setAttribute('aria-pressed',i<0);
+    }
+  });
+  document.addEventListener('input',e=>{const t=e.target.closest('.ftxt'); if(t){(ST[t.dataset.f]||(ST[t.dataset.f]={sel:[],txt:''})).txt=t.value}});
+  renderModes(); renderExams(); renderRisco(); renderVac();
+  $('#exaGrid').addEventListener('change',e=>{const c=e.target.closest('input[type=checkbox]');if(c){const r=c.closest('li').querySelector('.er');r.hidden=!c.checked;if(c.checked)r.focus()}});
+  $('#planOpts').innerHTML=PLANO.map(p=>`<button type="button" class="opt" data-plan aria-pressed="false">${p}</button>`).join('');
+  $('#cons').value=iso(new Date());
+  ['dum','cons'].forEach(id=>$('#'+id).addEventListener('input',updateHeader));
+  ['usgData','usgSem','usgDia'].forEach(id=>$('#'+id).addEventListener('input',calcUSG));
+  ['altura','pesoPre','pesoAtual'].forEach(id=>$('#'+id).addEventListener('input',calcPeso));
+  $('#auMed').addEventListener('input',calcAU);
+  ['pas','pad'].forEach(id=>$('#'+id).addEventListener('input',calcPA));
+  ['gJej','g1h','g2h'].forEach(id=>$('#'+id).addEventListener('input',calcGli));
+  $('#hb').addEventListener('input',calcHb);
+  ['phq1','phq2'].forEach(id=>$('#'+id).addEventListener('change',()=>{phqTouched=true;calcPHQ()}));
+  [['fPAS','pas'],['fPAD','pad'],['fPeso','pesoAtual'],['fAlt','altura'],['fPeso0','pesoPre'],['fAU','auMed']].forEach(p=>mirror(p[0],p[1]));
+  $('#retorno').addEventListener('input',()=>{retornoEdited=true});
+  $('#usgApply').addEventListener('click',e=>{const v=e.currentTarget.dataset.eq;if(v){$('#dum').value=v;updateHeader();showTab('p-cal')}});
+  $('#soapGen').addEventListener('click',genSOAP);
+  $('#soapCopy').addEventListener('click',async()=>{
+    if(!$('#soapOut').value)genSOAP();
+    const txt=$('#soapOut').value;
+    try{await navigator.clipboard.writeText(txt);$('#soapMsg').textContent='Copiado.'}
+    catch(err){$('#soapOut').select();try{document.execCommand('copy');$('#soapMsg').textContent='Copiado.'}catch(e2){$('#soapMsg').textContent='Selecione o texto e copie manualmente.'}}
+  });
+  const gl=document.getElementById('goPnCalc');
+  if(gl)gl.addEventListener('click',ev=>{ev.preventDefault();const t=document.querySelector('.area-tab[data-area="prenatal"]');if(t)t.click();showTab('p-calc')});
+  updateHeader();
+});
+
+
+})();
+</script>
+<script>
+/* ===== Módulos: Puericultura, DCNT, Pessoa idosa, Puerpério ===== */
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[].slice.call(r.querySelectorAll(s));
+const CFGS=[];
+const MS=86400000;
+const pD=v=>{if(!v)return null;const a=v.split('-').map(Number);return new Date(a[0],a[1]-1,a[2])};
+const addD=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const addM=(d,n)=>{const x=new Date(d);const day=x.getDate();x.setDate(1);x.setMonth(x.getMonth()+n);const last=new Date(x.getFullYear(),x.getMonth()+1,0).getDate();x.setDate(Math.min(day,last));return x};
+const dd=(a,b)=>Math.round((a-b)/MS);
+const fD=d=>d?d.toLocaleDateString('pt-BR'):'—';
+const fmtD=fD;
+const iso=d=>{const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())};
+const br=n=>String(n).replace('.',',');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const ageYMD=(a,b)=>{let y=b.getFullYear()-a.getFullYear(),m=b.getMonth()-a.getMonth(),d=b.getDate()-a.getDate();if(d<0){m--;d+=new Date(b.getFullYear(),b.getMonth(),0).getDate()}if(m<0){y--;m+=12}return{y:y,m:m,d:d,tm:y*12+m}};
+const F=(l,o,h)=>({l:l,o:o||[],h:h||''});
+const I=(v,l,o)=>Object.assign({v:v,l:l},o||{});
+const R=(cls,html,sum)=>({cls:cls,html:html,sum:sum});
+const SN=['Sim','Não'];
+const CHECK='<span class="tag">conferir</span>';
+
+/* ---------- PUERPÉRIO ---------- */
+{
+const fase=d=>d<=10?'Imediato (até 10 dias)':d<=42?'Tardio (11 a 42 dias)':'Remoto (após 42 dias)';
+
+CFGS.push({
+ key:'puerperio', title:'Puerpério', soapTitle:'CONSULTA DE PUERPÉRIO',
+ intro:'Roteiro de consulta da mulher no pós-parto, com base na Caderneta Brasileira da Gestante 2026 (que prevê pelo menos duas consultas puerperais) e no Manual de Pré-natal e Puerpério do Ministério da Saúde. Informe a data do parto.',
+ foot:'Base: Caderneta Brasileira da Gestante 2026 (SAPS/MS) para a rotina de consultas e vacinas; Ministério da Saúde – Pré-natal e Puerpério: atenção qualificada e humanizada (manual técnico). Itens com “conferir” vêm da prática usual ou de protocolos estaduais e devem ser confirmados no protocolo local. Ferramenta de apoio: não substitui protocolos locais nem supervisão.',
+ modes:[['first','1ª consulta puerperal'],['ret','2ª consulta ou retorno']],
+ head:{
+  fields:[I('dp','Data do parto',{type:'date'}),I('tp','Tipo de parto',{type:'select',opts:['Vaginal','Cesárea','Fórceps ou vácuo']}),I('igp','IG no parto (semanas)',{min:20,max:44}),I('cons','Data da consulta',{type:'date'})],
+  stats:c=>{const dp=c.dt('dp'),co=c.cons;if(!dp||!co||co<dp)return [{v:'—',l:'Dias de pós-parto'},{v:'—',l:'Fase do puerpério'},{v:'—',l:'2ª consulta até (42 dias)'},{v:'—',l:'Vacinas pendentes até (45 dias)'}];
+   const d=dd(co,dp);return [{v:d+' dias',l:'Dias de pós-parto'},{v:fase(d),l:'Fase do puerpério'},{v:fmtD(addD(dp,42)),l:'2ª consulta até (42 dias)'},{v:fmtD(addD(dp,45)),l:'Vacinas pendentes até (45 dias)'}]},
+  chip:c=>{const dp=c.dt('dp'),co=c.cons;if(!dp||!co||co<dp)return 'PP —';return 'PP '+dd(co,dp)+' d'},
+  warn:c=>{const dp=c.dt('dp'),co=c.cons;if(dp&&co&&co<dp)return 'A consulta é anterior ao parto. Confira as datas.';return ''},
+  line:c=>{const dp=c.dt('dp'),co=c.cons,L=[];if(dp&&co&&co>=dp){let s='Pós-parto de '+dd(co,dp)+' dias ('+fase(dd(co,dp)).toLowerCase()+')';if(c.str('tp'))s+=' | parto '+c.str('tp').toLowerCase();if(c.num('igp'))s+=' com '+c.num('igp')+' semanas';L.push(s)}return L}
+ },
+ tabs:[
+  {id:'cal',t:'Calendário',type:'html',render:c=>{
+   const dp=c.dt('dp'),co=c.cons;const d=dp&&co&&co>=dp?dd(co,dp):null;
+   const row=(n,a,b,foco)=>{let cls='';if(d!=null){if(d>=a&&d<=b)cls='now';else if(d>b)cls='past'}return '<tr class="'+cls+'"><td>'+n+'</td><td>'+(dp?fD(addD(dp,a))+' a '+fD(addD(dp,b)):'—')+'</td><td>'+foco+'</td></tr>'};
+   let h='<div class="grid"><div class="card"><h3>Rotina de atenção ao puerpério</h3><ul class="chk">'+
+    '<li><label style="cursor:default"><span>Pelo menos <b>2 consultas</b> após o parto: a <b>1ª na primeira semana</b> (idealmente com a consulta do recém-nascido) e a <b>2ª em cerca de 30 a 42 dias</b>. Alta segura: a maternidade encaminha a mulher e o bebê à equipe da APS.</span></label></li>'+
+    '<li><label style="cursor:default"><span>A <b>visita domiciliar na primeira semana</b> faz parte da Primeira Semana de Saúde Integral.</span></label></li>'+
+    '<li><label style="cursor:default"><span>O puerpério clínico vai até cerca de 42 dias, mas o cuidado (aleitamento, saúde mental, contracepção) se estende por mais tempo.</span></label></li>'+
+    '<li><label style="cursor:default"><span>Completar vacinas (influenza, hepatite B, dTpa se não vacinada na gestação) até 45 dias após o parto, conforme a caderneta.</span></label></li></ul></div>'+
+    '<div class="card"><h3>Prazos a partir do parto</h3><ul class="chk">'+
+    '<li><label style="cursor:default"><span><b>Imunoglobulina anti-D:</b> até 72 h, se mãe Rh negativo e recém-nascido Rh positivo.</span></label></li>'+
+    '<li><label style="cursor:default"><span><b>Amenorreia lactacional (LAM):</b> eficaz até 6 meses se amenorreia, aleitamento exclusivo ou quase e bebê com menos de 6 meses.</span></label></li>'+
+    '<li><label style="cursor:default"><span><b>Ferro:</b> suplementar por cerca de 90 dias após o parto '+CHECK+'.</span></label></li>'+
+    '<li><label style="cursor:default"><span><b>Diabetes gestacional prévio:</b> glicemia ou TOTG 75 g entre 4 e 12 semanas pós-parto '+CHECK+'.</span></label></li></ul></div></div>';
+   h+='<div class="card" style="margin-top:12px"><h3>Consultas e datas</h3><div class="scroll"><table><thead><tr><th>Consulta</th><th>Janela</th><th>Foco</th></tr></thead><tbody>'+
+    row('1ª consulta',0,10,'Sinais vitais, sangramento, ferida operatória ou períneo, mamas e aleitamento, dor, sono, humor, apoio, contracepção, sinais de alerta, orientações ao recém-nascido.')+
+    row('2ª consulta',30,42,'Recuperação, aleitamento, saúde mental (rastreio de depressão), contracepção definida, retorno da menstruação e da vida sexual, vacinas, exames pendentes e seguimento de condições da gestação.')+
+    '</tbody></table></div></div>';
+   return h;
+  }},
+  {id:'anam',t:'Anamnese',type:'fields',qp:true,soap:'S',sections:[
+   {m:'first',t:'Parto e pós-parto imediato',f:[
+    F('Local e via de parto',['Hospital público','Hospital privado','Casa de parto','Domiciliar','Vaginal','Cesárea','Fórceps ou vácuo']),
+    F('Intercorrências no parto ou na gestação',['Nenhuma','Hemorragia','Laceração de 3º ou 4º grau','Episiotomia','Pré-eclâmpsia ou eclâmpsia','Diabetes gestacional','Infecção','Transfusão','Internação em UTI']),
+    F('Alta e orientações recebidas',['Alta com o bebê','Bebê internado','Recebeu orientações de amamentação','Recebeu cartão de vacina da mãe','Vitamina A ou anti-D administrados']),
+    F('Perda gestacional ou neonatal',['Não','Natimorto','Óbito neonatal','Recém-nascido em UTI'],'Acolher o luto e oferecer apoio')]},
+   {m:'both',t:'Sintomas físicos',f:[
+    F('Sangramento (lóquios)',['Rubros em diminuição','Serosos','Volumosos, com coágulos','Encharca absorvente em 1 hora','Odor fétido','Ausentes']),
+    F('Dor',['Sem dor','Cólicas leves','Dor na ferida operatória','Dor perineal','Dor mamária','Cefaleia','Dor lombar','Dor abdominal intensa']),
+    F('Febre ou infecção',['Sem febre','Febre ≥ 38 °C','Calafrios','Secreção em ferida ou períneo','Sintomas urinários']),
+    F('Eliminações',['Diurese normal','Disúria','Incontinência urinária','Constipação','Hemorroidas','Incontinência fecal']),
+    F('Sintomas de alarme cardiovasculares',['Nega','Falta de ar','Dor no peito','Dor ou edema em panturrilha','Cefaleia com alterações visuais','Convulsão'])]},
+   {m:'both',t:'Amamentação e mamas',f:[
+    F('Aleitamento do bebê',['Exclusivo','Predominante','Complementado com fórmula','Não amamenta']),
+    F('Dificuldades',['Pega dolorosa','Fissuras','Ingurgitamento','Mastite','Pouco leite referido','Excesso de leite','Uso de bico, chupeta ou mamadeira','Sem dificuldades']),
+    F('Contraindicações ao aleitamento',['Nenhuma','HIV','HTLV','Uso de medicação incompatível'],'Verificar no protocolo; a maioria dos medicamentos é compatível')]},
+   {m:'both',t:'Saúde mental e rede de apoio',f:[
+    F('Humor',['Estável','Tristeza passageira (baby blues)','Tristeza persistente','Ansiedade','Irritabilidade','Perda de interesse','Pensamentos de se machucar ou de machucar o bebê','Ideias estranhas ou alucinações'],'Rastrear depressão com a EPDS (aba Calculadoras)'),
+    F('Sono e cansaço',['Sono fragmentado esperado','Insônia mesmo quando o bebê dorme','Exaustão intensa']),
+    F('Apoio',['Parceria presente','Família presente','Rede frágil','Sozinha com o bebê']),
+    F('Violência doméstica',['Nega','Doméstica','Sexual','Psicológica'],'Perguntar em particular'),
+    F('Antecedentes de saúde mental',['Nenhum','Depressão prévia','Transtorno bipolar','Depressão na gestação','Uso de psicofármaco'])]},
+   {m:'both',t:'Contracepção, sexualidade e planejamento',f:[
+    F('Retorno da menstruação e da vida sexual',['Amenorreia','Menstruou','Retomou a vida sexual','Sem desejo ou desconforto']),
+    F('Método contraceptivo',['LAM (amenorreia lactacional)','Preservativo','DIU','Implante','Pílula de progesterona','Injetável','Laqueadura realizada ou planejada','Ainda sem método'],'Escolher conforme os critérios de elegibilidade e o aleitamento '+CHECK),
+    F('Desejo reprodutivo',['Deseja nova gestação futura','Não deseja mais filhos','Indecisa'])]},
+   {m:'both',t:'Condições a acompanhar e cuidado do bebê',f:[
+    F('Condições da gestação',['Hipertensão ou pré-eclâmpsia','Diabetes gestacional','Anemia','Sífilis ou HIV tratados','Nenhuma']),
+    F('Vacinas',['Influenza feita','Hepatite B completa','dTpa feita na gestação','Pendentes']),
+    F('Cuidados com o bebê',['Consulta do recém-nascido realizada','Triagens neonatais feitas','Registro civil feito','Sem dúvidas','Dúvidas com cuidados'])]},
+   {m:'ret',t:'Desde a primeira consulta',f:[
+    F('Evolução',['Melhora geral','Persistem queixas','Novas queixas','Retornou à urgência ou à maternidade']),
+    F('Exames e encaminhamentos',['Exames realizados','Exames pendentes','Encaminhamentos cumpridos'])]}
+  ]},
+  {id:'fis',t:'Exame físico',type:'fields',soap:'O',meds:[
+    I('pas','PAS (mmHg)'),I('pad','PAD (mmHg)'),I('fc','FC (bpm)'),I('temp','Temperatura (°C)',{step:'0.1'}),I('peso','Peso (kg)',{step:'0.1'}),I('sat','SatO₂ (%)')],
+   sections:[
+   {m:'both',t:'Geral',f:[
+    F('Estado geral',['Bom','Regular','Comprometido']),
+    F('Pele e mucosas',['Coradas','Hipocoradas','Ictéricas']),
+    F('Cardiopulmonar',['Bulhas normofonéticas, sem sopros','Sopro','Murmúrio vesicular presente, sem ruídos adventícios','Crepitações','Sibilos']),
+    F('Membros inferiores',['Sem edema ou dor','Edema','Dor à palpação de panturrilha','Sinais de TVP','Varizes'])]},
+   {m:'both',t:'Mamas',f:[
+    F('Inspeção e palpação',['Mamas sem alterações','Ingurgitamento','Fissuras','Hiperemia localizada','Nódulo doloroso (mastite)','Abscesso']),
+    F('Mamilos',['Protrusos','Planos ou invertidos','Íntegros','Fissurados'])]},
+   {m:'both',t:'Abdome, ferida e períneo',f:[
+    F('Útero (involução)',['Útero palpável infraumbilical','Útero não palpável','Útero amolecido ou doloroso','Subinvolução']),
+    F('Abdome',['Flácido e indolor','Distendido','Dor à palpação','Globo vesical']),
+    F('Ferida operatória (cesárea)',['Limpa, seca e coaptada','Hiperemia','Secreção purulenta','Deiscência','Não se aplica']),
+    F('Períneo',['Íntegro','Laceração ou episiotomia cicatrizando bem','Edema ou hematoma','Deiscência','Sinais de infecção','Não se aplica']),
+    F('Lóquios',['Rubros','Serosos','Esbranquiçados','Fétidos','Ausentes']),
+    F('Exame especular ou toque (se indicado)',['Não realizado','Colo fechado','Sem alterações','Retenção de restos suspeita'])]},
+   {m:'both',t:'Estado emocional',f:[
+    F('Aparência e interação com o bebê',['Vínculo adequado','Retraimento','Choro fácil','Agitação','Desorganização do pensamento'])]}
+  ]},
+  {id:'exa',t:'Exames',type:'exams',groups:[
+   {t:'Rotina e pendências',i:[['Hemograma','Se perda importante, palidez ou sintomas'],['Ferritina','Se anemia ou fatores de risco'],['Testes rápidos de HIV, sífilis e hepatites','Se não realizados no pré-natal ou no parto'],['Tipagem sanguínea e imunoglobulina anti-D','Conferir se Rh negativo e bebê Rh positivo'],['Citopatológico do colo do útero','Se atrasado; pode ser coletado após 42 dias']]},
+   {t:'Condições da gestação',i:[['Glicemia de jejum ou TOTG 75 g','Se diabetes gestacional: entre 4 e 12 semanas pós-parto '+CHECK],['Creatinina e proteinúria','Se pré-eclâmpsia ou hipertensão'],['TSH','Se sintomas de disfunção tireoidiana ou depressão persistente'],['Ultrassonografia pélvica','Se suspeita de restos ou subinvolução']]},
+   {t:'Bebê (articular na mesma visita)',i:[['Triagens neonatais registradas na caderneta'],['Consulta do recém-nascido na primeira semana']]}]},
+  {id:'calc',t:'Calculadoras',type:'calc',calcs:[
+   {id:'pa',t:'Pressão arterial no pós-parto',inputs:[I('pas','PAS (mmHg)'),I('pad','PAD (mmHg)')],
+    run:c=>{const s=c.num('pas'),d=c.num('pad');if(s==null||d==null)return null;
+     if(s>=160||d>=110)return R('danger','<b>'+s+'×'+d+': urgência</b>Encaminhar à maternidade: risco de eclâmpsia, mesmo no pós-parto.','PA '+s+'×'+d+' mmHg (≥ 160×110, urgência)');
+     if(s>=140||d>=90)return R('warn','<b>'+s+'×'+d+': elevada</b>Repetir após repouso. Avaliar cefaleia, alterações visuais, dor epigástrica e proteinúria; pré-eclâmpsia pode surgir ou piorar até cerca de 6 semanas. Se confirmada, reavaliar em 24 a 72 horas ou encaminhar conforme protocolo.','PA '+s+'×'+d+' mmHg (elevada)');
+     return R('ok','<b>'+s+'×'+d+': normal</b>','PA '+s+'×'+d+' mmHg (normal)')}},
+   {id:'epds',t:'Escala de Depressão Pós-parto de Edimburgo (EPDS)',note:'Aplique a escala e informe o total já somado (0 a 30) e a pontuação do item 10 (pensamentos de se ferir).',inputs:[I('epds','Total da EPDS (0 a 30)',{min:0,max:30}),I('epds10','Item 10 (0 a 3)',{min:0,max:3})],
+    run:c=>{const t=c.num('epds'),i=c.num('epds10');if(t==null)return null;const pos=t>=10;const risk=i!=null&&i>0;
+     let cls=risk?'danger':pos?'warn':'ok';let h='<b>EPDS = '+t+': '+(t>=13?'alta probabilidade de depressão':pos?'rastreio positivo':'rastreio negativo')+'</b>'+(pos?'Avaliar clinicamente o diagnóstico, risco para a mulher e para o bebê, rede de apoio e tratamento (psicoterapia, medicamento compatível com amamentação, rede de saúde mental). Corte de 10 '+CHECK+'.':'Repetir ao longo do puerpério se surgirem sintomas.');
+     if(risk)h+='<br><b>Item 10 positivo:</b> avaliar risco de suicídio imediatamente; não deixar a mulher sozinha até a avaliação e acionar a rede de urgência em saúde mental.';
+     return R(cls,h,'EPDS = '+t+(pos?' (positivo)':' (negativo)')+(risk?'; item 10 = '+i+' (risco de autolesão a avaliar)':''))}},
+   {id:'lam',t:'Método da amenorreia lactacional (LAM)',inputs:[I('lmeses','Meses desde o parto',{step:'0.1'}),I('lamen','Amenorreia',{type:'select',opts:[['1','Sim'],['0','Não, menstruou']]}),I('lame','Aleitamento exclusivo ou quase exclusivo',{type:'select',opts:[['1','Sim'],['0','Não']]})],
+    run:c=>{const m=c.num('lmeses'),a=c.str('lamen'),e=c.str('lame');if(m==null||a===''||e==='')return null;const ok=m<6&&a==='1'&&e==='1';
+     return R(ok?'ok':'warn','<b>'+(ok?'LAM elegível':'LAM não é suficiente')+'</b>'+(ok?'Protege nos primeiros 6 meses enquanto os 3 critérios se mantêm; planejar o método seguinte antes de perdê-los.':'Oferecer outro método contraceptivo hoje, compatível com o aleitamento.'),'LAM: '+(ok?'elegível':'não elegível'))}},
+   {id:'dias',t:'Marcos desde o parto',inputs:[],note:'Os dias de pós-parto e os prazos de 42 e 45 dias aparecem no cabeçalho.',run:c=>null}
+  ].filter(x=>x.id!=='dias')},
+  {id:'risk',t:'Risco e alertas',type:'risk',groups:[
+   {k:'urg',t:'Urgência: encaminhar hoje à maternidade ou urgência',res:'Sinal de urgência: encaminhar imediatamente (Samu 192 se instável).',cls:'danger',items:['Sangramento volumoso (encharca absorvente em 1 hora) ou com grandes coágulos','Febre ≥ 38 °C com dor abdominal ou lóquios fétidos','PA ≥ 160×110, ou ≥ 140×90 com cefaleia, escotomas ou dor epigástrica','Convulsão','Falta de ar, dor no peito, taquicardia ou desmaio','Dor ou edema unilateral em panturrilha (suspeita de TVP)','Dor abdominal intensa, distensão e sinais de choque','Ideação suicida, psicose puerperal ou risco para o bebê','Secreção purulenta, deiscência ou dor intensa na ferida']},
+   {k:'ar',t:'Atenção prioritária: retorno em poucos dias e articulação com a rede',res:'Fator de risco marcado: encurtar o retorno, reforçar o seguimento e articular com a rede (alto risco, saúde mental, eMulti).',cls:'warn',items:['Pré-eclâmpsia, hipertensão crônica ou hipertensão gestacional','Diabetes gestacional ou prévio','Hemorragia pós-parto, transfusão ou anemia importante','Laceração de 3º ou 4º grau, infecção de ferida ou endometrite','EPDS positiva ou antecedente de depressão ou transtorno bipolar','Perda gestacional, natimorto ou óbito neonatal','Recém-nascido prematuro, em UTI ou com malformação','Violência doméstica ou sexual','Mãe adolescente ou sem rede de apoio','HIV, sífilis, hepatite B ou C','Mastite, abscesso mamário ou dificuldade grave na amamentação']},
+   {k:'aten',t:'Fatores de atenção',res:'Fatores de atenção: reforçar orientações e reavaliar na 2ª consulta.',cls:'ok',items:['Cesárea (cuidados com a ferida e restrições temporárias)','Ingurgitamento, fissuras ou pega dolorosa','Constipação, hemorroidas ou incontinência urinária','Tristeza passageira nos primeiros 14 dias (baby blues)','Contracepção ainda não definida','Retorno ao trabalho previsto antes de 6 meses']}
+  ]},
+  {id:'ori',t:'Orientações',type:'cards',cards:[
+   {t:'Sinais de alerta para a mulher',q:'Procurar a maternidade ou a urgência se houver sangramento intenso, febre, dor abdominal forte, falta de ar, dor no peito, cefaleia intensa com alterações visuais, dor em panturrilha, convulsão ou pensamentos de se machucar.',o:'Entregar os sinais de alerta por escrito e confirmar que a mulher entendeu.'},
+   {t:'Amamentação',q:'Aleitamento exclusivo até 6 meses e mantido até 2 anos ou mais; sem chás, água ou outros leites; pega adequada; esvaziar mamas ingurgitadas.',o:'Mulheres com HIV não devem amamentar. A maioria dos medicamentos é compatível com o aleitamento: consultar a equipe.'},
+   {t:'Contracepção',q:'Oferecer método antes de a mulher voltar à vida sexual, adequado ao aleitamento e às preferências; LAM nos 6 primeiros meses se cumprir os critérios.',o:'DIU e implante podem ser inseridos no pós-parto, conforme protocolo local '+CHECK+'. Laqueadura exige manifestação escrita com ao menos 60 dias de antecedência.'},
+   {t:'Vacinas',q:'Influenza, hepatite B e dTpa: completar até 45 dias após o parto, se não vacinada na gestação.',o:'Atualizar o cartão da mulher e conferir o do bebê.'},
+   {t:'Saúde mental',q:'Tristeza leve nos primeiros dias é comum, mas persistência por mais de 2 semanas, perda de interesse ou pensamentos de se ferir exigem avaliação.',o:'Rastrear com a EPDS; articular com eMulti, CAPS ou serviço de referência.'},
+   {t:'Cuidados com a cicatriz e o períneo',q:'Higiene com água e sabão neutro, secar bem; observar vermelhidão, secreção ou abertura da ferida; evitar esforço e levantar peso nas primeiras semanas após cesárea.',o:'Retorno à atividade física e sexual conforme a recuperação e o conforto.'},
+   {t:'Alimentação, ferro e repouso',q:'Alimentação variada, hidratação, descanso quando o bebê dorme e apoio da família nas tarefas.',o:'Ferro cerca de 90 dias após o parto '+CHECK+'. Sem dietas restritivas durante a amamentação.'},
+   {t:'Direitos',q:'Licença-maternidade (120 dias ou mais), estabilidade após o parto, períodos de amamentação no trabalho, registro civil e licença-paternidade.',o:'Orientar sobre benefícios sociais (Bolsa Família, BPC) quando houver vulnerabilidade.'}
+  ]},
+  {id:'soap',t:'SOAP',type:'soap'}
+ ],
+ plan:['Sinais de alerta orientados por escrito','Aleitamento materno orientado e pega avaliada','Contracepção orientada e método definido ou prescrito','Vacinas conferidas e atualizadas','Exames solicitados ou conferidos','Orientados cuidados com a ferida e o períneo','Suplementação de ferro orientada','Rastreio de depressão realizado (EPDS)','Encaminhada à saúde mental ou à eMulti','Encaminhada ao alto risco ou ao ambulatório da condição da gestação','Consulta do recém-nascido agendada ou realizada','Articulada com rede de proteção (violência)','Segunda consulta puerperal agendada'],
+ autoA:(c,r)=>{const L=[];const dp=c.dt('dp'),co=c.cons;if(dp&&co&&co>=dp)L.push('Puérpera com '+dd(co,dp)+' dias de pós-parto ('+fase(dd(co,dp)).toLowerCase()+').');else L.push('Puérpera em consulta de seguimento.');L.push('Estratificação (aba Risco e alertas): '+r.label+'.');return L},
+ retorno:c=>{const dp=c.dt('dp'),co=c.cons;if(!dp||!co||co<dp)return null;const d=dd(co,dp);return d<30?addD(dp,40):null}
+});
+}
+/* ---------- PUERICULTURA ---------- */
+{
+const SCHED=[
+ ['1ª semana',0,7,'Mãe e bebê juntos: amamentação (pega, perda de peso até 10%), icterícia, coto umbilical, triagens neonatais (pezinho, olhinho, orelhinha, coraçãozinho), vacinas ao nascer, vínculo, saúde mental materna e consulta puerperal da mãe.'],
+ ['1 mês',1,0,'Crescimento, aleitamento, sono seguro, choro e cólicas, resultado das triagens, vigilância do desenvolvimento e acesso à saúde bucal.'],
+ ['2 meses',2,0,'Vacinas dos 2 meses, crescimento, aleitamento exclusivo, desenvolvimento e retorno da mãe ao trabalho (extração e guarda do leite).'],
+ ['4 meses',4,0,'Crescimento, desenvolvimento, vacinas dos 4 meses, sono, rotina e prevenção de acidentes.'],
+ ['6 meses',6,0,'Início da alimentação complementar, ferro preventivo (6 a 24 meses), vitamina A em áreas de risco, vacinas e desenvolvimento.'],
+ ['9 meses',9,0,'Alimentação complementar, febre amarela, marcos (senta, engatinha, pinça), segurança (quedas, engasgo) e saúde bucal.'],
+ ['12 meses',12,0,'Alimentação da família (sem açúcar e ultraprocessados), vacinas dos 12 meses, marcha, fala e saúde bucal.'],
+ ['18 meses',18,0,'M-CHAT-R/F (Lei 13.438/2017), linguagem, interação social, telas, desfralde e vacinas dos 15 meses se pendentes.'],
+ ['24 meses',24,0,'Crescimento (IMC), desenvolvimento, alimentação, saúde bucal, telas e segurança. Repetir o M-CHAT-R se foi feito antes dos 24 meses.'],
+ ['36 meses',36,0,'Desenvolvimento, pressão arterial, visão e audição, pré-escola e hábitos; depois, consulta de rotina uma vez ao ano.']
+];
+const MARCOS=[
+ [0,2,'Fixa o olhar no rosto, reage a sons, movimenta os quatro membros, vocaliza e acalma no colo'],
+ [2,4,'Sorriso social, acompanha objetos, sustenta a cabeça de bruços, vocaliza, mãos na linha média'],
+ [4,6,'Rola, segura objetos, leva à boca, ri alto, vira a cabeça ao som'],
+ [6,9,'Senta com apoio e depois sem, passa objeto de uma mão à outra, balbucia, estranha pessoas'],
+ [9,12,'Engatinha, fica em pé com apoio, faz pinça, imita gestos (tchau), responde ao nome'],
+ [12,18,'Anda sozinho (até 18 meses), fala algumas palavras, aponta para pedir, segue comandos simples'],
+ [18,24,'Corre, junta duas palavras (por volta dos 24 meses), aponta partes do corpo, faz de conta'],
+ [24,36,'Chuta bola, fala frases curtas, usa colher, brinca ao lado de outras crianças'],
+ [36,48,'Pula com os dois pés, fala compreensível, conta pequenas histórias, desenha círculo'],
+ [48,60,'Pula num pé só, desenha pessoa, brinca com regras, fala compreensível para estranhos'],
+ [60,72,'Equilíbrio, desenho com detalhes, nomeia cores, conta até 10, vestir-se sozinho']
+];
+const zPeso=z=>z<-3?'muito baixo peso para a idade':z<-2?'baixo peso para a idade':z<=2?'peso adequado para a idade':'peso elevado para a idade';
+const zEst=z=>z<-3?'estatura muito baixa para a idade':z<-2?'estatura baixa para a idade':'estatura adequada para a idade';
+const zImc=(z,tm)=>tm<60?(z<-3?'magreza acentuada':z<-2?'magreza':z<=1?'eutrofia':z<=2?'risco de sobrepeso':z<=3?'sobrepeso':'obesidade'):(z<-3?'magreza acentuada':z<-2?'magreza':z<=1?'eutrofia':z<=2?'sobrepeso':z<=3?'obesidade':'obesidade grave');
+const zPc=z=>z<-2?'perímetro cefálico abaixo do esperado (investigar microcefalia)':z>2?'perímetro cefálico acima do esperado (investigar macrocefalia)':'perímetro cefálico adequado';
+const ageTxt=(a,days)=>days<31?days+' dias':a.tm<24?a.tm+' m '+a.d+' d':a.y+' a '+a.m+' m';
+
+CFGS.push({
+ key:'puericultura', title:'Puericultura', soapTitle:'CONSULTA DE PUERICULTURA',
+ intro:'Roteiro de consulta da criança de 0 a 9 anos, com base na Caderneta da Criança (6ª edição, 2024) e no calendário de vacinação 2026. Informe a data de nascimento e a idade gestacional ao nascer.',
+ foot:'Base: Caderneta da Criança – Passaporte da Cidadania, 6ª edição (Ministério da Saúde, 2024). Os itens marcados com “conferir” vêm de outras fontes ou da prática usual e não foram verificados na parte profissional da caderneta (páginas 67 a 106). Ferramenta de apoio ao raciocínio clínico: não substitui protocolos locais nem supervisão.',
+ modes:[['first','Primeira consulta'],['ret','Retorno']],
+ head:{
+  fields:[I('dn','Data de nascimento',{type:'date'}),I('ig','IG ao nascer (semanas)',{min:22,max:44,def:'40'}),I('sexo','Sexo',{type:'select',opts:['Menino','Menina']}),I('cons','Data da consulta',{type:'date'})],
+  stats:c=>{
+   const dn=c.dt('dn'),co=c.cons; if(!dn||!co||co<dn)return [{v:'—',l:'Idade'},{v:'—',l:'Idade corrigida (pré-termo)'},{v:'—',l:'Consulta de rotina desta fase'},{v:'—',l:'Próxima consulta de rotina'}];
+   const days=dd(co,dn),a=ageYMD(dn,co),ig=c.num('ig')||40; let corr='—';
+   if(ig<37){const cd=days-Math.round((40-ig)*7); corr=cd>0?(cd<31?cd+' dias':ageYMD(addD(dn,Math.round((40-ig)*7)),co).tm+' m'):'—'}
+   let cur='—',nxt='—'; const dates=SCHED.map(s=>s[1]===0?addD(dn,s[2]):addM(dn,s[1]));
+   for(let i=0;i<dates.length;i++){if(dates[i]<=addD(co,7))cur=SCHED[i][0]}
+   const nx=dates.find(d=>d>addD(co,7)); nxt=nx?fD(nx):'anual (a cada aniversário)';
+   return [{v:ageTxt(a,days),l:'Idade'},{v:corr,l:'Idade corrigida (pré-termo)'},{v:cur,l:'Consulta de rotina desta fase'},{v:nxt,l:'Próxima consulta de rotina'}];
+  },
+  chip:c=>{const dn=c.dt('dn'),co=c.cons;if(!dn||!co||co<dn)return 'Idade —';return 'Idade '+ageTxt(ageYMD(dn,co),dd(co,dn))},
+  warn:c=>{const dn=c.dt('dn'),co=c.cons;if(dn&&co&&co<dn)return 'A consulta é anterior ao nascimento. Confira as datas.';if(dn&&co&&ageYMD(dn,co).y>=10)return 'A caderneta cobre até 9 anos. Para maiores de 10 anos, usar o cuidado do adolescente.';return ''},
+  line:c=>{const dn=c.dt('dn'),co=c.cons;const L=[];if(dn&&co&&co>=dn)L.push('Idade '+ageTxt(ageYMD(dn,co),dd(co,dn))+(c.str('sexo')?' | '+c.str('sexo'):'')+(c.num('ig')&&c.num('ig')<37?' | nascido(a) pré-termo com '+c.num('ig')+' semanas':''));return L}
+ },
+ tabs:[
+  {id:'cal',t:'Calendário',type:'html',render:c=>{
+   const dn=c.dt('dn'),co=c.cons;
+   let h='<div class="grid"><div class="card"><h3>Consultas de rotina (Caderneta da Criança)</h3><p class="muted" style="font-size:.88rem">1ª semana, 1, 2, 4, 6, 9, 12, 18, 24 e 36 meses. A partir dos 2 anos, a rotina pode ser anual, de acordo com a necessidade. Crianças com maior risco devem ser vistas com mais frequência. Alterne medicina e enfermagem conforme o protocolo local.</p></div>';
+   h+='<div class="card"><h3>Marcos do cuidado</h3><ul class="chk"><li><label style="cursor:default"><span><b>Triagens neonatais:</b> pezinho, olhinho, orelhinha e coraçãozinho, nos primeiros dias de vida. Registrar os resultados na caderneta.</span></label></li><li><label style="cursor:default"><span><b>M-CHAT-R/F:</b> obrigatório no SUS (Lei 13.438/2017), na consulta dos 18 meses ou antes se houver suspeita.</span></label></li><li><label style="cursor:default"><span><b>Ferro preventivo:</b> de 6 a 24 meses. <b>Vitamina A:</b> de 6 meses a 5 anos em áreas de risco.</span></label></li><li><label style="cursor:default"><span><b>Idade corrigida:</b> para desenvolvimento, subtrair da idade o tempo que faltou para 40 semanas.</span></label></li></ul></div></div>';
+   h+='<div class="card" style="margin-top:12px"><h3>Calendário a partir do nascimento</h3><div class="scroll"><table><thead><tr><th>Consulta</th><th>Data alvo</th><th>Foco</th></tr></thead><tbody>';
+   SCHED.forEach((s,i)=>{
+    const d=dn?(s[1]===0?addD(dn,s[2]):addM(dn,s[1])):null; let cls='';
+    if(d&&co){const nx=SCHED[i+1]?(SCHED[i+1][1]===0?addD(dn,SCHED[i+1][2]):addM(dn,SCHED[i+1][1])):null; if(d<=addD(co,7)&&(!nx||nx>addD(co,7)))cls='now'; else if(nx&&nx<=addD(co,7))cls='past'}
+    h+='<tr class="'+cls+'"><td>'+s[0]+'</td><td>'+(d?fD(d):'—')+'</td><td>'+s[3]+'</td></tr>';
+   });
+   h+='</tbody></table></div><p class="muted" style="font-size:.82rem;margin-top:8px">Foco por consulta: síntese de apoio '+CHECK+'. Consultar as páginas 70 a 77 da caderneta.</p></div>';
+   return h;
+  }},
+  {id:'anam',t:'Anamnese',type:'fields',qp:true,soap:'S',sections:[
+   {m:'first',t:'Gestação, parto e nascimento',f:[
+    F('Pré-natal',['Adequado (≥ 7 consultas)','Incompleto','Sem pré-natal']),
+    F('Tipo de parto',['Vaginal','Cesárea','Fórceps ou vácuo']),
+    F('Peso e comprimento ao nascer',[],'Ex.: 3.200 g e 49 cm'),
+    F('Apgar (1º e 5º minutos)',[]),
+    F('Intercorrências na gestação ou no parto',['Prematuridade','Pré-eclâmpsia','Diabetes gestacional','Sífilis ou HIV materno','Infecção congênita','Nenhuma']),
+    F('Internação neonatal',['Não','UTI neonatal','Berçário de cuidados intermediários','Fototerapia']),
+    F('Triagens neonatais',['Pezinho feito','Olhinho feito','Orelhinha feita','Coraçãozinho feito','Linguinha feito','Alguma pendente'],'Conferir o registro na caderneta'),
+    F('Vitamina A da mãe no pós-parto (áreas endêmicas)',['Recebeu','Não recebeu','Não se aplica'])]},
+   {m:'first',t:'Antecedentes e contexto familiar',f:[
+    F('Doenças da criança',['Nenhuma','Cardiopatia','Asma ou sibilância','Convulsão','Anemia','Doença crônica','Alergia alimentar']),
+    F('Antecedentes familiares',['Atopia','Cardiopatia congênita','Surdez ou baixa visão precoce','Doença genética','Transtorno do espectro autista','Nega']),
+    F('Quem cuida da criança',['Mãe','Pai','Avós','Creche ou escola','Outro cuidador']),
+    F('Situação social',['Bolsa Família','Insegurança alimentar','Sem saneamento adequado','Rede de apoio frágil','Família em situação de rua','Sem vulnerabilidades referidas']),
+    F('Saúde mental e violência na família',['Humor materno estável','Suspeita de depressão materna','Uso de álcool ou drogas no domicílio','Violência doméstica','Nega'],'Perguntar com privacidade')]},
+   {m:'both',t:'Alimentação',f:[
+    F('Aleitamento',['Materno exclusivo (até 6 meses)','Materno complementado','Fórmula','Leite de vaca','Desmamado'],'Recomendado: exclusivo até 6 meses e mantido até 2 anos ou mais'),
+    F('Dificuldades na amamentação',['Pega dolorosa','Fissuras','Ingurgitamento','Pouco leite referido','Uso de bico, chupeta ou mamadeira','Sem dificuldades']),
+    F('Alimentação complementar (a partir dos 6 meses)',['Cereais ou tubérculos','Feijões','Legumes e verduras','Carnes ou ovos','Frutas','Alimentos amassados com garfo']),
+    F('Evitar nos primeiros 2 anos',['Oferece açúcar','Oferece ultraprocessados','Oferece sucos industrializados ou refrigerantes','Nenhum desses']),
+    F('Apetite e recusas',['Apetite adequado','Recusa alimentar','Come em frente a telas','Refeições em família'])]},
+   {m:'both',t:'Sono, eliminações e rotina',f:[
+    F('Sono (até 1 ano)',['De barriga para cima','Berço no quarto dos pais','Compartilha a cama','Usa travesseiro ou cobertor','Dorme bem','Acorda muito']),
+    F('Eliminações',['Evacuações habituais','Constipação','Diarreia','Fezes claras ou acinzentadas','Diurese normal','Desfralde em andamento']),
+    F('Higiene e pele',['Banho e troca de fraldas adequados','Assadura','Uso de talco','Limpeza do coto com álcool 70%']),
+    F('Telas e brincar',['Sem telas','Telas ≥ 1 h por dia','Brinca com os cuidadores','Lê ou conta histórias'])]},
+   {m:'both',t:'Desenvolvimento e saúde bucal',f:[
+    F('Percepção dos cuidadores sobre o desenvolvimento',['Sem preocupações','Preocupação com a fala','Preocupação com a motricidade','Preocupação com o comportamento ou interação']),
+    F('Audição e visão',['Reage a sons','Acompanha objetos','Suspeita de baixa audição','Suspeita de baixa visão']),
+    F('Saúde bucal',['Escovação com creme com flúor','Escovação supervisionada','Mamadeira noturna','Consulta odontológica realizada','Consulta odontológica pendente']),
+    F('Segurança em casa e no carro',['Cadeirinha adequada','Sem proteção contra quedas','Produtos tóxicos ao alcance','Fumo no domicílio','Medidas de segurança orientadas'])]},
+   {m:'ret',t:'Desde a última consulta',f:[
+    F('Queixas',['Febre','Tosse ou coriza','Diarreia ou vômitos','Choro excessivo','Recusa alimentar','Sem queixas']),
+    F('Sinais de perigo',['Nega todos','Dificuldade para respirar','Não consegue mamar ou beber','Vomita tudo','Sonolência excessiva','Convulsão','Manchas na pele']),
+    F('Atendimentos ou internações',['Nenhum','Urgência','Internação']),
+    F('Vacinas realizadas',['Em dia','Atrasadas','Realizadas desde a última consulta']),
+    F('Orientações anteriores seguidas',['Sim','Parcialmente','Não'])]}
+  ]},
+  {id:'fis',t:'Exame físico',type:'fields',soap:'O',meds:[
+    I('peso','Peso (kg)',{step:'0.001'}),I('est','Comprimento ou estatura (cm)',{step:'0.1'}),I('pc','Perímetro cefálico (cm)',{step:'0.1'}),I('temp','Temperatura (°C)',{step:'0.1'}),I('fc','FC (bpm)'),I('fr','FR (irpm)'),I('pas','PAS (mmHg, ≥ 3 anos)'),I('pad','PAD (mmHg, ≥ 3 anos)'),I('sat','SatO₂ (%)')],
+   sections:[
+   {m:'both',t:'Estado geral e crescimento',f:[
+    F('Estado geral',['Bom','Regular','Comprometido']),
+    F('Hidratação e perfusão',['Hidratada','Desidratada','Perfusão adequada','Perfusão lentificada']),
+    F('Curvas de crescimento',['Peso adequado para a idade','Estatura adequada para a idade','IMC adequado','PC adequado','Mudança de canal de crescimento'],'Plotar na caderneta (escore-z na aba Calculadoras)'),
+    F('Pele e mucosas',['Corada','Pálida','Ictérica','Cianose','Manchas ou petéquias','Lesões de pele'])]},
+   {m:'both',t:'Cabeça, olhos, ouvidos, boca',f:[
+    F('Fontanelas e crânio',['Fontanela anterior normotensa','Fontanela abaulada','Fontanela deprimida','Fontanela fechada','Assimetria craniana']),
+    F('Olhos',['Reflexo vermelho presente','Reflexo vermelho alterado','Estrabismo','Secreção ocular','Fixa e acompanha']),
+    F('Ouvidos e audição',['Otoscopia sem alterações','Otite','Reage a sons','Sem resposta a sons']),
+    F('Boca e dentes',['Orofaringe sem alterações','Candidíase oral','Anquiloglossia','Cáries','Dentição adequada para a idade'])]},
+   {m:'both',t:'Tórax, abdome e genitália',f:[
+    F('Aparelho cardiovascular',['Bulhas normofonéticas, sem sopros','Sopro','Pulsos femorais presentes','Pulsos femorais diminuídos']),
+    F('Aparelho respiratório',['Murmúrio vesicular presente, sem ruídos adventícios','Sibilos','Crepitações','Tiragem']),
+    F('Abdome e coto umbilical',['Abdome flácido e indolor','Hepatoesplenomegalia','Hérnia umbilical','Coto limpo e seco','Coto com hiperemia ou secreção','Já caiu']),
+    F('Genitália e ânus',['Sem alterações','Fimose','Testículos não palpáveis ou criptorquidia','Aderência de pequenos lábios','Ânus pérvio'])]},
+   {m:'both',t:'Osteomuscular e neurológico',f:[
+    F('Quadril e membros',['Quadril estável (Ortolani e Barlow negativos)','Assimetria de pregas ou de membros','Limitação à abdução','Marcha adequada para a idade']),
+    F('Coluna e pés',['Sem alterações','Pé torto ou deformidade','Escoliose']),
+    F('Tônus e reflexos',['Tônus adequado','Hipotonia','Hipertonia','Reflexos primitivos adequados para a idade','Assimetria de movimentos']),
+    F('Desenvolvimento (marcos da caderneta)',['Todos os marcos da faixa presentes','Ausência de um ou mais marcos da faixa','Ausência de marcos da faixa anterior'],'Veja a aba Marcos para a faixa etária atual')]}
+  ]},
+  {id:'marcos',t:'Marcos',type:'html',render:c=>{
+   const dn=c.dt('dn'),co=c.cons; if(!dn||!co||co<dn)return '<p class="muted">Informe a data de nascimento e a data da consulta.</p>';
+   let tm=ageYMD(dn,co).tm; const ig=c.num('ig')||40, cm=ig<37?Math.max(0,tm-Math.round((40-ig)/4.3)):tm;
+   let h='<p class="muted" style="font-size:.88rem">'+(ig<37?'Pré-termo: faixa calculada pela idade corrigida ('+cm+' meses).':'Faixa calculada pela idade de '+tm+' meses.')+' Lista de apoio '+CHECK+' – usar também os quadros das páginas 81 a 86 da caderneta.</p><div class="scroll"><table><thead><tr><th>Faixa</th><th>Marcos esperados</th></tr></thead><tbody>';
+   MARCOS.forEach(m=>{const cls=(cm>=m[0]&&cm<m[1])?'now':(cm>=m[1]?'past':'');h+='<tr class="'+cls+'"><td>'+(m[0]<24?m[0]+' a '+m[1]+' meses':(m[0]/12)+' a '+(m[1]/12)+' anos')+'</td><td>'+m[2]+'</td></tr>'});
+   return h+'</tbody></table></div><div class="card" style="margin-top:12px"><h3>Sinais de alerta para o desenvolvimento (caderneta)</h3><p style="font-size:.9rem">Não busca interação, não responde ao olhar, aos sons ou ao toque; maior interesse por objetos que por pessoas; isolamento; dificuldade na fala ou em atender comandos; movimentos repetitivos; atraso para sustentar a cabeça, virar, engatinhar ou andar; dificuldade com o sono ou a alimentação; sensibilidade exagerada a ruídos; não responde ao nome; muita agressividade ou agitação intensa. Ausência de um marco ou preocupação dos cuidadores: estimular imediatamente e reavaliar.</p></div>';
+  }},
+  {id:'exa',t:'Triagens e exames',type:'exams',groups:[
+   {t:'Triagens neonatais',i:[['Teste do pezinho','Ideal entre o 3º e o 5º dia de vida '+CHECK],['Teste do olhinho (reflexo vermelho)'],['Teste da orelhinha (emissões otoacústicas)'],['Teste do coraçãozinho (oximetria)'],['Avaliação do frênulo lingual (linguinha)']]},
+   {t:'Durante o seguimento',i:[['Acuidade visual e audição','Repetir ao entrar na escola'],['Pressão arterial','A partir dos 3 anos '+CHECK],['Hemoglobina','Conforme risco para anemia ou queixa'],['Ultrassonografia de quadril','Se fatores de risco '+CHECK],['Glicemia e perfil lipídico','Se obesidade ou fatores de risco '+CHECK],['Parasitológico de fezes','Se indicação clínica'],['Sorologias do recém-nascido','Se mãe com sífilis, HIV ou hepatite B']]}]},
+  {id:'calc',t:'Calculadoras',type:'calc',calcs:[
+   {id:'rn',t:'Variação de peso do recém-nascido',note:'Perda de até 10% na primeira semana é esperada; a recuperação do peso de nascimento ocorre por volta do 10º dia.',inputs:[I('pnasc','Peso ao nascer (g)'),I('pg','Peso atual (g)')],
+    run:c=>{const dn=c.dt('dn'),co=c.cons,p0=c.num('pnasc'),p=c.num('pg');if(!dn||!co||p0==null||p==null)return null;const days=dd(co,dn),v=(p-p0)/p0*100;
+     let cls='ok',msg='Dentro do esperado.';if(v<-10){cls='danger';msg='Perda acima de 10%: avaliar a amamentação e o estado de hidratação com urgência.'}else if(days>=10&&v<0){cls='warn';msg='Ainda abaixo do peso de nascimento após o 10º dia: reavaliar a mamada e retornar em poucos dias.'}else if(v<0){cls='';msg='Perda dentro do limite esperado nos primeiros dias.'}
+     return R(cls,'<b>'+(v>=0?'+':'')+br(v.toFixed(1))+'% em relação ao nascimento ('+days+' dias de vida)</b>'+msg,'Peso '+p+' g ('+(v>=0?'+':'')+br(v.toFixed(1))+'% do peso ao nascer, '+days+' dias de vida)')}},
+   {id:'imc',t:'IMC da criança',inputs:[I('peso','Peso (kg)',{step:'0.001'}),I('est','Comprimento ou estatura (cm)',{step:'0.1'})],note:'O IMC é classificado pelo escore-z, que se obtém na curva da caderneta ou em calculadora antropométrica (SISVAN, OMS Anthro).',
+    run:c=>{const p=c.num('peso'),e=c.num('est');if(!p||!e)return null;const v=p/Math.pow(e/100,2);return R('','<b>IMC '+br(v.toFixed(1))+' kg/m²</b>Plote na curva de IMC para idade e classifique pelo escore-z.','IMC '+br(v.toFixed(1))+' kg/m²')}},
+   {id:'z',t:'Interpretar escore-z',note:'Cortes da caderneta. Preencha os escores que tiver.',inputs:[I('zp','Peso para idade'),I('ze','Estatura para idade'),I('zi','IMC para idade'),I('zc','PC para idade')].map(x=>Object.assign(x,{step:'0.01'})),
+    run:c=>{const dn=c.dt('dn'),co=c.cons,tm=dn&&co?ageYMD(dn,co).tm:0,L=[],S=[],w=[];
+     const a=c.num('zp'),b=c.num('ze'),i=c.num('zi'),p=c.num('zc');
+     if(a!=null){const t=zPeso(a);L.push('Peso/idade z '+br(a)+': '+t);S.push('peso/idade z '+br(a)+' ('+t+')');if(a<-2||a>2)w.push(1)}
+     if(b!=null){const t=zEst(b);L.push('Estatura/idade z '+br(b)+': '+t);S.push('estatura/idade z '+br(b)+' ('+t+')');if(b<-2)w.push(1)}
+     if(i!=null){const t=zImc(i,tm);L.push('IMC/idade z '+br(i)+': '+t);S.push('IMC/idade z '+br(i)+' ('+t+')');if(i<-2||i>1)w.push(1)}
+     if(p!=null){const t=zPc(p);L.push('PC/idade z '+br(p)+': '+t);S.push('PC/idade z '+br(p)+' ('+t+')');if(Math.abs(p)>2)w.push(1)}
+     if(!L.length)return null;return R(w.length?'warn':'ok',L.join('<br>'),S.join('; '))}},
+   {id:'mchat',t:'M-CHAT-R/F (rastreio de TEA)',note:'Para crianças de 16 a 30 meses. Informe quantos dos 20 itens tiveram resposta de risco.',inputs:[I('mscore','Itens com resposta de risco (0 a 20)',{min:0,max:20})],
+    run:c=>{const s=c.num('mscore');if(s==null)return null;const dn=c.dt('dn'),co=c.cons,tm=dn&&co?ageYMD(dn,co).tm:null;let cls,msg;
+     if(s<=2){cls='ok';msg='Risco baixo. Se a criança tem menos de 24 meses, repetir o M-CHAT-R aos 24 meses; manter a vigilância do desenvolvimento.'}
+     else if(s<=7){cls='warn';msg='Risco médio. Aplicar o Follow-Up (F) nos itens de risco; se o escore do F permanecer ≥ 2, é triagem positiva: encaminhar para avaliação diagnóstica e iniciar estimulação.'}
+     else{cls='danger';msg='Risco alto. Pode-se dispensar o Follow-Up: encaminhar de imediato para avaliação diagnóstica e iniciar estimulação precoce.'}
+     return R(cls,'<b>M-CHAT-R: '+s+' ponto(s)</b>'+msg+(tm!=null&&(tm<16||tm>30)?'<br>Atenção: o instrumento é validado para 16 a 30 meses.':''),'M-CHAT-R '+s+'/20: '+(s<=2?'risco baixo':s<=7?'risco médio':'risco alto'))}}
+  ]},
+  {id:'risk',t:'Risco e alertas',type:'risk',groups:[
+   {k:'urg',t:'Sinais de perigo: encaminhar com urgência (Samu 192 se necessário)',res:'Sinal de perigo marcado: avaliação imediata em serviço de urgência.',cls:'danger',items:['Dificuldade para respirar ou respiração muito rápida','Não consegue mamar ou tomar líquidos','Vomita tudo o que come e bebe','Muito sonolenta, difícil de acordar, molinha','Convulsão ou perda da consciência','Manchas avermelhadas ou arroxeadas na pele','Pele com pouca elasticidade (desidratação)','Menor de 2 meses: febre ≥ 37,5 °C ou temperatura ≤ 35,5 °C','Menor de 2 meses: pus saindo do ouvido','Urina escura ou fezes com sangue','Icterícia nas primeiras 24 h, intensa, generalizada ou por mais de 2 semanas','Fezes claras ou acinzentadas (suspeita de atresia de vias biliares)','Coto umbilical com hiperemia, pus ou mau cheiro']},
+   {k:'ar',t:'Atenção prioritária: acompanhamento mais próximo',res:'Fatores de risco: seguir com retornos mais frequentes e articular a rede (APS, ambulatório de seguimento, assistência social).',cls:'warn',items:['Prematuridade (< 37 semanas) ou baixo peso ao nascer','Internação em unidade neonatal','Escore-z de peso ou estatura < -2, ou queda de canal de crescimento','Aleitamento ausente ou desmame precoce','Atraso ou ausência de marcos do desenvolvimento','Suspeita de TEA ou de deficiência','Doença crônica ou malformação (ex.: síndrome de Down, cardiopatia)','Mãe com depressão, transtorno mental ou uso de substâncias','Violência doméstica, negligência ou maus-tratos suspeitos','Mãe adolescente ou sem rede de apoio']},
+   {k:'aten',t:'Fatores de vulnerabilidade a monitorar',res:'Fatores de vulnerabilidade: reforçar orientações, buscar ativa e acionar assistência social quando indicado.',cls:'ok',items:['Insegurança alimentar ou pobreza (Bolsa Família, CadÚnico)','Esquema vacinal atrasado','Exposição ao tabaco no domicílio','Uso excessivo de telas','IMC para idade com escore-z > +1','Falta de acesso à creche ou à escola']}
+  ]},
+  {id:'ori',t:'Vacinas e orientações',type:'cards',cards:[
+   {t:'Vacinas ao nascer e aos 2 meses',q:'BCG e hepatite B ao nascer. Aos 2 meses: penta, VIP, pneumocócica 10-valente e rotavírus.',o:'Rotavírus: 1ª dose entre 1 m 15 d e 11 m 29 d. Fonte secundária do calendário 2026 '+CHECK+'.',when:t=>t<=3},
+   {t:'Vacinas aos 3, 4 e 5 meses',q:'3 meses: meningocócica C. 4 meses: penta, VIP, pneumocócica 10-valente, rotavírus. 5 meses: meningocócica C.',o:'Intervalo mínimo entre doses conforme a vacina.',when:t=>t>3&&t<=5},
+   {t:'Vacinas aos 6, 7 e 9 meses',q:'6 meses: penta, VIP, influenza (1ª dose; 2 doses com 30 dias se for a primeira vez) e covid-19. 7 meses: covid-19. 9 meses: febre amarela e covid-19 conforme o imunizante.',o:'Influenza é de rotina de 6 meses a menores de 6 anos '+CHECK+'.',when:t=>t>5&&t<=11},
+   {t:'Vacinas aos 12 e 15 meses',q:'12 meses: pneumocócica, meningocócica ACWY e tríplice viral. 15 meses: DTP (1º reforço), VIP, tríplice viral (2ª), varicela e hepatite A.',o:'Verificar atrasos na caderneta e na versão digital (Meu SUS Digital) '+CHECK+'.',when:t=>t>11&&t<=23},
+   {t:'Vacinas aos 4 anos e depois',q:'4 anos: DTP (2º reforço), febre amarela (reforço) e varicela (2ª dose). 9 a 14 anos: HPV.',o:'Dose da pneumocócica 23-valente aos 5 anos apenas para crianças indígenas sem conjugada '+CHECK+'.',when:t=>t>=24},
+   {t:'Suplementação',q:'Ferro preventivo de 6 a 24 meses. Vitamina A de 6 meses a 5 anos em áreas de risco.',o:'Crianças que recebem os sachês NutriSUS não devem receber outro suplemento de ferro nem megadose de vitamina A. Doses conforme o programa local.',when:t=>t>=6&&t<=24},
+   {t:'Alimentação (doze passos para menores de 2 anos)',q:'Aleitamento até 2 anos ou mais; exclusivo até 6 meses; alimentos in natura a partir dos 6 meses; comida amassada; água em vez de sucos; sem açúcar nem ultraprocessados.',o:'Esquema: 6 meses 2 a 3 colheres de sopa por refeição; 7 e 8 meses 3 a 4; 9 a 12 meses 4 a 5; 1 a 2 anos 5 a 6. Carnes e ovos diariamente, com alimento rico em vitamina C.',when:t=>t>=6&&t<24},
+   {t:'Saúde bucal',q:'Escovar ao menos 2 vezes ao dia desde o primeiro dente, com creme com flúor (mínimo de 1.000 ppm).',o:'Quantidade de creme: grão de arroz até 3 anos e 11 meses; grão de ervilha a partir dos 4 anos. Evitar mamadeira noturna com açúcar.'},
+   {t:'Sono seguro e prevenção de acidentes',q:'Bebê de barriga para cima, sem travesseiro nem cobertor, berço ao lado da cama dos pais.',o:'Sem andador. Cadeirinha adequada no carro, proteção contra quedas, afogamento, queimaduras, intoxicação e engasgo.'},
+   {t:'Telas e brincar',q:'Preferir brincadeiras, leitura e contato com os cuidadores; evitar telas, especialmente nos primeiros anos.',o:'Ler para a criança todos os dias; evitar telas nas refeições.'},
+   {t:'Direitos e rede',q:'Registro civil, Bolsa Família e BPC quando houver deficiência, licença-maternidade e paternidade, Criança Feliz.',o:'Articular com Cras e escola para famílias vulneráveis.'}
+  ],age:true},
+  {id:'soap',t:'SOAP',type:'soap'}
+ ],
+ plan:['Orientado aleitamento materno e alimentação complementar','Suplementação de ferro e vitamina A conforme idade e região','Vacinas conferidas e atualizadas','Orientados sinais de perigo e quando procurar a urgência','Orientações de sono seguro e prevenção de acidentes','Orientações de estimulação do desenvolvimento e leitura','Orientada saúde bucal e agendada consulta odontológica','Limite de telas orientado','Encaminhada à puericultura compartilhada ou ao ambulatório de seguimento','Encaminhada à avaliação do desenvolvimento ou ao CER','Articulada com assistência social (Cras)','Retorno de rotina conforme calendário'],
+ autoA:(c,r)=>{const L=[];const dn=c.dt('dn'),co=c.cons;if(dn&&co&&co>=dn)L.push('Criança de '+ageTxt(ageYMD(dn,co),dd(co,dn))+' em consulta de puericultura.');L.push('Estratificação (aba Risco e alertas): '+r.label+'.');return L},
+ retorno:c=>{const dn=c.dt('dn'),co=c.cons;if(!dn||!co||co<dn)return null;const dates=SCHED.map(s=>s[1]===0?addD(dn,s[2]):addM(dn,s[1]));const nx=dates.find(d=>d>addD(co,7));return nx||addM(dn,12*(ageYMD(dn,co).y+1))}
+});
+}
+/* ---------- DCNT ---------- */
+{
+const classPA=(s,d)=>{const m=Math.max(s>=180?5:s>=160?4:s>=140?3:s>=120?2:1,d>=110?5:d>=100?4:d>=90?3:d>=80?2:1);return m};
+const PAN={1:'PA normal (< 120/80)',2:'Pré-hipertensão (120–139 e/ou 80–89)',3:'Hipertensão estágio 1 (140–159 e/ou 90–99)',4:'Hipertensão estágio 2 (160–179 e/ou 100–109)',5:'Hipertensão estágio 3 (≥ 180 e/ou ≥ 110)'};
+const gfrStage=g=>g>=90?'G1':g>=60?'G2':g>=45?'G3a':g>=30?'G3b':g>=15?'G4':'G5';
+const sel=(a)=>a.map((x,i)=>[String(i),x]);
+const fnd=(v,l,o)=>I(v,l,{type:'select',opts:o});
+
+CFGS.push({
+ key:'dcnt', title:'DCNT: hipertensão, diabetes e risco cardiovascular', soapTitle:'CONSULTA DE CONDIÇÕES CRÔNICAS',
+ intro:'Roteiro de consulta para adultos com hipertensão, diabetes tipo 2, obesidade, doença renal crônica e risco cardiovascular, com base no PCDT de Diabetes Mellitus Tipo 2 (Portaria SCTIE/MS nº 13/2026) e na Diretriz Brasileira de Hipertensão Arterial 2025 (SBC/SBN/SBH). Para pessoas com 60 anos ou mais, use também a aba Pessoa idosa.',
+ foot:'Base: PCDT do Diabetes Mellitus Tipo 2, Portaria SCTIE/MS nº 13/2026 (conteúdo clínico confirmado apenas em resumo); Diretriz Brasileira de Hipertensão Arterial 2025, que é de sociedades médicas e não do Ministério da Saúde. Itens com “conferir” vêm da prática usual ou de diretrizes anteriores e devem ser checados no protocolo vigente. Ferramenta de apoio: não substitui protocolos locais nem supervisão.',
+ modes:[['first','Primeira consulta ou diagnóstico'],['ret','Retorno']],
+ head:{
+  fields:[I('idade','Idade (anos)',{min:18,max:120}),I('sexo','Sexo',{type:'select',opts:['Mulher','Homem']}),I('cons','Data da consulta',{type:'date'})],
+  stats:c=>{const i=c.num('idade'),s=c.str('sexo');const r=[];
+   if(i!=null){if(s==='Mulher'){if(i>=50&&i<=74)r.push('mamografia bienal');if(i>=25&&i<=64)r.push('citopatológico')}if(i>=50&&i<=75)r.push('colorretal')}
+   return [{v:i!=null?i+' anos':'—',l:'Idade'},{v:i==null?'—':i>=60?'Pessoa idosa':'Adulto',l:'Faixa'},{v:i==null||!s?'—':(r.length?r.join(', '):'nenhum por idade'),l:'Rastreios oncológicos por idade '+'(conferir)'}]},
+  chip:c=>c.num('idade')!=null?c.num('idade')+' anos':'Idade —',
+  warn:c=>c.num('idade')!=null&&c.num('idade')>=60?'Pessoa com 60 anos ou mais: complemente com a avaliação multidimensional (aba Pessoa idosa) e individualize as metas.':'',
+  line:c=>{const L=[];if(c.num('idade')!=null)L.push('Idade '+c.num('idade')+' anos'+(c.str('sexo')?' | '+c.str('sexo'):''));return L}
+ },
+ tabs:[
+  {id:'seg',t:'Seguimento',type:'html',render:c=>{
+   const i=c.num('idade'),s=c.str('sexo');
+   let h='<div class="grid"><div class="card"><h3>Metas de referência '+CHECK+'</h3><ul class="chk">'+
+    '<li><label style="cursor:default"><span><b>Pressão arterial:</b> abaixo de 130/80 mmHg para todos os hipertensos, quando tolerado (DBHA 2025). Em fragilidade moderada a grave, hipotensão ortostática sintomática ou expectativa de vida reduzida, individualizar.</span></label></li>'+
+    '<li><label style="cursor:default"><span><b>Hemoglobina glicada:</b> em geral, abaixo de 7%; individualizar (idosos frágeis e risco de hipoglicemia aceitam metas mais altas).</span></label></li>'+
+    '<li><label style="cursor:default"><span><b>LDL-colesterol por risco cardiovascular:</b> baixo &lt; 130; intermediário &lt; 100; alto &lt; 70; muito alto &lt; 50 mg/dL (referência SBC).</span></label></li>'+
+    '<li><label style="cursor:default"><span><b>Medidas de estilo de vida:</b> prescrever para todos com PA ≥ 120/80: atividade física (≥ 150 min/semana), redução de sal, alimentação saudável, peso, tabaco e álcool.</span></label></li></ul></div>'+
+    '<div class="card"><h3>Periodicidade sugerida '+CHECK+'</h3><ul class="chk">'+
+    '<li><label style="cursor:default"><span>Fora da meta ou recém-diagnosticado: retornos mensais ou conforme a necessidade até o controle.</span></label></li>'+
+    '<li><label style="cursor:default"><span>Controlado e estável: consultas alternadas de enfermagem e medicina, a cada 3 a 6 meses.</span></label></li>'+
+    '<li><label style="cursor:default"><span>HbA1c a cada 3 a 6 meses; creatinina e relação albumina/creatinina, perfil lipídico, fundo de olho e exame dos pés ao menos anualmente.</span></label></li>'+
+    '<li><label style="cursor:default"><span>Confirmar o diagnóstico de hipertensão com medidas fora do consultório (MAPA ou MRPA) sempre que possível.</span></label></li></ul></div></div>';
+   h+='<div class="card" style="margin-top:12px"><h3>Rastreios por idade e sexo '+CHECK+'</h3><div class="scroll"><table><thead><tr><th>Rastreio</th><th>Quem</th><th>Situação</th></tr></thead><tbody>';
+   const row=(n,q,ok)=>'<tr class="'+(ok===true?'now':'')+'"><td>'+n+'</td><td>'+q+'</td><td>'+(i==null||!s?'—':ok?'indicado':'fora da faixa')+'</td></tr>';
+   h+=row('Mamografia bienal','Mulheres de 50 a 74 anos',s==='Mulher'&&i>=50&&i<=74);
+   h+=row('Citopatológico do colo do útero','Mulheres de 25 a 64 anos (após 2 exames anuais normais, a cada 3 anos)',s==='Mulher'&&i>=25&&i<=64);
+   h+=row('Câncer colorretal','Pessoas de 50 a 75 anos, conforme protocolo local',i>=50&&i<=75);
+   h+=row('Diabetes (glicemia ou HbA1c)','Adultos com sobrepeso e outro fator de risco, ou a partir dos 45 anos',i>=45);
+   h+='</tbody></table></div></div>';return h;
+  }},
+  {id:'anam',t:'Anamnese',type:'fields',qp:true,soap:'S',sections:[
+   {m:'first',t:'Condições e tempo de doença',f:[
+    F('Diagnósticos prévios',['Hipertensão','Diabetes tipo 2','Pré-diabetes','Obesidade','Dislipidemia','Doença renal crônica','Insuficiência cardíaca','Doença coronariana','AVC ou AIT','Doença arterial periférica','DPOC ou asma']),
+    F('Tempo desde o diagnóstico',[]),
+    F('Complicações conhecidas',['Retinopatia','Nefropatia','Neuropatia','Pé diabético ou amputação','Infarto ou angina','AVC','Nenhuma']),
+    F('Internações ou urgências no último ano',['Nenhuma','Crise hipertensiva','Hipoglicemia','Cetoacidose ou hiperglicemia grave','Evento cardiovascular'])]},
+   {m:'both',t:'Controle e adesão',f:[
+    F('Medicamentos em uso',['Anti-hipertensivo','Metformina','Sulfonilureia','Insulina','Estatina','AAS','Diurético','Outros'],'Anotar nome, dose e horários'),
+    F('Adesão',['Toma regularmente','Esquece doses','Interrompeu','Dificuldade de acesso ao medicamento','Efeitos colaterais']),
+    F('Medidas domiciliares',['Mede a pressão em casa','Faz glicemia capilar','Registra valores','Não monitora']),
+    F('Hipoglicemia ou hiperglicemia',['Hipoglicemias','Hiperglicemias sintomáticas','Poliúria, polidipsia, perda de peso','Sem episódios']),
+    F('Sintomas de PA elevada ou baixa',['Cefaleia','Tontura ao levantar','Palpitações','Dor torácica','Dispneia','Edema de membros','Sem sintomas'])]},
+   {m:'both',t:'Hábitos e estilo de vida',f:[
+    F('Tabagismo',['Nunca fumou','Ex-fumante','Fumante']),
+    F('Álcool',['Não consome','Consumo de baixo risco','Consumo de risco'],'AUDIT-C na aba Calculadoras'),
+    F('Atividade física',['Sedentário','< 150 min por semana','≥ 150 min por semana']),
+    F('Alimentação',['Muito sal ou embutidos','Ultraprocessados frequentes','Frutas e hortaliças diárias','Bebidas açucaradas']),
+    F('Sono e estresse',['Sono adequado','Insônia','Roncos ou apneias','Estresse elevado'])]},
+   {m:'both',t:'Saúde mental, social e rastreios',f:[
+    F('Humor',['Estável','Tristeza ou perda de interesse','Ansiedade','Uso de psicofármaco']),
+    F('Contexto social',['Rede de apoio','Insegurança alimentar','Dificuldade financeira para medicamentos','Mora sozinho']),
+    F('Rastreios em dia',['Mamografia','Citopatológico','Colorretal','Nenhum em dia','Não se aplica']),
+    F('Vacinas',['Influenza','Covid-19','dT ou dTpa','Hepatite B','Pneumocócica','Cartão não trazido'])]},
+   {m:'first',t:'Antecedentes familiares e obstétricos',f:[
+    F('Família',['Hipertensão','Diabetes','Infarto ou AVC precoce','Dislipidemia familiar','Doença renal','Câncer colorretal ou de mama']),
+    F('Mulheres',['Diabetes gestacional prévio','Pré-eclâmpsia prévia','Síndrome dos ovários policísticos','Uso de anticoncepcional hormonal','Menopausa'])]}
+  ]},
+  {id:'fis',t:'Exame físico',type:'fields',soap:'O',meds:[
+    I('pas','PAS (mmHg)'),I('pad','PAD (mmHg)'),I('pas2','PAS em pé (mmHg)'),I('pad2','PAD em pé (mmHg)'),I('fc','FC (bpm)'),I('peso','Peso (kg)',{step:'0.1'}),I('est','Altura (cm)'),I('cint','Circunferência abdominal (cm)'),I('sat','SatO₂ (%)')],
+   sections:[
+   {m:'both',t:'Geral e cardiovascular',f:[
+    F('Estado geral',['Bom','Regular','Comprometido']),
+    F('Aparelho cardiovascular',['Bulhas rítmicas, normofonéticas, sem sopros','Sopro','Arritmia','Estase jugular','Pulsos periféricos presentes','Pulsos diminuídos ou ausentes']),
+    F('Aparelho respiratório',['Murmúrio vesicular presente, sem ruídos adventícios','Sibilos','Crepitações']),
+    F('Abdome',['Sem alterações','Sopro abdominal','Massa pulsátil','Hepatomegalia']),
+    F('Edema',['Ausente','Maleolar','Até joelhos','Anasarca']),
+    F('Hipotensão ortostática',['Não','Queda ≥ 20/10 mmHg em 1 a 3 minutos','Não avaliada'])]},
+   {m:'both',t:'Pés e neuropatia (diabetes)',f:[
+    F('Inspeção',['Pele íntegra','Ressecamento ou rachaduras','Calosidades','Deformidades','Úlcera','Infecção','Unhas alteradas']),
+    F('Sensibilidade',['Monofilamento 10 g preservado','Monofilamento alterado','Diapasão preservado','Diapasão alterado','Reflexo aquileu presente','Reflexo aquileu ausente']),
+    F('Circulação',['Pulsos pediosos e tibiais presentes','Pulsos diminuídos','Perfusão capilar adequada','Pele fria ou pálida']),
+    F('Classificação de risco do pé (IWGDF)',['0 sem perda de sensibilidade','1 neuropatia','2 neuropatia com DAP ou deformidade','3 úlcera ou amputação prévia'],'Define a periodicidade do exame dos pés '+CHECK)]},
+   {m:'both',t:'Outros sistemas',f:[
+    F('Fundo de olho (se disponível)',['Sem alterações','Retinopatia','Não realizado']),
+    F('Tireoide',['Sem alterações','Aumentada','Nódulo']),
+    F('Sinais de acantose ou lipodistrofia',['Acantose nigricans','Lipodistrofia em locais de insulina','Ausentes']),
+    F('Cavidade oral',['Sem alterações','Doença periodontal','Candidíase'])]}
+  ]},
+  {id:'exa',t:'Exames',type:'exams',groups:[
+   {t:'Hipertensão: avaliação inicial e seguimento',i:[['Creatinina e TFGe'],['Potássio e sódio'],['Glicemia de jejum'],['Perfil lipídico (CT, HDL, LDL, TG)'],['Urina tipo I e relação albumina/creatinina (RAC)'],['ECG de repouso'],['MAPA ou MRPA para confirmação diagnóstica','Quando disponível'],['Ecocardiograma','Se indicação clínica']]},
+   {t:'Diabetes tipo 2: avaliação inicial e seguimento',i:[['HbA1c','A cada 3 a 6 meses'],['Glicemia de jejum'],['Creatinina, TFGe e RAC','Ao menos 1 vez ao ano'],['Perfil lipídico','Ao menos 1 vez ao ano'],['Fundo de olho','Ao diagnóstico e depois conforme achados'],['Exame dos pés com monofilamento','Anual, mais frequente se risco alto'],['ECG','Ao diagnóstico e se indicação clínica'],['TSH','Se indicação clínica'],['Vitamina B12','Se uso prolongado de metformina, anemia ou neuropatia']]},
+   {t:'Doença renal crônica e outros',i:[['TFGe e RAC (confirmar após 3 meses)'],['Hemograma e ferritina'],['Hepatograma','Se uso de estatina ou suspeita de esteatose'],['Densitometria ou outros','Conforme indicação']]}],
+   interp:[
+    ['Diagnóstico de diabetes e pré-diabetes','<ul><li>Diabetes: glicemia de jejum ≥ 126 mg/dL, TOTG 2 h ≥ 200, HbA1c ≥ 6,5% ou glicemia casual ≥ 200 com sintomas. Confirmar com segundo exame na ausência de hiperglicemia inequívoca.</li><li>Pré-diabetes (ADA/SBD): jejum 100 a 125, TOTG 2 h 140 a 199 ou HbA1c 5,7 a 6,4% '+CHECK+'.</li></ul>'],
+    ['Doença renal crônica','<ul><li>TFGe &lt; 60 mL/min/1,73 m² ou RAC ≥ 30 mg/g por mais de 3 meses.</li><li>Estágios G1 a G5 pela TFGe e A1 a A3 pela RAC (&lt; 30; 30 a 300; &gt; 300).</li></ul>'],
+    ['Quando encaminhar','<ul><li>Hipertensão resistente ou suspeita de causa secundária.</li><li>TFGe &lt; 30, queda rápida da TFGe ou RAC &gt; 300 mg/g.</li><li>Retinopatia, pé de risco 2 ou 3, úlcera ou insulinização complexa.</li></ul>']]},
+  {id:'calc',t:'Calculadoras',type:'calc',calcs:[
+   {id:'imc',t:'IMC e circunferência abdominal',inputs:[I('peso','Peso (kg)',{step:'0.1'}),I('est','Altura (cm)'),I('cint','Circunferência abdominal (cm)')],
+    run:c=>{const p=c.num('peso'),e=c.num('est');if(!p||!e)return null;const v=p/Math.pow(e/100,2);const cl=v<18.5?'baixo peso':v<25?'eutrofia':v<30?'sobrepeso':v<35?'obesidade grau I':v<40?'obesidade grau II':'obesidade grau III';
+     let t='<b>IMC '+br(v.toFixed(1))+' kg/m²: '+cl+'</b>',s='IMC '+br(v.toFixed(1))+' ('+cl+')',cls=v>=30?'warn':v<18.5?'warn':'ok';
+     const ct=c.num('cint'),sx=c.str('sexo');if(ct!=null&&sx){const lim=sx==='Homem'?[94,102]:[80,88];const r=ct>=lim[1]?'risco muito aumentado':ct>=lim[0]?'risco aumentado':'sem risco aumentado';t+='<br>Circunferência abdominal '+ct+' cm: '+r+' (corte para '+sx.toLowerCase()+': '+lim[0]+' e '+lim[1]+' cm).';s+='; circunferência abdominal '+ct+' cm ('+r+')';if(ct>=lim[0]&&cls==='ok')cls='warn'}
+     return R(cls,t,s)}},
+   {id:'pa',t:'Classificação da pressão arterial (DBHA 2025)',inputs:[I('pas','PAS (mmHg)'),I('pad','PAD (mmHg)')],
+    run:c=>{const s=c.num('pas'),d=c.num('pad');if(s==null||d==null)return null;const k=classPA(s,d);
+     const cls=k===1?'ok':k===2?'':k<5?'warn':'danger';
+     let g=k===1?'Manter a aferição periódica.':k===2?'Prescrever medidas de estilo de vida; avaliar risco cardiovascular. Tratamento medicamentoso só se alto risco e 130–139/80–89 após 3 meses de medidas não medicamentosas.':k===5?'Estágio 3: se houver sintomas ou lesão aguda de órgão-alvo, é emergência hipertensiva (encaminhar). Sem sintomas, reavaliar em curto prazo e ajustar o tratamento.':'Confirmar com medidas repetidas e, quando possível, MAPA ou MRPA; avaliar lesão de órgão-alvo, risco cardiovascular e iniciar tratamento conforme o protocolo. Meta: abaixo de 130/80.';
+     return R(cls,'<b>'+s+'×'+d+': '+PAN[k]+'</b>'+g,'PA '+s+'×'+d+' mmHg: '+PAN[k])}},
+   {id:'tfg',t:'TFGe (CKD-EPI 2021) e albuminúria',note:'Fórmula CKD-EPI 2021 sem coeficiente de raça. Idade e sexo vêm do cabeçalho.',inputs:[I('cr','Creatinina sérica (mg/dL)',{step:'0.01'}),I('rac','RAC (mg/g)')],
+    run:c=>{const cr=c.num('cr'),i=c.num('idade'),sx=c.str('sexo'),rac=c.num('rac');if(cr==null||i==null||!sx)return null;
+     const k=sx==='Mulher'?0.7:0.9,a=sx==='Mulher'?-0.241:-0.302;const g=142*Math.pow(Math.min(cr/k,1),a)*Math.pow(Math.max(cr/k,1),-1.2)*Math.pow(0.9938,i)*(sx==='Mulher'?1.012:1);
+     const st=gfrStage(g);let t='<b>TFGe '+Math.round(g)+' mL/min/1,73 m² ('+st+')</b>',s='TFGe '+Math.round(g)+' mL/min/1,73 m² ('+st+')',cls=g>=60?'ok':g>=30?'warn':'danger';
+     if(rac!=null){const al=rac<30?'A1':rac<=300?'A2':'A3';t+='<br>RAC '+rac+' mg/g ('+al+')';s+='; RAC '+rac+' mg/g ('+al+')';if(al!=='A1'&&cls==='ok')cls='warn'}
+     t+='<br>Doença renal crônica se TFGe &lt; 60 ou RAC ≥ 30 por mais de 3 meses.';return R(cls,t,s)}},
+   {id:'gli',t:'Glicemia, HbA1c e glicemia média estimada',inputs:[I('gj','Glicemia de jejum (mg/dL)'),I('tt2','TOTG 75 g, 2 h (mg/dL)'),I('a1c','HbA1c (%)',{step:'0.1'})],
+    run:c=>{const j=c.num('gj'),t2=c.num('tt2'),a=c.num('a1c');if(j==null&&t2==null&&a==null)return null;const D=[],P=[],S=[];
+     if(j!=null){if(j>=126)D.push('jejum '+j);else if(j>=100)P.push('jejum '+j)}
+     if(t2!=null){if(t2>=200)D.push('TOTG 2 h '+t2);else if(t2>=140)P.push('TOTG 2 h '+t2)}
+     if(a!=null){if(a>=6.5)D.push('HbA1c '+br(a));else if(a>=5.7)P.push('HbA1c '+br(a))}
+     let cls='ok',h='',sm='';
+     if(D.length){cls='warn';h='<b>Compatível com diabetes</b>Critério: '+D.join(', ')+'. Confirmar com segundo exame se não houver hiperglicemia inequívoca.';sm='Glicemia/HbA1c compatível com diabetes ('+D.join(', ')+')'}
+     else if(P.length){cls='';h='<b>Pré-diabetes</b>'+P.join(', ')+'. Intervir no estilo de vida e reavaliar em 6 a 12 meses.';sm='Pré-diabetes ('+P.join(', ')+')'}
+     else{h='<b>Sem critério para diabetes ou pré-diabetes nos valores informados</b>';sm='Glicemia/HbA1c sem critério para diabetes'}
+     if(a!=null){const eag=28.7*a-46.7;h+='<br>Glicemia média estimada pela HbA1c: cerca de '+Math.round(eag)+' mg/dL.'}
+     return R(cls,h,sm)}},
+   {id:'find',t:'FINDRISC (risco de diabetes em 10 anos)',note:'Rastreio em pessoas sem diabetes. Idade, IMC e cintura podem ser lidos acima.',inputs:[
+     fnd('f_idade','Idade',[['0','< 45 anos'],['2','45 a 54'],['3','55 a 64'],['4','> 64']]),
+     fnd('f_imc','IMC',[['0','< 25'],['1','25 a 30'],['3','> 30']]),
+     fnd('f_cint','Cintura',[['0','Normal (H < 94; M < 80)'],['3','H 94–102; M 80–88'],['4','H > 102; M > 88']]),
+     fnd('f_ativ','Atividade física ≥ 30 min por dia',[['0','Sim'],['2','Não']]),
+     fnd('f_fruta','Frutas e verduras todos os dias',[['0','Sim'],['1','Não']]),
+     fnd('f_has','Uso de anti-hipertensivo',[['0','Não'],['2','Sim']]),
+     fnd('f_gli','Glicemia alta já detectada',[['0','Não'],['5','Sim']]),
+     fnd('f_fam','Diabetes na família',[['0','Não'],['3','Parente de 2º grau'],['5','Parente de 1º grau']])],
+    run:c=>{const ks=['f_idade','f_imc','f_cint','f_ativ','f_fruta','f_has','f_gli','f_fam'];if(ks.some(k=>c.str(k)===''))return null;const t=ks.reduce((a,k)=>a+Number(c.str(k)),0);
+     const r=t<7?'risco baixo':t<=11?'risco levemente aumentado':t<=14?'risco moderado':t<=20?'risco alto':'risco muito alto';
+     return R(t>=12?'warn':t>=7?'':'ok','<b>FINDRISC '+t+': '+r+'</b>Moderado a muito alto: solicitar glicemia ou HbA1c e intervir no estilo de vida.','FINDRISC '+t+' ('+r+')')}},
+   {id:'maco',t:'Carga tabágica (maços-ano)',inputs:[I('cig','Cigarros por dia'),I('anosf','Anos fumando')],
+    run:c=>{const a=c.num('cig'),b=c.num('anosf');if(a==null||b==null)return null;const m=a*b/20;return R(m>=20?'warn':'','<b>'+br(m.toFixed(1))+' maços-ano</b>Oferecer abordagem para cessação do tabagismo em toda consulta.',br(m.toFixed(1))+' maços-ano')}},
+   {id:'audit',t:'AUDIT-C',note:'Cada item vale de 0 a 4 pontos. Positivo: ≥ 4 para homens e ≥ 3 para mulheres.',inputs:[I('au1','Frequência de consumo (0 a 4)',{min:0,max:4}),I('au2','Doses em um dia típico (0 a 4)',{min:0,max:4}),I('au3','6 ou mais doses numa ocasião (0 a 4)',{min:0,max:4})],
+    run:c=>{const a=c.num('au1'),b=c.num('au2'),d=c.num('au3'),sx=c.str('sexo');if(a==null||b==null||d==null)return null;const t=a+b+d;const lim=sx==='Homem'?4:3;return R(t>=lim?'warn':'ok','<b>AUDIT-C '+t+': '+(t>=lim?'rastreio positivo':'rastreio negativo')+'</b>'+(t>=lim?'Aplicar o AUDIT completo e realizar intervenção breve.':'Reavaliar periodicamente.')+(sx?'':'<br>Informe o sexo no cabeçalho (corte 4 para homens; 3 para mulheres).'),'AUDIT-C '+t+': '+(t>=lim?'positivo':'negativo'))}},
+   {id:'phq',t:'PHQ-2 (depressão)',inputs:[fnd('pq1','Pouco interesse ou prazer',sel(['Nenhuma vez','Vários dias','Mais da metade dos dias','Quase todos os dias'])),fnd('pq2','Sentir-se para baixo ou sem esperança',sel(['Nenhuma vez','Vários dias','Mais da metade dos dias','Quase todos os dias']))],
+    run:c=>{if(c.str('pq1')===''||c.str('pq2')==='')return null;const t=Number(c.str('pq1'))+Number(c.str('pq2'));return R(t>=3?'warn':'ok','<b>PHQ-2 = '+t+': '+(t>=3?'positivo':'negativo')+'</b>'+(t>=3?'Aplicar o PHQ-9, avaliar risco de suicídio e acionar a rede de saúde mental.':'Repetir periodicamente.'),'PHQ-2 = '+t+' ('+(t>=3?'positivo':'negativo')+')')}},
+   {id:'ldl',t:'Meta de LDL por risco cardiovascular',inputs:[fnd('rcvcat','Categoria de risco',[['130','Baixo (meta < 130)'],['100','Intermediário (meta < 100)'],['70','Alto (meta < 70)'],['50','Muito alto (meta < 50)']]),I('ldl','LDL atual (mg/dL)')],
+    run:c=>{const m=c.num('rcvcat'),l=c.num('ldl');if(m==null||l==null)return null;const ok=l<m;return R(ok?'ok':'warn','<b>LDL '+l+' mg/dL: '+(ok?'dentro da meta':'acima da meta')+' (< '+m+')</b>'+(ok?'Manter o tratamento.':'Reforçar estilo de vida e adesão; avaliar ajuste da estatina.'),'LDL '+l+' mg/dL, meta < '+m+': '+(ok?'dentro da meta':'acima da meta'))}}
+  ]},
+  {id:'risk',t:'Risco e alertas',type:'risk',groups:[
+   {k:'urg',t:'Urgência: encaminhar hoje',res:'Sinal de urgência marcado: encaminhar a serviço de urgência (Samu 192 se instável).',cls:'danger',items:['PA ≥ 180/110 com sintomas (cefaleia intensa, dor torácica, dispneia, déficit neurológico, alteração visual)','Dor torácica típica ou suspeita de síndrome coronariana aguda','Sinais de AVC (assimetria facial, fraqueza, fala alterada)','Glicemia < 54 mg/dL ou hipoglicemia grave com rebaixamento','Hiperglicemia grave com desidratação, vômitos, dor abdominal, hálito cetônico ou rebaixamento','Pé diabético com infecção profunda, necrose, gangrena ou isquemia crítica','Insuficiência cardíaca descompensada ou edema agudo de pulmão','Lesão renal aguda ou hipercalemia grave']},
+   {k:'enc',t:'Encaminhar ao especialista ou apoio matricial',res:'Critério de encaminhamento marcado: referenciar ou discutir com a atenção especializada, mantendo o vínculo na APS.',cls:'warn',items:['Hipertensão resistente (3 ou mais fármacos, incluindo diurético) ou suspeita de causa secundária','Hipertensão com lesão de órgão-alvo avançada','TFGe < 30 mL/min/1,73 m², queda rápida da TFGe ou RAC > 300 mg/g','Retinopatia diabética ou perda de visão','Pé de risco 2 ou 3, úlcera ou amputação prévia','Diabetes com difícil controle apesar do tratamento otimizado ou necessidade de insulinização complexa','Gestação em mulher com diabetes ou hipertensão prévia','Doença cardiovascular sintomática ou arritmia','Obesidade grau III ou grau II com comorbidade (avaliar cirurgia bariátrica)']},
+   {k:'rcv',t:'Estratificação de risco cardiovascular '+'(critérios simplificados, conferir)',res:'Fatores de risco marcados: elevar a categoria de risco cardiovascular e individualizar metas (calcular o risco global se nenhum critério de alto risco estiver presente).',cls:'ok',items:['Doença aterosclerótica estabelecida (infarto, angina, AVC isquêmico, DAP, revascularização): risco muito alto','Diabetes: risco alto (muito alto se com doença estabelecida ou lesão de órgão-alvo)','Doença renal crônica (TFGe < 60 ou RAC ≥ 30): risco alto','LDL ≥ 190 mg/dL ou hipercolesterolemia familiar: risco alto','Aneurisma de aorta abdominal: risco alto','Hipertensão estágio 3 ou com lesão de órgão-alvo (HVE, retinopatia)','Tabagismo, obesidade, sedentarismo, história familiar precoce, síndrome metabólica']}
+  ]},
+  {id:'ori',t:'Condutas e orientações',type:'cards',cards:[
+   {t:'Mudança de estilo de vida (para todos)',q:'Atividade física ≥ 150 min por semana, alimentação saudável (Guia Alimentar), redução de sal, peso saudável, cessação do tabagismo e redução do álcool.',o:'Educação em saúde, autocuidado apoiado e grupos na APS são pilares do PCDT de DM2 2026.'},
+   {t:'Hipertensão: tratamento medicamentoso',q:'Combinação de dois fármacos é preferida em estágio 1 de baixo risco e acima, quando indicada (DBHA 2025).',o:'Classes usuais: IECA ou BRA, bloqueador de canal de cálcio e diurético tiazídico. Conferir os medicamentos disponíveis na aba REMUME '+CHECK+'.'},
+   {t:'Diabetes tipo 2: tratamento medicamentoso',q:'Metformina como primeira opção, se não houver contraindicação; adicionar segunda droga conforme o PCDT.',o:'O PCDT 2026 incorpora insulinas análogas ao SUS (Portarias SECTICS/MS 58 e 59/2024). Conferir esquemas e critérios no PCDT '+CHECK+'.'},
+   {t:'Pé diabético',q:'Educar sobre cuidados diários, calçados adequados e não andar descalço; examinar os pés em toda consulta de risco.',o:'Periodicidade conforme a classificação de risco do pé.'},
+   {t:'Vacinas do adulto',q:'Influenza anual, covid-19 conforme calendário, dT ou dTpa a cada 10 anos, hepatite B se suscetível.',o:'Pneumocócica e outras vacinas conforme indicação dos CRIE para doenças crônicas '+CHECK+'.'},
+   {t:'Sinais de alerta para orientar',q:'Procurar a urgência se houver dor no peito, falta de ar, fraqueza ou perda de fala, cefaleia súbita e intensa, glicemia muito baixa ou muito alta com mal-estar, ferida no pé que não melhora.',o:'Orientar também a não suspender medicamentos por conta própria.'}
+  ]},
+  {id:'soap',t:'SOAP',type:'soap'}
+ ],
+ plan:['Orientado estilo de vida: atividade física, alimentação e sal','Cessação do tabagismo e redução do álcool orientadas','Adesão ao tratamento reforçada','Solicitados exames de seguimento (HbA1c, creatinina, RAC, lipídios)','Ajuste de medicação (descrever abaixo)','Pé diabético: exame e orientações realizados','Encaminhado ao especialista ou ao apoio matricial','Encaminhado à eMulti (nutrição, educação física, psicologia)','Vacinas conferidas e atualizadas','Rastreios oncológicos orientados','Automonitorização domiciliar orientada','Participação em grupo de hipertensos e diabéticos'],
+ autoA:(c,r)=>{const L=[];const i=c.num('idade');L.push('Pessoa'+(i!=null?' de '+i+' anos':'')+' em acompanhamento de condições crônicas.');L.push('Estratificação (aba Risco e alertas): '+r.label+'.');return L},
+ retorno:c=>null
+});
+}
+/* ---------- PESSOA IDOSA ---------- */
+{
+const sel=a=>a.map((x,i)=>[String(i),x]);
+const sn=(v,l)=>I(v,l,{type:'select',opts:[['1','Sim'],['0','Não']]});
+const MEEMCUT=[['0','Analfabeto',20],['1','1 a 4 anos de estudo',25],['2','5 a 8 anos',26],['3','9 a 11 anos',28],['4','Mais de 11 anos',29]];
+
+CFGS.push({
+ key:'idoso', title:'Saúde da pessoa idosa', soapTitle:'CONSULTA DA PESSOA IDOSA',
+ intro:'Roteiro de avaliação multidimensional da pessoa com 60 anos ou mais, com base na Caderneta da Pessoa Idosa (6ª edição, lançada em janeiro de 2026), que incorporou o IVCF-20. Informe a data de nascimento e o sexo.',
+ foot:'Base: Caderneta da Pessoa Idosa, 6ª edição (Ministério da Saúde, jan./2026). O conteúdo detalhado da caderneta não foi lido integralmente: itens com “conferir” são da prática geriátrica usual (escalas e pontos de corte) e devem ser confirmados no instrumento oficial. Ferramenta de apoio: não substitui protocolos locais nem supervisão.',
+ modes:[['first','Avaliação inicial ou anual'],['ret','Retorno']],
+ head:{
+  fields:[I('dn','Data de nascimento',{type:'date'}),I('sexo','Sexo',{type:'select',opts:['Mulher','Homem']}),I('cons','Data da consulta',{type:'date'})],
+  stats:c=>{const dn=c.dt('dn'),co=c.cons;if(!dn||!co||co<dn)return [{v:'—',l:'Idade'},{v:'—',l:'Faixa'},{v:'—',l:'Reavaliação multidimensional (IVCF-20)'}];
+   const y=co.getFullYear()-dn.getFullYear()-((co.getMonth()<dn.getMonth()||(co.getMonth()===dn.getMonth()&&co.getDate()<dn.getDate()))?1:0);
+   return [{v:y+' anos',l:'Idade'},{v:y<60?'Abaixo de 60 anos':y<80?'Pessoa idosa (60 a 79)':'Pessoa muito idosa (80 ou mais)',l:'Faixa'},{v:'Anual',l:'Reavaliação multidimensional (IVCF-20)'}]},
+  chip:c=>{const dn=c.dt('dn'),co=c.cons;if(!dn||!co||co<dn)return 'Idade —';return 'Idade '+(co.getFullYear()-dn.getFullYear()-((co.getMonth()<dn.getMonth()||(co.getMonth()===dn.getMonth()&&co.getDate()<dn.getDate()))?1:0))+' a'},
+  warn:c=>{const dn=c.dt('dn'),co=c.cons;if(dn&&co&&co<dn)return 'A consulta é anterior ao nascimento. Confira as datas.';if(dn&&co&&co.getFullYear()-dn.getFullYear()<60)return 'A caderneta se aplica a pessoas com 60 anos ou mais.';return ''},
+  line:c=>{const dn=c.dt('dn'),co=c.cons,L=[];if(dn&&co&&co>=dn)L.push('Idade '+(co.getFullYear()-dn.getFullYear()-((co.getMonth()<dn.getMonth()||(co.getMonth()===dn.getMonth()&&co.getDate()<dn.getDate()))?1:0))+' anos'+(c.str('sexo')?' | '+c.str('sexo'):''));return L}
+ },
+ tabs:[
+  {id:'seg',t:'Seguimento',type:'html',render:c=>{
+   const dn=c.dt('dn'),co=c.cons;let y=null;if(dn&&co&&co>=dn)y=co.getFullYear()-dn.getFullYear()-((co.getMonth()<dn.getMonth()||(co.getMonth()===dn.getMonth()&&co.getDate()<dn.getDate()))?1:0);const s=c.str('sexo');
+   let h='<div class="grid"><div class="card"><h3>Avaliação multidimensional</h3><ul class="chk">'+
+    '<li><label style="cursor:default"><span>Aplicar o <b>IVCF-20</b> (Índice de Vulnerabilidade Clínico-Funcional), agora parte da caderneta, ao menos uma vez ao ano ou quando houver mudança clínica. Escore 0 a 6: baixo risco; 7 a 14: risco moderado; ≥ 15: alto risco de vulnerabilidade.</span></label></li>'+
+    '<li><label style="cursor:default"><span>Revisar a <b>lista de medicamentos</b> (polifarmácia, medicamentos potencialmente inadequados) em toda consulta.</span></label></li>'+
+    '<li><label style="cursor:default"><span>Registrar na caderneta: medicamentos, exames, vacinas, avaliação do domicílio, suporte sociofamiliar e plano de cuidados.</span></label></li>'+
+    '<li><label style="cursor:default"><span>Perguntar sobre <b>violência</b>, saúde mental, cuidados paliativos e diretivas, temas da edição de 2026.</span></label></li></ul></div>'+
+    '<div class="card"><h3>Plano conforme o IVCF-20</h3><ul class="chk"><li><label style="cursor:default"><span><b>Baixo risco (0 a 6):</b> promoção da saúde, atividade física, vacinas, rastreios; reavaliar em 1 ano.</span></label></li><li><label style="cursor:default"><span><b>Risco moderado (7 a 14):</b> investigar o domínio alterado, plano de cuidado com a equipe, retorno em 3 a 6 meses '+CHECK+'.</span></label></li><li><label style="cursor:default"><span><b>Alto risco (≥ 15):</b> avaliação geriátrica ampla, visita domiciliar, discussão do caso e encaminhamento ao geriatra quando disponível.</span></label></li></ul></div></div>';
+   h+='<div class="card" style="margin-top:12px"><h3>Rastreios por idade e sexo '+CHECK+'</h3><div class="scroll"><table><thead><tr><th>Rastreio</th><th>Quem</th><th>Situação</th></tr></thead><tbody>';
+   const row=(n,q,ok)=>'<tr class="'+(ok===true?'now':'')+'"><td>'+n+'</td><td>'+q+'</td><td>'+(y==null||!s?'—':ok?'indicado':'fora da faixa')+'</td></tr>';
+   h+=row('Mamografia bienal','Mulheres de 50 a 74 anos',s==='Mulher'&&y>=50&&y<=74);
+   h+=row('Citopatológico do colo do útero','Mulheres até 64 anos; após 64, encerrar se 2 exames normais nos últimos 5 anos',s==='Mulher'&&y<=64);
+   h+=row('Câncer colorretal','Pessoas de 50 a 75 anos, conforme protocolo local',y>=50&&y<=75);
+   h+=row('Osteoporose (densitometria)','Mulheres a partir de 65 anos e homens a partir de 70, ou antes se fatores de risco',(s==='Mulher'&&y>=65)||(s==='Homem'&&y>=70));
+   h+='</tbody></table></div></div>';return h;
+  }},
+  {id:'anam',t:'Anamnese',type:'fields',qp:true,soap:'S',sections:[
+   {m:'both',t:'Condição de saúde e autopercepção',f:[
+    F('Autopercepção da saúde',['Excelente, muito boa ou boa','Regular','Ruim']),
+    F('Comorbidades',['Hipertensão','Diabetes','Cardiopatia','AVC','DPOC ou asma','Doença renal','Osteoporose','Artrose ou dor crônica','Câncer','Demência','Depressão','Parkinson','Nega']),
+    F('Internações ou urgências no último ano',['Nenhuma','1','2 ou mais','Internação recente']),
+    F('Queixas atuais',['Dor','Tontura','Fadiga','Falta de ar','Alteração do apetite','Perda de peso','Insônia','Constipação','Incontinência urinária','Sem queixas'])]},
+   {m:'both',t:'Medicamentos',f:[
+    F('Número de medicamentos de uso regular',['Nenhum','1 a 4','5 a 9 (polifarmácia)','10 ou mais']),
+    F('Uso de medicamentos que exigem atenção',['Benzodiazepínicos','Anticolinérgicos (ex.: amitriptilina, oxibutinina)','Antipsicóticos','Anti-inflamatórios','Anti-hipertensivos em excesso','Hipoglicemiantes com risco de hipoglicemia','Nenhum'],'Critérios de Beers como apoio '+CHECK),
+    F('Adesão e organização',['Toma sozinho e corretamente','Precisa de ajuda do cuidador','Esquece doses','Usa caixa organizadora','Automedicação','Fitoterápicos e chás'])]},
+   {m:'both',t:'Funcionalidade (AVD)',f:[
+    F('Atividades instrumentais (compras, finanças, tarefas domésticas)',['Independente','Deixou de fazer compras por saúde','Deixou de controlar finanças por saúde','Deixou de fazer tarefas domésticas por saúde']),
+    F('Atividades básicas (banho, vestir, higiene, alimentação, continência)',['Independente','Dependente para o banho','Dependente para vestir-se','Dependente para alimentar-se','Dependente para usar o banheiro']),
+    F('Cuidador',['Sem cuidador','Familiar','Cuidador contratado','Sobrecarga do cuidador referida'])]},
+   {m:'both',t:'Cognição, humor e sono',f:[
+    F('Memória',['Sem queixas','Esquecimento referido','Esquecimento piorando no último ano','Esquecimento interfere nas atividades','Desorientação','Alteração de comportamento']),
+    F('Humor',['Estável','Desânimo ou tristeza','Perda de interesse','Ansiedade','Ideação suicida','Uso de antidepressivo']),
+    F('Sono',['Adequado','Insônia','Sonolência diurna','Uso de hipnóticos'])]},
+   {m:'both',t:'Mobilidade, quedas e sentidos',f:[
+    F('Quedas no último ano',['Nenhuma','1 queda','2 ou mais','Com fratura','Medo de cair']),
+    F('Marcha e mobilidade',['Anda sem auxílio','Usa bengala ou andador','Dificuldade para caminhar 400 m','Dificuldade para levantar os braços ou segurar objetos','Acamado ou restrito ao leito']),
+    F('Visão e audição',['Sem queixas','Dificuldade visual','Usa óculos','Dificuldade auditiva','Usa aparelho auditivo']),
+    F('Continência',['Continente','Incontinência urinária','Incontinência fecal','Nictúria frequente'])]},
+   {m:'both',t:'Nutrição, hábitos e contexto',f:[
+    F('Apetite e peso',['Apetite preservado','Hiporexia','Perda de peso involuntária (≥ 4,5 kg ou 5% em 1 ano)','Dificuldade de mastigar ou engolir','Próteses mal adaptadas']),
+    F('Hábitos',['Tabagismo','Álcool','Sedentarismo','Atividade física regular']),
+    F('Suporte sociofamiliar e domicílio',['Mora sozinho','Mora com família','Rede de apoio presente','Isolamento social','Domicílio com risco de queda (tapetes, escadas, banheiro sem barras)']),
+    F('Violência e maus-tratos',['Nega','Negligência','Violência psicológica','Violência física','Abuso financeiro'],'Perguntar com privacidade; notificação compulsória'),
+    F('Cuidados paliativos e preferências',['Conversou sobre preferências','Diretivas antecipadas registradas','Não abordado'])]},
+   {m:'ret',t:'Desde a última consulta',f:[
+    F('Eventos',['Nenhum','Queda','Internação','Atendimento em urgência','Mudança de medicamentos','Piora cognitiva ou funcional']),
+    F('Sinais de alerta',['Nega','Confusão aguda','Febre','Dispneia','Dor torácica','Sangramento','Retenção urinária'])]}
+  ]},
+  {id:'fis',t:'Exame físico',type:'fields',soap:'O',meds:[
+    I('pas','PAS deitado ou sentado (mmHg)'),I('pad','PAD deitado ou sentado (mmHg)'),I('pas2','PAS em pé (mmHg)'),I('pad2','PAD em pé (mmHg)'),I('fc','FC (bpm)'),I('peso','Peso (kg)',{step:'0.1'}),I('est','Altura (cm)'),I('pant','Circunferência da panturrilha (cm)',{step:'0.1'}),I('sat','SatO₂ (%)')],
+   sections:[
+   {m:'both',t:'Geral e sinais vitais',f:[
+    F('Estado geral',['Bom','Regular','Comprometido','Emagrecido','Desidratado']),
+    F('Hipotensão ortostática',['Não','Queda ≥ 20/10 mmHg em 1 a 3 minutos','Não avaliada']),
+    F('Pele e mucosas',['Corada e hidratada','Pálida','Ictérica','Lesão por pressão','Lesões suspeitas de pele']),
+    F('Cavidade oral',['Dentição preservada','Edêntulo','Prótese adequada','Prótese inadequada','Candidíase','Lesões suspeitas'])]},
+   {m:'both',t:'Sistemas',f:[
+    F('Cardiovascular',['Bulhas rítmicas, normofonéticas, sem sopros','Sopro','Arritmia','Pulsos periféricos presentes','Pulsos diminuídos']),
+    F('Respiratório',['Murmúrio vesicular presente, sem ruídos adventícios','Sibilos','Crepitações','Redução de murmúrio vesicular']),
+    F('Abdome',['Sem alterações','Dor à palpação','Massa palpável','Globo vesical']),
+    F('Mamas',['Sem alterações','Nódulo','Não examinadas']),
+    F('Membros inferiores',['Sem edema','Edema','Varizes','Úlceras','Sinais de TVP'])]},
+   {m:'both',t:'Neurológico, marcha e funcionalidade',f:[
+    F('Estado mental',['Alerta e orientado','Desorientado','Sonolento','Agitado','Delirium suspeito']),
+    F('Marcha e equilíbrio',['Marcha segura','Marcha lentificada','Marcha ceifante ou festinante','Instabilidade','Usa dispositivo de auxílio']),
+    F('Força e tônus',['Força preservada','Fraqueza proximal','Rigidez','Tremor','Assimetria']),
+    F('Pés',['Sem alterações','Deformidades','Calosidades','Onicomicose','Ulcerações']),
+    F('Visão e audição (exame)',['Acuidade preservada','Acuidade reduzida','Teste do sussurro normal','Teste do sussurro alterado'])]}
+  ]},
+  {id:'exa',t:'Exames',type:'exams',groups:[
+   {t:'Laboratório inicial ou anual (critério clínico)',i:[['Hemograma'],['Glicemia de jejum ou HbA1c'],['Creatinina e TFGe'],['Perfil lipídico'],['TSH','Se sintomas, cognição alterada ou uso de amiodarona'],['Vitamina B12','Se uso de metformina, anemia ou alteração cognitiva'],['Urina tipo I e urocultura','Apenas com sintomas '+CHECK],['Sódio e potássio','Se diuréticos, IECA ou sintomas']]},
+   {t:'Rastreios e imagem',i:[['Mamografia'],['Citopatológico do colo do útero'],['Pesquisa de sangue oculto ou colonoscopia','Conforme protocolo local'],['Densitometria óssea'],['ECG','Se hipertensão, arritmia ou cardiopatia'],['Audiometria','Se queixa auditiva'],['Avaliação oftalmológica']]},
+   {t:'Investigação de demência (se indicado)',i:[['Neuroimagem'],['Sorologia para sífilis ou HIV','Se fatores de risco'],['Avaliação neuropsicológica']]}]},
+  {id:'calc',t:'Escalas e calculadoras',type:'calc',calcs:[
+   {id:'ivcf',t:'IVCF-20: interpretação do escore',note:'Aplique o instrumento da caderneta e informe o total (0 a 40 pontos).',inputs:[I('ivcf','Escore total do IVCF-20 (0 a 40)',{min:0,max:40})],
+    run:c=>{const s=c.num('ivcf');if(s==null)return null;const k=s<=6?0:s<=14?1:2;const t=['baixo risco de vulnerabilidade (idoso robusto)','risco moderado (idoso em risco de fragilização)','alto risco de vulnerabilidade (idoso frágil)'][k];
+     return R(['ok','warn','danger'][k],'<b>IVCF-20: '+s+' pontos, '+t+'</b>'+['Manter promoção da saúde e reavaliar em 1 ano.','Investigar os domínios alterados e programar plano de cuidados.','Avaliação geriátrica ampla, plano individualizado e discussão do caso com a equipe ou o geriatra.'][k],'IVCF-20 = '+s+' ('+t+')')}},
+   {id:'poli',t:'Polifarmácia',inputs:[I('nmed','Número de medicamentos de uso regular')],
+    run:c=>{const n=c.num('nmed');if(n==null)return null;const t=n>=10?'hiperpolifarmácia':n>=5?'polifarmácia':'sem polifarmácia';return R(n>=5?'warn':'ok','<b>'+n+' medicamentos: '+t+'</b>'+(n>=5?'Revisar indicação, duplicidades, interações e medicamentos potencialmente inadequados; considerar desprescrição.':'Manter a revisão periódica.'),n+' medicamentos de uso regular ('+t+')')}},
+   {id:'tug',t:'Timed Up and Go (TUG)',inputs:[I('tug','Tempo (segundos)',{step:'0.1'})],
+    run:c=>{const t=c.num('tug');if(t==null)return null;const r=t>=12;return R(r?'warn':'ok','<b>TUG '+br(t)+' s: '+(r?'risco de queda aumentado':'sem risco aumentado')+'</b>'+(r?'Corte de 12 segundos (CDC/STEADI) '+CHECK+'. Avaliar medicamentos, visão, calçados, força e equilíbrio; orientar prevenção de quedas.':'Reavaliar periodicamente.'),'TUG '+br(t)+' s ('+(r?'risco de queda aumentado':'sem risco aumentado')+')')}},
+   {id:'vel',t:'Velocidade de marcha',inputs:[I('dist','Distância (m)',{step:'0.1',def:'4'}),I('tmar','Tempo (segundos)',{step:'0.1'})],
+    run:c=>{const d=c.num('dist'),t=c.num('tmar');if(!d||!t)return null;const v=d/t;const r=v<0.8;return R(r?'warn':'ok','<b>'+br(v.toFixed(2))+' m/s: '+(r?'lentificada (< 0,8 m/s)':'adequada')+'</b>'+(r?'Sugere fragilidade ou sarcopenia '+CHECK+'.':'' ),'Velocidade de marcha '+br(v.toFixed(2))+' m/s ('+(r?'lentificada':'adequada')+')')}},
+   {id:'sarc',t:'SARC-F (rastreio de sarcopenia)',note:'Cada item vale 0, 1 ou 2 pontos. Positivo: ≥ 4.',inputs:[I('s1','Força (0 a 2)',{min:0,max:2}),I('s2','Auxílio para caminhar (0 a 2)',{min:0,max:2}),I('s3','Levantar da cadeira (0 a 2)',{min:0,max:2}),I('s4','Subir escadas (0 a 2)',{min:0,max:2}),I('s5','Quedas no último ano (0 a 2)',{min:0,max:2})],
+    run:c=>{const v=['s1','s2','s3','s4','s5'].map(k=>c.num(k));if(v.some(x=>x==null))return null;const t=v.reduce((a,b)=>a+b,0);return R(t>=4?'warn':'ok','<b>SARC-F '+t+': '+(t>=4?'sugere sarcopenia':'negativo')+'</b>'+(t>=4?'Medir força de preensão e desempenho físico; orientar proteína e exercício resistido.':''),'SARC-F '+t+' ('+(t>=4?'positivo':'negativo')+')')}},
+   {id:'pant',t:'Circunferência da panturrilha e IMC do idoso',inputs:[I('pant','Panturrilha (cm)',{step:'0.1'}),I('peso','Peso (kg)',{step:'0.1'}),I('est','Altura (cm)')],
+    run:c=>{const p=c.num('pant'),w=c.num('peso'),h=c.num('est');if(p==null&&!(w&&h))return null;let t='',s='',cls='ok';
+     if(p!=null){const lo=p<31;t+='Panturrilha '+br(p)+' cm: '+(lo?'reduzida (< 31 cm), sugere baixa massa muscular':'adequada')+'.';s='panturrilha '+br(p)+' cm'+(lo?' (reduzida)':'');if(lo)cls='warn'}
+     if(w&&h){const v=w/Math.pow(h/100,2);const k=v<22?'baixo peso':v<=27?'eutrofia':'sobrepeso';t+=(t?'<br>':'')+'IMC '+br(v.toFixed(1))+' kg/m²: '+k+' (corte para idosos: 22 e 27)'+'.';s+=(s?'; ':'')+'IMC '+br(v.toFixed(1))+' ('+k+')';if(k!=='eutrofia')cls='warn'}
+     return R(cls,t,s)}},
+   {id:'gds',t:'GDS-15 (escala de depressão geriátrica)',note:'Informe o total de respostas que indicam depressão (0 a 15).',inputs:[I('gds','Pontos (0 a 15)',{min:0,max:15})],
+    run:c=>{const s=c.num('gds');if(s==null)return null;const r=s>=6;return R(r?'warn':'ok','<b>GDS-15 = '+s+': '+(r?'sugere depressão':'sem indicação de depressão')+'</b>'+(r?'Corte ≥ 6 '+CHECK+'. Avaliar clinicamente, risco de suicídio e tratamento.':''),'GDS-15 = '+s+' ('+(r?'positivo':'negativo')+')')}},
+   {id:'minicog',t:'Mini-Cog',inputs:[I('mc1','Palavras lembradas (0 a 3)',{min:0,max:3}),I('mc2','Desenho do relógio',{type:'select',opts:[['2','Normal (2 pontos)'],['0','Anormal (0 pontos)']]})],
+    run:c=>{const a=c.num('mc1'),b=c.num('mc2');if(a==null||b==null)return null;const t=a+b;const r=t<3;return R(r?'warn':'ok','<b>Mini-Cog = '+t+': '+(r?'rastreio positivo para comprometimento cognitivo':'rastreio negativo')+'</b>'+(r?'Prosseguir com MEEM ou MoCA, avaliar delirium, depressão, medicamentos e causas reversíveis.':''),'Mini-Cog = '+t+' ('+(r?'positivo':'negativo')+')')}},
+   {id:'meem',t:'MEEM (Mini Exame do Estado Mental)',note:'Pontos de corte por escolaridade '+CHECK+'.',inputs:[I('meem','Pontuação (0 a 30)',{min:0,max:30}),I('esc','Escolaridade',{type:'select',opts:MEEMCUT.map(x=>[x[0],x[1]])})],
+    run:c=>{const s=c.num('meem'),e=c.str('esc');if(s==null||e==='')return null;const cut=MEEMCUT[Number(e)][2];const r=s<=cut;return R(r?'warn':'ok','<b>MEEM = '+s+': '+(r?'abaixo do ponto de corte':'acima do ponto de corte')+' (corte '+cut+')</b>'+(r?'Sugere declínio cognitivo: investigar causas e considerar avaliação especializada.':''),'MEEM = '+s+' ('+(r?'abaixo do corte':'acima do corte')+', corte '+cut+')')}},
+   {id:'ort',t:'Hipotensão ortostática',inputs:[I('pas','PAS deitado ou sentado (mmHg)'),I('pad','PAD deitado ou sentado (mmHg)'),I('pas2','PAS em pé (mmHg)'),I('pad2','PAD em pé (mmHg)')],
+    run:c=>{const a=c.num('pas'),b=c.num('pad'),x=c.num('pas2'),y=c.num('pad2');if(a==null||b==null||x==null||y==null)return null;const ds=a-x,dd2=b-y;const r=ds>=20||dd2>=10;return R(r?'warn':'ok','<b>Variação '+ds+'/'+dd2+' mmHg: '+(r?'hipotensão ortostática':'sem hipotensão ortostática')+'</b>'+(r?'Rever anti-hipertensivos, diuréticos e outros fármacos; hidratação; orientar levantar devagar.':''),'Ortostatismo: variação '+ds+'/'+dd2+' mmHg ('+(r?'positivo':'negativo')+')')}}
+  ]},
+  {id:'risk',t:'Síndromes geriátricas e alertas',type:'risk',groups:[
+   {k:'urg',t:'Urgência: encaminhar hoje',res:'Sinal de urgência marcado: encaminhar a serviço de urgência (Samu 192 se instável).',cls:'danger',items:['Confusão mental aguda (delirium) ou rebaixamento do nível de consciência','Queda com trauma craniano, suspeita de fratura ou incapacidade de levantar','Sinais de AVC (assimetria facial, fraqueza, fala alterada)','Dor torácica, dispneia intensa ou síncope','Retenção urinária aguda','Desidratação grave, febre alta ou sinais de sepse','Violência com risco imediato à integridade','Ideação suicida com plano']},
+   {k:'ar',t:'Alto risco: avaliação geriátrica ampla e plano individualizado',res:'Sinais de fragilidade ou síndrome geriátrica: realizar avaliação ampla, visita domiciliar e discussão em equipe.',cls:'warn',items:['IVCF-20 ≥ 15 (idoso frágil)','Polifarmácia (≥ 5 medicamentos) ou medicamentos potencialmente inadequados','Quedas recorrentes ou fratura por fragilidade','Declínio cognitivo ou demência','Depressão ou sofrimento mental importante','Dependência para atividades básicas de vida diária','Perda de peso involuntária ou desnutrição','Incontinência urinária ou fecal','Violência ou negligência suspeitas','Sobrecarga do cuidador ou ausência de suporte','Doença avançada ou necessidades de cuidados paliativos']},
+   {k:'aten',t:'Fatores de atenção',res:'Fatores de atenção: reforçar promoção da saúde e reavaliar na próxima consulta.',cls:'ok',items:['Idade ≥ 80 anos','Mora sozinho','Baixa escolaridade','Déficit visual ou auditivo','Sedentarismo','Tabagismo ou uso de álcool de risco','Isolamento social','Internação recente']}
+  ]},
+  {id:'ori',t:'Vacinas e orientações',type:'cards',cards:[
+   {t:'Vacinas',q:'Influenza anual; covid-19 conforme calendário vigente; dT ou dTpa a cada 10 anos; hepatite B se suscetível.',o:'Pneumocócica, febre amarela (avaliar risco e benefício acima de 60 anos) e outras conforme calendário ou CRIE '+CHECK+'. Registrar na caderneta.'},
+   {t:'Prevenção de quedas',q:'Revisar medicamentos, corrigir visão e calçados, atividade física com equilíbrio e força, adaptar o domicílio (iluminação, tapetes, barras no banheiro).',o:'Vitamina D e cálcio apenas com indicação clínica.'},
+   {t:'Atividade física e alimentação',q:'Atividade aeróbica e de resistência regulares; alimentação variada com proteína adequada e hidratação.',o:'Conferir recomendações do Guia de Atividade Física e do Guia Alimentar.'},
+   {t:'Saúde mental e cognição',q:'Estimular socialização e atividades cognitivas; investigar depressão e uso de álcool; cuidado com benzodiazepínicos.',o:'Acionar eMulti e a rede de saúde mental quando indicado.'},
+   {t:'Violência e direitos',q:'Perguntar sobre violência; notificar; articular com CREAS e Conselho do Idoso.',o:'Informar sobre seguridade social e direitos (conteúdo ampliado na caderneta de 2026).'},
+   {t:'Cuidados paliativos e diretivas',q:'Conversar sobre valores, preferências e plano de cuidados; registrar diretivas antecipadas.',o:'Integrar o cuidador e a família.'}
+  ]},
+  {id:'soap',t:'SOAP',type:'soap'}
+ ],
+ plan:['Avaliação multidimensional realizada (IVCF-20 registrado na caderneta)','Revisão e simplificação da lista de medicamentos','Prevenção de quedas orientada','Orientações de atividade física e alimentação','Vacinas conferidas e atualizadas','Rastreios oncológicos orientados','Encaminhada ao geriatra ou ao serviço especializado','Encaminhada à eMulti (nutrição, fisioterapia, psicologia, terapia ocupacional)','Visita domiciliar programada','Articulada com assistência social, CREAS ou Conselho do Idoso','Orientações ao cuidador e à família','Conversa sobre preferências e cuidados paliativos'],
+ autoA:(c,r)=>{const L=[];L.push('Pessoa idosa em consulta de acompanhamento.');L.push('Estratificação (aba Síndromes geriátricas e alertas): '+r.label+'.');return L},
+ retorno:c=>null
+});
+}
+/* ===== Motor dos módulos ===== */
+const M={};
+const stripTags=s=>String(s).replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+const today=()=>iso(new Date());
+function mkctx(m){
+  const raw=k=>(m.vars[k]==null?'':String(m.vars[k]));
+  const c={m:m,raw:raw,
+    num:k=>{const x=parseFloat(raw(k).replace(',','.'));return isNaN(x)?null:x},
+    dt:k=>pD(raw(k)),
+    str:k=>raw(k)};
+  c.cons=c.dt('cons'); return c;
+}
+function inHTML(m,f){
+  const v=f.v, val=m.vars[v]==null?'':m.vars[v], type=f.type||'number';
+  const a='data-gv="'+v+'" class="gin"';
+  let el;
+  if(type==='select'){
+    el='<select '+a+'><option value="">—</option>'+f.opts.map(o=>{const ov=Array.isArray(o)?o[0]:o,ol=Array.isArray(o)?o[1]:o;return '<option value="'+esc(ov)+'"'+(String(val)===String(ov)?' selected':'')+'>'+ol+'</option>'}).join('')+'</select>';
+  }else{
+    el='<input type="'+type+'" '+a+' value="'+esc(val)+'"'+(f.step?' step="'+f.step+'"':'')+(f.min!=null?' min="'+f.min+'"':'')+(f.max!=null?' max="'+f.max+'"':'')+(type==='number'?' inputmode="decimal"':'')+'>';
+  }
+  return '<label class="f">'+f.l+el+'</label>';
+}
+function fieldHTML(m,id,f){
+  const st=m.st[id]||{sel:[],txt:''};
+  const chips=f.o.map(o=>'<button type="button" class="opt" aria-pressed="'+st.sel.includes(o)+'" data-gf="'+id+'" data-go="'+esc(o)+'">'+o+'</button>').join('');
+  return '<div class="fld"><div class="fl">'+f.l+(f.h?'<small>'+f.h+'</small>':'')+'</div>'+(chips?'<div class="opts">'+chips+'</div>':'')+'<input type="text" class="gtxt" data-gf="'+id+'" value="'+esc(st.txt)+'" placeholder="'+(f.o.length?'Escrever (opcional)':'Escrever')+'" aria-label="'+esc(stripTags(f.l))+': texto livre"></div>';
+}
+function renderFields(m){
+  m.cfg.tabs.filter(t=>t.type==='fields').forEach(tab=>{
+    const g=$('[data-ggrid="'+tab.id+'"]',m.root);
+    g.innerHTML=tab.sections.map((s,si)=>({s:s,si:si})).filter(x=>!x.s.m||x.s.m==='both'||x.s.m===m.mode)
+      .map(x=>'<div class="card"><h3>'+x.s.t+'</h3>'+x.s.f.map((f,fi)=>fieldHTML(m,tab.id+x.si+'_'+fi,f)).join('')+'</div>').join('');
+  });
+  $$('[data-gseg]',m.root).forEach(seg=>{seg.innerHTML=m.cfg.modes.map(x=>'<button type="button" aria-pressed="'+(m.mode===x[0])+'" data-gmode="'+x[0]+'">'+x[1]+'</button>').join('')});
+}
+function panelHTML(m,tab,idx){
+  const cfg=m.cfg, k=cfg.key; let h='<section class="gpanel'+(idx===0?' on':'')+'" data-gp="'+tab.id+'" role="tabpanel"><h2>'+tab.t+'</h2>';
+  if(tab.type==='html')h+='<div data-ghtml="'+tab.id+'"></div>';
+  else if(tab.type==='fields'){
+    h+='<div class="row">'+(cfg.modes?'<div class="seg" data-gseg></div>':'')+'<button type="button" class="btn ghost" data-gclear="'+tab.id+'">Limpar</button></div>';
+    if(tab.qp)h+='<div class="card" style="margin-bottom:12px"><h3>Queixa principal e história da doença atual</h3><textarea data-gqp placeholder="Escreva com as palavras da pessoa atendida."></textarea></div>';
+    if(tab.meds)h+='<div class="card" style="margin-bottom:12px"><h3>Medidas e sinais vitais</h3><div class="meds">'+tab.meds.map(f=>inHTML(m,f)).join('')+'</div></div>';
+    h+='<div class="grid" data-ggrid="'+tab.id+'"></div>';
+  }else if(tab.type==='exams'){
+    h+='<div class="row"><button type="button" class="btn ghost" data-gclear="'+tab.id+'">Limpar</button></div><div class="grid" data-gexa="'+tab.id+'">'+tab.groups.map(g=>'<div class="card"><h3>'+g.t+'</h3><ul class="chk">'+g.i.map(it=>'<li><label><input type="checkbox"><span><span class="en">'+it[0]+'</span>'+(it[1]?'<small>'+it[1]+'</small>':'')+'</span></label><input type="text" class="er" hidden placeholder="Resultado (vazio = solicitado)" aria-label="Resultado de '+esc(stripTags(it[0]))+'"></li>').join('')+'</ul></div>').join('')+'</div>';
+    if(tab.interp)h+='<div class="card" style="margin-top:12px"><h3>Interpretação rápida e conduta</h3>'+tab.interp.map(x=>'<details><summary>'+x[0]+'</summary><div class="body">'+x[1]+'</div></details>').join('')+'</div>';
+  }else if(tab.type==='calc'){
+    h+='<div class="grid">'+tab.calcs.map(cc=>'<div class="card calc"><h3>'+cc.t+'</h3>'+(cc.note?'<p class="muted" style="font-size:.85rem">'+cc.note+'</p>':'')+'<div class="in">'+cc.inputs.map(i=>inHTML(m,i)).join('')+'</div><div class="res" data-cres="'+cc.id+'">Preencha os campos.</div></div>').join('')+'</div>';
+  }else if(tab.type==='risk'){
+    h+='<p class="sub">Marque o que se aplica. A sugestão é de apoio: confira o protocolo local e reavalie na consulta seguinte.</p><div class="res" data-griskout style="margin:0 0 12px">Nenhum fator marcado.</div><div class="row"><button type="button" class="btn ghost" data-gclear="'+tab.id+'">Limpar</button></div><div class="grid" data-grisk-grid>'+
+      tab.groups.map(g=>'<div class="card" data-grisk="'+g.k+'"><h3>'+g.t+'</h3><ul class="chk">'+g.items.map(x=>'<li><label><input type="checkbox"><span><span class="rt">'+x+'</span></span></label></li>').join('')+'</ul></div>').join('')+'</div>';
+  }else if(tab.type==='cards'){
+    h+='<div class="grid">'+tab.cards.map((cd,i)=>'<div class="card" data-gcard="'+i+'"><h3>'+cd.t+'</h3><p><b>'+cd.q+'</b></p><p class="muted" style="margin:0">'+cd.o+'</p></div>').join('')+'</div>';
+  }else if(tab.type==='soap'){
+    h+='<p class="sub">S e O vêm das abas anteriores. Campos em branco ficam de fora do texto. Complete a avaliação e o plano, gere o texto e edite se precisar antes de copiar.</p>'+
+     '<div class="grid"><div class="card"><h3>Avaliação (A)</h3><div class="res" data-gauto></div><label class="f" style="margin-top:10px">Diagnósticos e problemas<textarea data-ga></textarea></label></div>'+
+     '<div class="card"><h3>Plano (P)</h3><div class="opts">'+cfg.plan.map(p=>'<button type="button" class="opt" data-gplanchip aria-pressed="false">'+p+'</button>').join('')+'</div><label class="f" style="margin-top:6px">Conduta e orientações adicionais<textarea data-gpp></textarea></label><label class="f" style="margin-top:10px">Retorno<input type="date" data-gret></label></div></div>'+
+     '<div class="row" style="margin-top:12px"><button type="button" class="btn solid" data-gsoapgen>Gerar texto</button><button type="button" class="btn" data-gsoapcopy>Copiar</button><span class="muted" data-gmsg></span></div><textarea class="out" data-gout aria-label="Texto SOAP gerado" placeholder="O texto SOAP aparece aqui e pode ser editado."></textarea>';
+  }
+  if(tab.type!=='soap'&&tab.type!=='html'){
+    const i=cfg.tabs.indexOf(tab),nx=cfg.tabs[i+1];
+    h+='<div class="row" style="margin-top:14px">'+(nx?'<button type="button" class="btn" data-gtab="'+nx.id+'">Próxima: '+nx.t+'</button>':'')+'<button type="button" class="btn solid" data-gtab="soap">Ir para o SOAP</button></div>';
+  }
+  return h+'</section>';
+}
+function evalRisk(m){
+  const tab=m.cfg.tabs.find(t=>t.type==='risk'),info={label:'Sem fatores marcados',cls:'',lvl:null,lists:{},groups:tab.groups};let first=null;
+  tab.groups.forEach(g=>{const items=$$('[data-grisk="'+g.k+'"] input:checked',m.root).map(i=>i.closest('label').querySelector('.rt').textContent);info.lists[g.k]=items;if(items.length&&!first)first=g});
+  const out=$('[data-griskout]',m.root);
+  if(first){info.label=stripTags(first.t);info.cls=first.cls;info.lvl=first.k;out.className='res '+first.cls;out.innerHTML='<b>'+first.t+'</b>'+first.res+' ('+info.lists[first.k].length+' fator(es) marcado(s) neste grupo.)'}
+  else{out.className='res';out.innerHTML='<b>Sem fatores marcados</b>Nenhum fator de risco ou alerta marcado.'}
+  m.risk=info;return info;
+}
+function autoLines(m){
+  const c=mkctx(m),info=m.risk||evalRisk(m),L=m.cfg.autoA(c,info);
+  info.groups.forEach(g=>{const a=info.lists[g.k];if(a&&a.length)L.push(stripTags(g.t).split(':')[0]+': '+a.join('; ')+'.')});
+  return L;
+}
+function refreshAuto(m){const el=$('[data-gauto]',m.root);if(el)el.innerHTML=autoLines(m).map(x=>'<div>'+esc(x)+'</div>').join('')}
+function refresh(m){
+  const c=mkctx(m),cfg=m.cfg,root=m.root;
+  $('[data-gstats]',root).innerHTML=cfg.head.stats(c).map(x=>'<div class="stat"><b>'+x.v+'</b><span>'+x.l+'</span></div>').join('');
+  $('[data-gchip]',root).textContent=cfg.head.chip(c);
+  const w=cfg.head.warn(c),we=$('[data-gwarn]',root);we.textContent=w;we.style.display=w?'block':'none';
+  cfg.tabs.forEach(tab=>{
+    if(tab.type==='html')$('[data-ghtml="'+tab.id+'"]',root).innerHTML=tab.render(c);
+    else if(tab.type==='calc')tab.calcs.forEach(k=>{
+      const r=k.run(c),el=$('[data-cres="'+k.id+'"]',root);
+      if(r){el.className='res'+(r.cls?' '+r.cls:'');el.innerHTML=r.html;m.calc[k.id]=r.sum}else{el.className='res';el.innerHTML='Preencha os campos.';delete m.calc[k.id]}
+    });
+    else if(tab.type==='cards'&&tab.age){
+      const dn=c.dt('dn'),co=c.cons,tm=(dn&&co&&co>=dn)?ageYMD(dn,co).tm:null;
+      tab.cards.forEach((cd,i)=>{const e=$('[data-gcard="'+i+'"]',root);if(e)e.classList.toggle('now',tm!=null&&!!cd.when&&cd.when(tm))});
+    }
+  });
+  if(cfg.retorno&&!m.retEdited){const d=cfg.retorno(c),r=$('[data-gret]',root);if(r)r.value=d?iso(d):''}
+  evalRisk(m);refreshAuto(m);
+}
+function setVar(m,v,val,src){
+  m.vars[v]=val;
+  $$('[data-gv="'+v+'"]',m.root).forEach(x=>{if(x!==src&&x.value!==val)x.value=val});
+  refresh(m);
+}
+function fieldLines(m,tab){
+  const out=[];
+  tab.sections.forEach((s,si)=>{
+    if(!(!s.m||s.m==='both'||s.m===m.mode))return;const lines=[];
+    s.f.forEach((f,fi)=>{const st=m.st[tab.id+si+'_'+fi];if(!st)return;const p=[];if(st.sel.length)p.push(st.sel.join(', '));if(st.txt.trim())p.push(st.txt.trim());if(p.length)lines.push('- '+stripTags(f.l)+': '+p.join('; ').replace(/[.\s]+$/,'')+'.')});
+    if(lines.length)out.push({t:s.t,lines:lines});
+  });
+  return out;
+}
+function measureLine(m,tab,c){
+  const parts=[],used={};const v=k=>c.str(k);
+  const pair=(a,b,name)=>{if(v(a)!==''&&v(b)!==''){parts.push(name+' '+v(a)+'×'+v(b)+' mmHg');used[a]=used[b]=1}};
+  if(tab.meds.some(f=>f.v==='pas'))pair('pas','pad','PA');
+  if(tab.meds.some(f=>f.v==='pas2'))pair('pas2','pad2','PA em pé');
+  tab.meds.forEach(f=>{if(used[f.v]||v(f.v)==='')return;const mm=/^(.*?)\s*\((.*)\)$/.exec(stripTags(f.l));const name=(mm?mm[1]:f.l).toLowerCase(),unit=mm?mm[2].split(',')[0]:'';parts.push(name+' '+br(v(f.v))+(unit?' '+unit:''))});
+  return parts.length?'Medidas e sinais vitais: '+parts.join('; ')+'.':'';
+}
+function buildSOAP(m){
+  refresh(m);const c=mkctx(m),cfg=m.cfg,L=[];
+  L.push(cfg.soapTitle+' — '+fD(c.cons||new Date())+(cfg.modes?' ('+cfg.modes.find(x=>x[0]===m.mode)[1].toLowerCase()+')':''));
+  cfg.head.line(c).forEach(x=>L.push(x));
+  L.push('','S — SUBJETIVO');
+  const qp=$('[data-gqp]',m.root);if(qp&&qp.value.trim())L.push('Queixa principal e HDA: '+qp.value.trim());
+  cfg.tabs.filter(t=>t.type==='fields'&&t.soap==='S').forEach(t=>fieldLines(m,t).forEach(s=>{L.push(s.t+':');s.lines.forEach(x=>L.push(x))}));
+  L.push('','O — OBJETIVO');
+  cfg.tabs.filter(t=>t.type==='fields'&&t.meds).forEach(t=>{const ml=measureLine(m,t,c);if(ml)L.push(ml)});
+  cfg.tabs.filter(t=>t.type==='fields'&&t.soap==='O').forEach(t=>fieldLines(m,t).forEach(s=>{L.push(s.t+':');s.lines.forEach(x=>L.push(x))}));
+  const ex=$$('[data-gexa] li',m.root).filter(li=>li.querySelector('input[type=checkbox]').checked).map(li=>'- '+stripTags(li.querySelector('.en').textContent)+': '+(li.querySelector('.er').value.trim()||'solicitado')+'.');
+  if(ex.length){L.push('Exames:');ex.forEach(x=>L.push(x))}
+  const cs=[];cfg.tabs.filter(t=>t.type==='calc').forEach(t=>t.calcs.forEach(k=>{if(m.calc[k.id])cs.push('- '+m.calc[k.id]+'.')}));
+  if(cs.length){L.push('Cálculos e escores:');cs.forEach(x=>L.push(x))}
+  L.push('','A — AVALIAÇÃO');autoLines(m).forEach(x=>L.push(x));const a=$('[data-ga]',m.root).value.trim();if(a)L.push(a);
+  L.push('','P — PLANO');
+  $$('[data-gplanchip][aria-pressed="true"]',m.root).forEach(b=>L.push('- '+b.textContent+'.'));
+  const pp=$('[data-gpp]',m.root).value.trim();if(pp)L.push(pp);
+  const r=pD($('[data-gret]',m.root).value);if(r)L.push('Retorno: '+fD(r)+'.');
+  return L.join('\n');
+}
+function showTab(m,id){
+  $$('.gpanel',m.root).forEach(p=>p.classList.toggle('on',p.dataset.gp===id));
+  $$('.gtab',m.root).forEach(t=>t.setAttribute('aria-selected',t.dataset.gt===id));
+  if(id==='soap')refreshAuto(m);
+  const n=$('.gnav',m.root);if(n&&n.scrollIntoView)n.scrollIntoView({block:'start'});
+}
+function clearTab(m,id){
+  const tab=m.cfg.tabs.find(t=>t.id===id);if(!tab)return;
+  if(tab.type==='fields'){
+    Object.keys(m.st).filter(k=>k.indexOf(id)===0).forEach(k=>delete m.st[k]);
+    if(tab.qp){const q=$('[data-gqp]',m.root);if(q)q.value=''}
+    if(tab.meds)tab.meds.forEach(f=>{m.vars[f.v]='';$$('[data-gv="'+f.v+'"]',m.root).forEach(x=>x.value='')});
+    renderFields(m);refresh(m);
+  }else if(tab.type==='exams'){
+    $$('[data-gexa="'+id+'"] input[type=checkbox]',m.root).forEach(x=>x.checked=false);$$('[data-gexa="'+id+'"] .er',m.root).forEach(x=>{x.value='';x.hidden=true});
+  }else if(tab.type==='risk'){
+    $$('[data-grisk] input[type=checkbox]',m.root).forEach(x=>x.checked=false);evalRisk(m);refreshAuto(m);
+  }
+}
+function build(cfg){
+  const root=document.getElementById('area-'+cfg.key);if(!root)return;
+  root.classList.add('pnx');
+  const m=M[cfg.key]={cfg:cfg,vars:{},st:{},calc:{},root:root,mode:cfg.modes?cfg.modes[0][0]:null,retEdited:false,risk:null};
+  const specs=[].concat(cfg.head.fields);cfg.tabs.forEach(t=>{if(t.meds)specs.push.apply(specs,t.meds);if(t.calcs)t.calcs.forEach(k=>specs.push.apply(specs,k.inputs))});
+  specs.forEach(f=>{if(f.def!=null&&m.vars[f.v]==null)m.vars[f.v]=f.def});m.vars.cons=today();
+  root.innerHTML='<h2 class="area-heading">'+cfg.title+'</h2><p class="mini-note" style="margin-bottom:14px">'+cfg.intro+'</p>'+
+   '<div class="ref"><div class="ref-fields">'+cfg.head.fields.map(f=>inHTML(m,f)).join('')+'</div><div class="stats" data-gstats aria-live="polite"></div><p class="warnline" data-gwarn></p></div>'+
+   '<div class="gnav"><div class="gtabs" role="tablist">'+cfg.tabs.map((t,i)=>'<button type="button" class="gtab" role="tab" data-gt="'+t.id+'" aria-selected="'+(i===0)+'">'+t.t+'</button>').join('')+'</div><div class="pn-chip" data-gchip>—</div></div>'+
+   cfg.tabs.map((t,i)=>panelHTML(m,t,i)).join('')+'<p class="mini-note pn-foot">'+cfg.foot+'</p>';
+  renderFields(m);
+  root.addEventListener('click',e=>{
+    const t=e.target;let b;
+    if((b=t.closest('.gtab'))){showTab(m,b.dataset.gt);return}
+    if((b=t.closest('[data-gtab]'))){showTab(m,b.dataset.gtab);return}
+    if((b=t.closest('[data-gmode]'))){m.mode=b.dataset.gmode;renderFields(m);refresh(m);return}
+    if((b=t.closest('[data-gclear]'))){clearTab(m,b.dataset.gclear);return}
+    if((b=t.closest('[data-gplanchip]'))){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');return}
+    if((b=t.closest('button.opt[data-gf]'))){
+      const id=b.dataset.gf,o=b.dataset.go,st=m.st[id]||(m.st[id]={sel:[],txt:''}),i=st.sel.indexOf(o);
+      if(i<0)st.sel.push(o);else st.sel.splice(i,1);b.setAttribute('aria-pressed',i<0);return;
+    }
+    if(t.closest('[data-gsoapgen]')){const o=$('[data-gout]',root),s=buildSOAP(m);o.value=s;o.rows=Math.min(40,Math.max(10,s.split('\n').length+1));$('[data-gmsg]',root).textContent='';return}
+    if(t.closest('[data-gsoapcopy]')){
+      const o=$('[data-gout]',root);if(!o.value){const s=buildSOAP(m);o.value=s;o.rows=Math.min(40,Math.max(10,s.split('\n').length+1))}
+      const msg=$('[data-gmsg]',root);
+      (navigator.clipboard?navigator.clipboard.writeText(o.value):Promise.reject()).then(()=>{msg.textContent='Copiado.'}).catch(()=>{o.select();try{document.execCommand('copy');msg.textContent='Copiado.'}catch(e2){msg.textContent='Selecione o texto e copie manualmente.'}});
+      return;
+    }
+  });
+  const onVar=e=>{const x=e.target.closest('[data-gv]');if(x)setVar(m,x.dataset.gv,x.value,x)};
+  root.addEventListener('input',e=>{
+    const tx=e.target.closest('input.gtxt[data-gf]');if(tx){(m.st[tx.dataset.gf]||(m.st[tx.dataset.gf]={sel:[],txt:''})).txt=tx.value;return}
+    if(e.target.matches('[data-gret]')){m.retEdited=true;return}
+    onVar(e);
+  });
+  root.addEventListener('change',e=>{
+    const c=e.target.closest('[data-gexa] input[type=checkbox]');if(c){const r=c.closest('li').querySelector('.er');r.hidden=!c.checked;if(c.checked)r.focus();return}
+    if(e.target.closest('[data-grisk] input')){evalRisk(m);refreshAuto(m);return}
+    if(e.target.matches('select[data-gv]'))onVar(e);
+  });
+  $$('[data-gv="cons"]',root).forEach(x=>x.value=m.vars.cons);
+  refresh(m);
+}
+CFGS.forEach(build);
+const lnk=document.querySelectorAll('[data-open-area]');
+lnk.forEach(a=>a.addEventListener('click',ev=>{ev.preventDefault();const t=document.querySelector('.area-tab[data-area="'+a.dataset.openArea+'"]');if(t)t.click()}));
+})();
+
+</script>
 </body>
 </html>
