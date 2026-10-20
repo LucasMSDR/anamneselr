@@ -513,23 +513,23 @@
 .pnx .gpanel.on{display:block}
 .pnx .gtxt{min-height:40px}
 
-.panel-sub h3 { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); margin: 16px 0 6px; font-weight: 600; }
-.panel-sub ul { margin: 0 0 4px; padding-left: 18px; }
-.panel-sub li { margin-bottom: 5px; }
-.panel-sub li::marker { color: var(--accent); }
-.panel-sub p { margin: 0 0 10px; }
-.abbrev-line { font-family: var(--font-mono); font-size: 0.86rem; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; margin: 0 0 8px; }
-.abbrev-line strong { color: var(--accent); font-family: var(--font-sans); }
-.signature { margin-top: 16px; padding-top: 10px; border-top: 1px dashed var(--border); font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); text-align: right; }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 12px; margin-top: 12px; }
-.card { display: flex; flex-direction: column; gap: 6px; min-width: 0; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 16px; color: var(--ink); text-decoration: none; min-height: 132px; }
-a.card:hover { border-color: var(--accent); }
-.card .card-no { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); }
-.card .card-title { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; line-height: 1.3; }
-.card .card-desc { font-size: 0.84rem; color: var(--ink-muted); }
-.card-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-.mini-chip { font-family: var(--font-sans); font-size: 0.78rem; background: var(--chip-bg); color: var(--ink); border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; cursor: pointer; }
-.mini-chip:hover { border-color: var(--accent); color: var(--accent); }
+.hm-sub h3 { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); margin: 16px 0 6px; font-weight: 600; }
+.hm-sub ul { margin: 0 0 4px; padding-left: 18px; }
+.hm-sub li { margin-bottom: 5px; }
+.hm-sub li::marker { color: var(--accent); }
+.hm-sub p { margin: 0 0 10px; }
+.hm-abbrev { font-family: var(--font-mono); font-size: 0.86rem; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; margin: 0 0 8px; }
+.hm-abbrev strong { color: var(--accent); font-family: var(--font-sans); }
+.hm-sig { margin-top: 16px; padding-top: 10px; border-top: 1px dashed var(--border); font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); text-align: right; }
+.hm-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 12px; margin-top: 12px; }
+.hm-card { display: flex; flex-direction: column; gap: 6px; min-width: 0; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 16px; color: var(--ink); text-decoration: none; min-height: 132px; }
+a.hm-card:hover { border-color: var(--accent); }
+.hm-card .hm-card-no { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); }
+.hm-card .hm-card-title { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; line-height: 1.3; }
+.hm-card .hm-card-desc { font-size: 0.84rem; color: var(--ink-muted); }
+.hm-card-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.hm-chip { font-family: var(--font-sans); font-size: 0.78rem; background: var(--chip-bg); color: var(--ink); border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; cursor: pointer; }
+.hm-chip:hover { border-color: var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -563,17 +563,17 @@ a.card:hover { border-color: var(--accent); }
 
     <div class="area-panel" id="area-inicio" data-area="inicio">
       <h2 class="area-heading">Escolha um tema para abrir</h2>
-      <div class="cards">
-        <a class="card" href="#" data-go="modelo"><span class="card-no">1</span><span class="card-title">Modelo rápido</span><span class="card-desc">Anamnese rápida, exame físico geral abreviado, testes de ombro e quadril e conduta.</span></a>
-        <a class="card" href="#" data-go="anamnese"><span class="card-no">2</span><span class="card-title">Anamnese completa</span><span class="card-desc">Roteiro completo: identificação, HDA, ISDA, antecedentes e hábitos.</span></a>
-        <a class="card" href="#" data-go="exame-fisico"><span class="card-no">3</span><span class="card-title">Exame físico completo</span><span class="card-desc">Sinais vitais, sistemas, pele e fâneros, olhos, ouvido, boca, mamas, ginecológico e testes ortopédicos.</span></a>
-        <div class="card"><span class="card-no">4</span><span class="card-title">Modelos por tema</span><span class="card-desc">Escolha o tema:</span><span class="card-chips"><button type="button" class="mini-chip" data-go="prenatal">Pré-natal</button><button type="button" class="mini-chip" data-go="puerperio">Puerpério</button><button type="button" class="mini-chip" data-go="puericultura">Puericultura</button><button type="button" class="mini-chip" data-go="dcnt">DCNT</button><button type="button" class="mini-chip" data-go="idoso">Pessoa idosa</button></span></div>
-        <a class="card" href="#" data-go="remume"><span class="card-no">5</span><span class="card-title">Medicamentos REMUME</span><span class="card-desc">Busca por nome na REMUME 2026 de Umuarama/PR, com a apresentação de cada medicamento.</span></a>
-        <a class="card" href="#" data-go="calculadoras"><span class="card-no">6</span><span class="card-title">Calculadoras</span><span class="card-desc">IMC, idade gestacional e DPP, clearance de creatinina e dose por peso.</span></a>
+      <div class="hm-cards">
+        <a class="hm-card" href="#" data-go="modelo"><span class="hm-card-no">1</span><span class="hm-card-title">Modelo rápido</span><span class="hm-card-desc">Anamnese rápida, exame físico geral abreviado, testes de ombro e quadril e conduta.</span></a>
+        <a class="hm-card" href="#" data-go="anamnese"><span class="hm-card-no">2</span><span class="hm-card-title">Anamnese completa</span><span class="hm-card-desc">Roteiro completo: identificação, HDA, ISDA, antecedentes e hábitos.</span></a>
+        <a class="hm-card" href="#" data-go="exame-fisico"><span class="hm-card-no">3</span><span class="hm-card-title">Exame físico completo</span><span class="hm-card-desc">Sinais vitais, sistemas, pele e fâneros, olhos, ouvido, boca, mamas, ginecológico e testes ortopédicos.</span></a>
+        <div class="hm-card"><span class="hm-card-no">4</span><span class="hm-card-title">Modelos por tema</span><span class="hm-card-desc">Escolha o tema:</span><span class="hm-card-chips"><button type="button" class="hm-chip" data-go="prenatal">Pré-natal</button><button type="button" class="hm-chip" data-go="puerperio">Puerpério</button><button type="button" class="hm-chip" data-go="puericultura">Puericultura</button><button type="button" class="hm-chip" data-go="dcnt">DCNT</button><button type="button" class="hm-chip" data-go="idoso">Pessoa idosa</button></span></div>
+        <a class="hm-card" href="#" data-go="remume"><span class="hm-card-no">5</span><span class="hm-card-title">Medicamentos REMUME</span><span class="hm-card-desc">Busca por nome na REMUME 2026 de Umuarama/PR, com a apresentação de cada medicamento.</span></a>
+        <a class="hm-card" href="#" data-go="calculadoras"><span class="hm-card-no">6</span><span class="hm-card-title">Calculadoras</span><span class="hm-card-desc">IMC, idade gestacional e DPP, clearance de creatinina e dose por peso.</span></a>
       </div>
     </div>
 
-    <div class="area-panel panel-sub" id="area-modelo" data-area="modelo">
+    <div class="area-panel hm-sub" id="area-modelo" data-area="modelo">
       <h2 class="area-heading">Modelo rápido de consulta</h2>
       <h3>Anamnese rápida</h3>
       <div class="note-block">
@@ -586,25 +586,25 @@ a.card:hover { border-color: var(--accent); }
       </div>
       <p class="mini-note">Lembrar de perguntar DUM em pacientes na menacme.</p>
       <h3>Exame físico geral abreviado</h3>
-      <div class="abbrev-line">BEG, LOTE, CHAAA, eupneico em AA, normotenso, sem sinais de desconforto ou toxemia.</div>
-      <div class="abbrev-line"><strong>AC:</strong> BRNF2T sem sopros, TEC &lt; 3</div>
-      <div class="abbrev-line"><strong>AP:</strong> MV+ SRA</div>
-      <div class="abbrev-line"><strong>ABD:</strong> Abdome plano, flácido, RHA+, indolor à palpação superficial e profunda, sem VMG, DB-</div>
-      <div class="abbrev-line"><strong>Seios da face:</strong> indolor à palpação dos pontos sinusais frontais e maxilares, sem sinais flogísticos</div>
-      <div class="abbrev-line"><strong>Otoscopia:</strong> MAE livre, MT íntegra e nacarada, sem abaulamento, retração ou hiperemia, bilateral</div>
-      <div class="abbrev-line"><strong>Oroscopia:</strong> mucosa oral corada e hidratada, orofaringe sem hiperemia, tonsilas eutróficas sem exsudato</div>
-      <div class="abbrev-line"><strong>Ombro:</strong> Jobe, Patte, Gerber, Neer, Hawkins-Kennedy, Speed e Yergason negativos; sem apreensão</div>
-      <div class="abbrev-line"><strong>Quadril:</strong> Trendelenburg, FABER, Thomas e FADIR negativos</div>
+      <div class="hm-abbrev">BEG, LOTE, CHAAA, eupneico em AA, normotenso, sem sinais de desconforto ou toxemia.</div>
+      <div class="hm-abbrev"><strong>AC:</strong> BRNF2T sem sopros, TEC &lt; 3</div>
+      <div class="hm-abbrev"><strong>AP:</strong> MV+ SRA</div>
+      <div class="hm-abbrev"><strong>ABD:</strong> Abdome plano, flácido, RHA+, indolor à palpação superficial e profunda, sem VMG, DB-</div>
+      <div class="hm-abbrev"><strong>Seios da face:</strong> indolor à palpação dos pontos sinusais frontais e maxilares, sem sinais flogísticos</div>
+      <div class="hm-abbrev"><strong>Otoscopia:</strong> MAE livre, MT íntegra e nacarada, sem abaulamento, retração ou hiperemia, bilateral</div>
+      <div class="hm-abbrev"><strong>Oroscopia:</strong> mucosa oral corada e hidratada, orofaringe sem hiperemia, tonsilas eutróficas sem exsudato</div>
+      <div class="hm-abbrev"><strong>Ombro:</strong> Jobe, Patte, Gerber, Neer, Hawkins-Kennedy, Speed e Yergason negativos; sem apreensão</div>
+      <div class="hm-abbrev"><strong>Quadril:</strong> Trendelenburg, FABER, Thomas e FADIR negativos</div>
       <h3>Conduta</h3>
       <div class="note-block">
         <p class="line">Oriento sinais e sintomas de alarme.</p>
         <p class="line">Retorno precoce à UBS/Pronto atendimento se necessário.</p>
         <p class="line">Paciente alega ter compreendido orientações realizadas.</p>
       </div>
-      <p class="signature">LUCAS MATHEUS SILVA DA ROCHA — T4B G4 — 224552-1</p>
+      <p class="hm-sig">LUCAS MATHEUS SILVA DA ROCHA — T4B G4 — 224552-1</p>
     </div>
 
-    <div class="area-panel panel-sub" id="area-anamnese" data-area="anamnese">
+    <div class="area-panel hm-sub" id="area-anamnese" data-area="anamnese">
       <h2 class="area-heading">Anamnese completa</h2>
       <p class="mini-note">Roteiro para uma anamnese detalhada.</p>
       <h3>Identificação</h3>
