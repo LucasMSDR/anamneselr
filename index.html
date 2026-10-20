@@ -3,57 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lucas Rocha — Anamnese e Exame Físico</title>
+<title>Guia de Consultas UBS / APS, by ANATODEZ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F5F7F5;
+    --bg: #F2F2F2;
     --bg-elevated: #FFFFFF;
-    --ink: #1C2B2A;
-    --ink-muted: #5C6B68;
-    --accent: #2F6F62;
-    --accent-soft: #E3EEE9;
-    --alert: #A5672A;
-    --alert-soft: #F6ECDC;
-    --border: #D9E0DB;
-    --chip-bg: #EDF1EE;
+    --ink: #121212;
+    --ink-muted: #5E5E62;
+    --accent: #C9283D;
+    --accent-soft: #FBE7EA;
+    --alert: #8A5A12;
+    --alert-soft: #F7EEDD;
+    --border: #E3E3E3;
+    --chip-bg: #EDEDED;
     --danger: #A33B35;
     --danger-soft: #F6E3E0;
-    --font-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
-    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-serif: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-sans: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #101513;
-      --bg-elevated: #171D1B;
-      --ink: #E6ECE9;
-      --ink-muted: #93A29C;
-      --accent: #6FBBA6;
-      --accent-soft: #1D2A26;
+      --bg: #121212;
+      --bg-elevated: #1B1B1E;
+      --ink: #F2F2F2;
+      --ink-muted: #A6A6AC;
+      --accent: #E8485C;
+      --accent-soft: #2B1318;
       --alert: #D79A5C;
       --alert-soft: #2B2317;
-      --border: #28332F;
-      --chip-bg: #1C2422;
+      --border: #2C2C30;
+      --chip-bg: #202024;
       --danger: #E08A83;
       --danger-soft: #2E1B19;
     }
   }
 
   :root[data-theme="dark"] {
-    --bg: #101513;
-    --bg-elevated: #171D1B;
-    --ink: #E6ECE9;
-    --ink-muted: #93A29C;
-    --accent: #6FBBA6;
-    --accent-soft: #1D2A26;
+    --bg: #121212;
+    --bg-elevated: #1B1B1E;
+    --ink: #F2F2F2;
+    --ink-muted: #A6A6AC;
+    --accent: #E8485C;
+    --accent-soft: #2B1318;
     --alert: #D79A5C;
     --alert-soft: #2B2317;
-    --border: #28332F;
-    --chip-bg: #1C2422;
+    --border: #2C2C30;
+    --chip-bg: #202024;
       --danger: #E08A83;
       --danger-soft: #2E1B19;
   }
@@ -512,6 +512,15 @@
 .pnx .gpanel{display:none;padding-top:18px}
 .pnx .gpanel.on{display:block}
 .pnx .gtxt{min-height:40px}
+
+.brand-link { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; text-decoration-thickness: 2px; font-weight: 700; letter-spacing: .02em; }
+.brand-link .dez { color: var(--accent); }
+.brand-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.brand-author { font-family: var(--font-sans); font-size: .62rem; font-weight: 500; letter-spacing: .04em; color: var(--ink-muted); margin-left: 6px; white-space: nowrap; vertical-align: middle; text-decoration: none; }
+.feedback { margin: 32px 0 0; padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-elevated); }
+.feedback h2 { margin: 0 0 8px; font-size: 1.05rem; font-family: var(--font-serif); }
+.feedback p { margin: 0 0 8px; font-size: 0.88rem; color: var(--ink-muted); overflow-wrap: anywhere; }
+.feedback .fb-warn { color: var(--ink); margin-bottom: 0; }
 </style>
 </head>
 <body>
@@ -519,7 +528,7 @@
 <div class="topbar">
   <div class="topbar-row">
     <div class="title-block">
-      <h1>Lucas Rocha</h1>
+      <h1>Guia de Consultas UBS / APS, by <a class="brand-link" href="https://anatodez.com.br/" target="_blank" rel="noopener">ANATO<span class="dez">DEZ</span></a><small class="brand-author">Lucas Rocha</small></h1>
       <p>Anamnese · Exame Físico · Pré-natal · Puerpério · Puericultura · DCNT · Pessoa idosa · REMUME · Calculadoras — UBS / APS</p>
     </div>
     <div class="topbar-controls">
@@ -899,6 +908,12 @@
       <p class="mini-note">Calculadoras do pré-natal (IG e DPP, IMC e ganho de peso, altura uterina, PA, glicemia, hemoglobina e PHQ-2) já estão na aba <a href="#" id="goPnCalc">Pré-natal › Calculadoras</a>.</p>
       <p class="mini-note">As escalas e calculadoras de cada área ficam dentro da própria aba: Pré-natal, Puerpério, Puericultura, DCNT e Pessoa idosa.</p>
     </div>
+
+  <section class="feedback" aria-labelledby="fb-title">
+    <h2 id="fb-title">Me ajude a melhorar o guia de consultas</h2>
+    <p>É algo 100% gratuito que ajuda outras pessoas também. Me mande suas ideias e sugestões no e-mail <a class="brand-link" href="mailto:contatoanatodez+lucasrocha@gmail.com?subject=Sugest%C3%A3o%20para%20o%20Guia%20de%20Consultas">contatoanatodez+lucasrocha@gmail.com</a>.</p>
+    <p class="fb-warn"><strong>Atenção:</strong> não envie dados de pacientes nem informações que identifiquem alguém.</p>
+  </section>
 
   <footer>
     Guia de referência rápida para consulta em atenção primária — não substitui o protocolo ou a supervisão do preceptor.
