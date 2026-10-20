@@ -3,57 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Guia de Consultas UBS / APS, by ANATODEZ</title>
+<title>Lucas Rocha — Anamnese e Exame Físico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F2F2F2;
+    --bg: #F5F7F5;
     --bg-elevated: #FFFFFF;
-    --ink: #121212;
-    --ink-muted: #5E5E62;
-    --accent: #C9283D;
-    --accent-soft: #FBE7EA;
-    --alert: #8A5A12;
-    --alert-soft: #F7EEDD;
-    --border: #E3E3E3;
-    --chip-bg: #EDEDED;
+    --ink: #1C2B2A;
+    --ink-muted: #5C6B68;
+    --accent: #2F6F62;
+    --accent-soft: #E3EEE9;
+    --alert: #A5672A;
+    --alert-soft: #F6ECDC;
+    --border: #D9E0DB;
+    --chip-bg: #EDF1EE;
     --danger: #A33B35;
     --danger-soft: #F6E3E0;
-    --font-serif: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --font-sans: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #121212;
-      --bg-elevated: #1B1B1E;
-      --ink: #F2F2F2;
-      --ink-muted: #A6A6AC;
-      --accent: #E8485C;
-      --accent-soft: #2B1318;
+      --bg: #101513;
+      --bg-elevated: #171D1B;
+      --ink: #E6ECE9;
+      --ink-muted: #93A29C;
+      --accent: #6FBBA6;
+      --accent-soft: #1D2A26;
       --alert: #D79A5C;
       --alert-soft: #2B2317;
-      --border: #2C2C30;
-      --chip-bg: #202024;
+      --border: #28332F;
+      --chip-bg: #1C2422;
       --danger: #E08A83;
       --danger-soft: #2E1B19;
     }
   }
 
   :root[data-theme="dark"] {
-    --bg: #121212;
-    --bg-elevated: #1B1B1E;
-    --ink: #F2F2F2;
-    --ink-muted: #A6A6AC;
-    --accent: #E8485C;
-    --accent-soft: #2B1318;
+    --bg: #101513;
+    --bg-elevated: #171D1B;
+    --ink: #E6ECE9;
+    --ink-muted: #93A29C;
+    --accent: #6FBBA6;
+    --accent-soft: #1D2A26;
     --alert: #D79A5C;
     --alert-soft: #2B2317;
-    --border: #2C2C30;
-    --chip-bg: #202024;
+    --border: #28332F;
+    --chip-bg: #1C2422;
       --danger: #E08A83;
       --danger-soft: #2E1B19;
   }
@@ -513,14 +513,23 @@
 .pnx .gpanel.on{display:block}
 .pnx .gtxt{min-height:40px}
 
-.brand-link { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; text-decoration-thickness: 2px; font-weight: 700; letter-spacing: .02em; }
-.brand-link .dez { color: var(--accent); }
-.brand-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
-.brand-author { font-family: var(--font-sans); font-size: .62rem; font-weight: 500; letter-spacing: .04em; color: var(--ink-muted); margin-left: 6px; white-space: nowrap; vertical-align: middle; text-decoration: none; }
-.feedback { margin: 32px 0 0; padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-elevated); }
-.feedback h2 { margin: 0 0 8px; font-size: 1.05rem; font-family: var(--font-serif); }
-.feedback p { margin: 0 0 8px; font-size: 0.88rem; color: var(--ink-muted); overflow-wrap: anywhere; }
-.feedback .fb-warn { color: var(--ink); margin-bottom: 0; }
+.panel-sub h3 { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); margin: 16px 0 6px; font-weight: 600; }
+.panel-sub ul { margin: 0 0 4px; padding-left: 18px; }
+.panel-sub li { margin-bottom: 5px; }
+.panel-sub li::marker { color: var(--accent); }
+.panel-sub p { margin: 0 0 10px; }
+.abbrev-line { font-family: var(--font-mono); font-size: 0.86rem; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; margin: 0 0 8px; }
+.abbrev-line strong { color: var(--accent); font-family: var(--font-sans); }
+.signature { margin-top: 16px; padding-top: 10px; border-top: 1px dashed var(--border); font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); text-align: right; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 12px; margin-top: 12px; }
+.card { display: flex; flex-direction: column; gap: 6px; min-width: 0; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; padding: 16px; color: var(--ink); text-decoration: none; min-height: 132px; }
+a.card:hover { border-color: var(--accent); }
+.card .card-no { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); }
+.card .card-title { font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; line-height: 1.3; }
+.card .card-desc { font-size: 0.84rem; color: var(--ink-muted); }
+.card-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.mini-chip { font-family: var(--font-sans); font-size: 0.78rem; background: var(--chip-bg); color: var(--ink); border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; cursor: pointer; }
+.mini-chip:hover { border-color: var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -528,7 +537,7 @@
 <div class="topbar">
   <div class="topbar-row">
     <div class="title-block">
-      <h1>Guia de Consultas UBS / APS, by <a class="brand-link" href="https://anatodez.com.br/" target="_blank" rel="noopener">ANATO<span class="dez">DEZ</span></a><small class="brand-author">Lucas Rocha</small></h1>
+      <h1>Lucas Rocha</h1>
       <p>Anamnese · Exame Físico · Pré-natal · Puerpério · Puericultura · DCNT · Pessoa idosa · REMUME · Calculadoras — UBS / APS</p>
     </div>
     <div class="topbar-controls">
@@ -536,7 +545,9 @@
     </div>
   </div>
   <nav class="area-tabs" id="areaTabs" aria-label="Áreas">
-    <button class="area-tab" data-area="anamnese">Anamnese</button>
+    <button class="area-tab" data-area="inicio">Início</button>
+    <button class="area-tab" data-area="modelo">Modelo rápido</button>
+    <button class="area-tab" data-area="anamnese">Anamnese completa</button>
     <button class="area-tab" data-area="exame-fisico">Exame Físico</button>
     <button class="area-tab" data-area="prenatal">Pré-natal</button>
     <button class="area-tab" data-area="puerperio">Puerpério</button>
@@ -550,17 +561,105 @@
 
 <main>
 
-    <div class="area-panel" id="area-anamnese" data-area="anamnese">
-      <h2 class="area-heading">Modelo Rápido de Consulta</h2>
+    <div class="area-panel" id="area-inicio" data-area="inicio">
+      <h2 class="area-heading">Escolha um tema para abrir</h2>
+      <div class="cards">
+        <a class="card" href="#" data-go="modelo"><span class="card-no">1</span><span class="card-title">Modelo rápido</span><span class="card-desc">Anamnese rápida, exame físico geral abreviado, testes de ombro e quadril e conduta.</span></a>
+        <a class="card" href="#" data-go="anamnese"><span class="card-no">2</span><span class="card-title">Anamnese completa</span><span class="card-desc">Roteiro completo: identificação, HDA, ISDA, antecedentes e hábitos.</span></a>
+        <a class="card" href="#" data-go="exame-fisico"><span class="card-no">3</span><span class="card-title">Exame físico completo</span><span class="card-desc">Sinais vitais, sistemas, pele e fâneros, olhos, ouvido, boca, mamas, ginecológico e testes ortopédicos.</span></a>
+        <div class="card"><span class="card-no">4</span><span class="card-title">Modelos por tema</span><span class="card-desc">Escolha o tema:</span><span class="card-chips"><button type="button" class="mini-chip" data-go="prenatal">Pré-natal</button><button type="button" class="mini-chip" data-go="puerperio">Puerpério</button><button type="button" class="mini-chip" data-go="puericultura">Puericultura</button><button type="button" class="mini-chip" data-go="dcnt">DCNT</button><button type="button" class="mini-chip" data-go="idoso">Pessoa idosa</button></span></div>
+        <a class="card" href="#" data-go="remume"><span class="card-no">5</span><span class="card-title">Medicamentos REMUME</span><span class="card-desc">Busca por nome na REMUME 2026 de Umuarama/PR, com a apresentação de cada medicamento.</span></a>
+        <a class="card" href="#" data-go="calculadoras"><span class="card-no">6</span><span class="card-title">Calculadoras</span><span class="card-desc">IMC, idade gestacional e DPP, clearance de creatinina e dose por peso.</span></a>
+      </div>
+    </div>
+
+    <div class="area-panel panel-sub" id="area-modelo" data-area="modelo">
+      <h2 class="area-heading">Modelo rápido de consulta</h2>
+      <h3>Anamnese rápida</h3>
       <div class="note-block">
-          <p class="line">Paciente comparece ao consultório por livre demanda / agendamento.</p>
-          <p class="line">Nega alergia medicamentosa.</p>
-          <p class="line">Comorbidades:</p>
-          <p class="line">MUC:</p>
-          <p class="line">Nega etilismo, tabagismo e uso de outras substâncias.</p>
-          <p class="line">Sem histórico familiar relevante.</p>
-        </div>
-        <p class="mini-note">Lembrar de perguntar DUM em pacientes na menacme.</p>
+        <p class="line">Paciente comparece ao consultório por livre demanda / agendamento.</p>
+        <p class="line">Nega alergia medicamentosa.</p>
+        <p class="line">Comorbidades:</p>
+        <p class="line">MUC:</p>
+        <p class="line">Nega etilismo, tabagismo e uso de outras substâncias.</p>
+        <p class="line">Sem histórico familiar relevante.</p>
+      </div>
+      <p class="mini-note">Lembrar de perguntar DUM em pacientes na menacme.</p>
+      <h3>Exame físico geral abreviado</h3>
+      <div class="abbrev-line">BEG, LOTE, CHAAA, eupneico em AA, normotenso, sem sinais de desconforto ou toxemia.</div>
+      <div class="abbrev-line"><strong>AC:</strong> BRNF2T sem sopros, TEC &lt; 3</div>
+      <div class="abbrev-line"><strong>AP:</strong> MV+ SRA</div>
+      <div class="abbrev-line"><strong>ABD:</strong> Abdome plano, flácido, RHA+, indolor à palpação superficial e profunda, sem VMG, DB-</div>
+      <div class="abbrev-line"><strong>Seios da face:</strong> indolor à palpação dos pontos sinusais frontais e maxilares, sem sinais flogísticos</div>
+      <div class="abbrev-line"><strong>Otoscopia:</strong> MAE livre, MT íntegra e nacarada, sem abaulamento, retração ou hiperemia, bilateral</div>
+      <div class="abbrev-line"><strong>Oroscopia:</strong> mucosa oral corada e hidratada, orofaringe sem hiperemia, tonsilas eutróficas sem exsudato</div>
+      <div class="abbrev-line"><strong>Ombro:</strong> Jobe, Patte, Gerber, Neer, Hawkins-Kennedy, Speed e Yergason negativos; sem apreensão</div>
+      <div class="abbrev-line"><strong>Quadril:</strong> Trendelenburg, FABER, Thomas e FADIR negativos</div>
+      <h3>Conduta</h3>
+      <div class="note-block">
+        <p class="line">Oriento sinais e sintomas de alarme.</p>
+        <p class="line">Retorno precoce à UBS/Pronto atendimento se necessário.</p>
+        <p class="line">Paciente alega ter compreendido orientações realizadas.</p>
+      </div>
+      <p class="signature">LUCAS MATHEUS SILVA DA ROCHA — T4B G4 — 224552-1</p>
+    </div>
+
+    <div class="area-panel panel-sub" id="area-anamnese" data-area="anamnese">
+      <h2 class="area-heading">Anamnese completa</h2>
+      <p class="mini-note">Roteiro para uma anamnese detalhada.</p>
+      <h3>Identificação</h3>
+      <p>Nome, idade, sexo, estado civil, profissão/ocupação, naturalidade e procedência, escolaridade, religião (quando relevante), acompanhante e fonte da informação (paciente, familiar, prontuário).</p>
+      <h3>Queixa principal (QP)</h3>
+      <p>Motivo da consulta, nas palavras do paciente, com o tempo de duração.</p>
+      <h3>História da doença atual (HDA)</h3>
+      <ul>
+        <li>Início: quando começou, se súbito ou gradual, e o que estava fazendo.</li>
+        <li>Localização, irradiação e qualidade (tipo da dor ou do sintoma).</li>
+        <li>Intensidade (escala de 0 a 10) e impacto nas atividades diárias.</li>
+        <li>Duração, frequência e evolução (contínuo, em crises, progressivo, em melhora).</li>
+        <li>Fatores de melhora e de piora, incluindo posição, esforço e alimentação.</li>
+        <li>Sintomas associados e sinais de alarme.</li>
+        <li>Tratamentos já tentados e resposta: medicamentos, automedicação, outras consultas e exames.</li>
+        <li>Contato com pessoas doentes, viagens recentes, exposições e episódios semelhantes anteriores.</li>
+      </ul>
+      <h3>Interrogatório sobre os diversos aparelhos (ISDA)</h3>
+      <ul>
+        <li>Geral: febre, astenia, perda ou ganho de peso, sudorese noturna, alteração do apetite.</li>
+        <li>Pele e fâneros: lesões, prurido, mudança de pintas, queda de cabelo.</li>
+        <li>Cabeça e pescoço: cefaleia, tontura, alterações visuais, dor de ouvido, hipoacusia, zumbido, coriza, odinofagia, nódulos no pescoço.</li>
+        <li>Respiratório: tosse, expectoração, dispneia, chiado, dor torácica ventilatório-dependente.</li>
+        <li>Cardiovascular: dor torácica, palpitações, dispneia aos esforços, ortopneia, edema, síncope.</li>
+        <li>Digestivo: disfagia, pirose, náuseas, vômitos, dor abdominal, diarreia, constipação, melena, hematoquezia, icterícia.</li>
+        <li>Urinário: disúria, polaciúria, hematúria, alteração do jato, noctúria, incontinência.</li>
+        <li>Genital: corrimento, sangramento anormal, dispareunia, alteração da libido; ciclo menstrual e DUM na mulher.</li>
+        <li>Endócrino: polidipsia, poliúria, intolerância ao calor ou ao frio, alterações de peso.</li>
+        <li>Hematológico: sangramentos, equimoses, palidez, adenomegalias.</li>
+        <li>Locomotor: dor articular, rigidez matinal, limitação de movimento, lombalgia, fraqueza.</li>
+        <li>Neurológico: crises convulsivas, déficit motor ou sensitivo, alteração da fala, da marcha ou da memória.</li>
+        <li>Psíquico: humor, ansiedade, sono, ideação, uso de psicofármacos.</li>
+      </ul>
+      <h3>Antecedentes pessoais</h3>
+      <ul>
+        <li>Comorbidades: hipertensão, diabetes, dislipidemia, asma/DPOC, doenças tireoidianas, renais, cardíacas e outras.</li>
+        <li>Cirurgias, internações, transfusões e traumas anteriores.</li>
+        <li>Alergias: medicamentos, alimentos e látex, com o tipo de reação.</li>
+        <li>Medicamentos de uso contínuo (MUC): nome, dose e adesão; fitoterápicos e suplementos.</li>
+        <li>Vacinação: situação do cartão e vacinas em atraso.</li>
+        <li>Antecedentes ginecológicos e obstétricos: menarca, ciclo, DUM, número de gestações, partos e abortos, método contraceptivo, último preventivo e última mamografia.</li>
+      </ul>
+      <h3>Antecedentes familiares</h3>
+      <p>Doenças em pais, irmãos e filhos: hipertensão, diabetes, doença cardiovascular precoce, câncer (tipo e idade ao diagnóstico), doenças psiquiátricas, doenças hereditárias e causa de morte de familiares próximos.</p>
+      <h3>Hábitos e estilo de vida</h3>
+      <ul>
+        <li>Tabagismo: tipo, tempo e quantidade (carga tabágica em maços-ano), ou ex-tabagista e há quanto tempo parou.</li>
+        <li>Etilismo: frequência e quantidade; considerar rastreio com questionário estruturado.</li>
+        <li>Outras substâncias, incluindo uso de drogas ilícitas.</li>
+        <li>Atividade física, alimentação, hidratação e sono.</li>
+        <li>Vida sexual e uso de preservativo, quando pertinente.</li>
+      </ul>
+      <h3>Condições socioeconômicas e ambientais</h3>
+      <p>Moradia, saneamento básico, convivência familiar, trabalho e exposições ocupacionais, renda, rede de apoio, acesso à unidade de saúde e contato com animais.</p>
+      <p class="mini-note">Ao final, resumir o caso em voz alta para o paciente e perguntar se ficou algo sem dizer.</p>
     </div>
 
     <div class="area-panel" id="area-exame-fisico" data-area="exame-fisico" hidden>
@@ -909,12 +1008,6 @@
       <p class="mini-note">As escalas e calculadoras de cada área ficam dentro da própria aba: Pré-natal, Puerpério, Puericultura, DCNT e Pessoa idosa.</p>
     </div>
 
-  <section class="feedback" aria-labelledby="fb-title">
-    <h2 id="fb-title">Me ajude a melhorar o guia de consultas</h2>
-    <p>É algo 100% gratuito que ajuda outras pessoas também. Me mande suas ideias e sugestões no e-mail <a class="brand-link" href="mailto:contatoanatodez+lucasrocha@gmail.com?subject=Sugest%C3%A3o%20para%20o%20Guia%20de%20Consultas">contatoanatodez+lucasrocha@gmail.com</a>.</p>
-    <p class="fb-warn"><strong>Atenção:</strong> não envie dados de pacientes nem informações que identifiquem alguém.</p>
-  </section>
-
   <footer>
     Guia de referência rápida para consulta em atenção primária — não substitui o protocolo ou a supervisão do preceptor.
   </footer>
@@ -965,7 +1058,14 @@ const REMUME_DATA = [{"nome":"Aciclovir","apresentacao":"Comprimido de 200mg"},{
   var storedArea = null;
   try { storedArea = localStorage.getItem('roteiro-anamnese-area'); } catch (e) {}
   var validAreas = Array.prototype.map.call(areaTabs, function(t) { return t.getAttribute('data-area'); });
-  showArea(validAreas.indexOf(storedArea) !== -1 ? storedArea : 'anamnese');
+  document.querySelectorAll('[data-go]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      showArea(el.getAttribute('data-go'));
+      window.scrollTo(0, 0);
+    });
+  });
+  showArea(validAreas.indexOf(storedArea) !== -1 ? storedArea : 'inicio');
 
   var toggleAllBtn = document.getElementById('toggleAll');
   var sections = document.querySelectorAll('#examSections details.section');
